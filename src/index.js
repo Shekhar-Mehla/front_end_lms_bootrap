@@ -1,0 +1,12 @@
+export { default as SignUp } from "./pages/SignUp";
+export { default as Book } from "./pages/Book";
+export { default as BookList } from "./pages/BookList";
+export { default as Borrow } from "./pages/Borrow";
+export { default as Dashboard } from "./pages/Dashboard";
+export { default as ForgotPassword } from "./pages/ForgotPassword";
+export { default as Home } from "./pages/Home";
+export { default as Review } from "./pages/Review";
+export { default as SingIn } from "./pages/SingIn";
+export { default as User } from "./pages/User";
+export { default as UserList } from "./pages/UserList";
+export { default as UserProfile } from "./pages/Profile";

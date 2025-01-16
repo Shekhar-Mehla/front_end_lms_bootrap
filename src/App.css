@@ -1,0 +1,51 @@
+.sigup_bg {
+  background: url("./assets//images/lms_backgroud.jpg") center no-repeat;
+  background-size: cover;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+main {
+  height: 80vh;
+}
+
+.signInHeight {
+  height: 80vh;
+}
+.defaultLayout {
+  overflow-y: scroll; /* Enable vertical scrolling */
+  overflow-x: hidden;
+}
+.defaultLayout::-webkit-scrollbar {
+  width: 0px; /* Hides the scrollbar */
+}
+
+.wrapper {
+  box-sizing: border-box;
+  max-height: 100vh;
+  max-width: 100vw;
+}
+a {
+  color: white;
+  font-weight: 500;
+}
+.emailError {
+  color: red;
+  background-color: rgba(0, 0, 0, 0.63);
+  font-size: larger;
+  font-weight: 400;
+}
+.relative {
+  position: relative;
+}
+.email {
+  position: absolute;
+  top: 390px;
+  left: 100px;
+}
+.bg-transaparent {
+  background-color: rgba(26, 18, 18, 0.397);
+}
