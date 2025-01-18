@@ -5,7 +5,10 @@ import { Link } from "react-router-dom";
 import useForm from "../hooks/useForm";
 import InputValidatorTooltip from "../components/tooltips/InputValidatorTooltip";
 const SignIn = () => {
-  const { form } = useForm();
+  const { form } = useForm({
+    email: "",
+    password: "",
+  });
   const signInInput = [
     {
       label: "Email*",
