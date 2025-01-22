@@ -1,14 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CustomInput from "../components/CustomInput";
 import { Card, Col, Form, Row, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useForm from "../hooks/useForm";
 import InputValidatorTooltip from "../components/tooltips/InputValidatorTooltip";
+import { loginUser } from "../services/api";
+import { useDispatch, useSelector } from "react-redux";
+import { userAction, autoLogin } from "../feature/user/userAction.js";
+
 const SignIn = () => {
-  const { form } = useForm({
+  const { user } = useSelector((state) => state.userInfo);
+  const navigator = useNavigate();
+
+  const dispatchUser = useDispatch();
+  const { form, handleOnChange } = useForm({
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    user?._id ? navigator("/user") : dispatchUser(autoLogin());
+  }, [user?._id, navigator, dispatchUser]);
   const signInInput = [
     {
       label: "Email*",
@@ -26,6 +38,27 @@ const SignIn = () => {
       required: true,
     },
   ];
+
+  // form submit
+  const submitHnadler = async (e) => {
+    e.preventDefault();
+
+    const { payload, status, message } = await loginUser(form);
+    if (status == "success") {
+      const { accessJwt, refreshJwt } = payload;
+      if (accessJwt && refreshJwt) {
+        localStorage.setItem("refreshJwt", payload.refreshJwt);
+        sessionStorage.setItem("accessJwt", payload.accessJwt);
+        // fetch user profile dataflow
+        // 1.check token in session storage
+
+        dispatchUser(userAction());
+      }
+    }
+
+    return;
+  };
+
   return (
     <div className="sigup_bg signInHeight   sign d-flex shadow  mb-2  justify-content-center align-items-center  ">
       <Row className="">
@@ -38,9 +71,13 @@ const SignIn = () => {
               Welcome to your local Library!
             </h3>
             <hr></hr>
-            <Form>
+            <Form onSubmit={submitHnadler}>
               {signInInput.map((item) => (
-                <CustomInput key={item.name} {...item}></CustomInput>
+                <CustomInput
+                  key={item.name}
+                  onChange={handleOnChange}
+                  {...item}
+                ></CustomInput>
               ))}
               <Button type="submit" className="p-2 w-100  mb-2 ">
                 Sign Up

@@ -4,7 +4,6 @@ import { inputValidator } from "../Utility/validators/InputValidator.jsx";
 
 // handle on change
 const handleOnChange = ({ e, setForm, form }) => {
-  console.log(e);
   const { value, name } = e.target;
 
   return setForm({ ...form, [name]: value });
@@ -23,8 +22,7 @@ const useForm = (initial_state) => {
       form.FName,
       form.LName
     );
-
-    setValidationError(error);
+    error.length && setValidationError(error);
   }, [
     form.phone,
     form.email,

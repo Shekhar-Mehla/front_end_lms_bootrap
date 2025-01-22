@@ -8,8 +8,12 @@ import logo from "../../assets/images/library_logo.png";
 import { FaHome } from "react-icons/fa";
 import { FaSignInAlt } from "react-icons/fa";
 import { FaUserEdit } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { AiFillDashboard } from "react-icons/ai";
+import { FaSignOutAlt } from "react-icons/fa";
 
 const Header = () => {
+  const { user } = useSelector((state) => state.userInfo);
   return (
     <Navbar expand="lg" data-bs-theme="dark" className="py-1 px-2">
       <Navbar.Brand href="/" className="text-white">
@@ -25,12 +29,27 @@ const Header = () => {
           <Link className="nav-link text-white" to="/">
             <FaHome /> Home
           </Link>
-          <Link className="nav-link text-white " to="/login">
-            <FaSignInAlt /> Sign in
-          </Link>
-          <Link className="nav-link text-white" to="/register">
-            <FaUserEdit /> Sign Up
-          </Link>
+          {user?._id ? (
+            <>
+              <Link className="nav-link text-white " to="/user">
+                <AiFillDashboard /> Dashboard
+              </Link>
+              <Link className="nav-link text-white" to="/logout">
+                <FaSignOutAlt /> Sign Out
+              </Link>
+            </>
+          ) : (
+            <>
+              {" "}
+              <Link className="nav-link text-white " to="/login">
+                <FaSignInAlt /> Sign in
+              </Link>
+              <Link className="nav-link text-white" to="/register">
+                <FaUserEdit /> Sign Up
+              </Link>
+            </>
+          )}
+
           <Form className="d-flex">
             <Form.Control
               type="search"

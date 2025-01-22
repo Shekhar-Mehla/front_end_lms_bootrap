@@ -10,7 +10,7 @@ const emailValidator = (email) => {
   return error;
 };
 
-const phoneValidator = (phone) => {
+const phoneValidator = (phone = "9876543456") => {
   const error = [];
 
   // If the phone contains any invalid characters or doesn't match the length requirement, add error
@@ -43,7 +43,6 @@ const passwordValidator = (password, confirmpassword) => {
     error.push("Password length must be atleast 6 characters long");
 
   if (confirmpassword != "") {
-    console.log("PASSWORD OS NOT ");
     password != confirmpassword &&
       error.push("Confirmed password did not match");
   }
@@ -51,7 +50,7 @@ const passwordValidator = (password, confirmpassword) => {
 
   return error;
 };
-const nameChecker = (name) => {
+const nameChecker = (name = "sdfhytr") => {
   const error = [];
 
   !/[a-zA-Z]/.test(name) && error.push("invalid Name ");

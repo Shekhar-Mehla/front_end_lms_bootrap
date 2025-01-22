@@ -4,18 +4,20 @@ import { Outlet } from "react-router-dom";
 import { Row, Container, Col } from "react-bootstrap";
 import SideBar from "../SideBar";
 import { useState } from "react";
+import Authorization from "../Authorization";
 
 const UserLayout = () => {
   const [isLogIn, setIsLogin] = useState();
 
   return (
-    <Container className="bg-dark">
-      <Row>
-        <Col>
-          <Header></Header>
-        </Col>
-      </Row>
-      {isLogIn && (
+    <Authorization>
+      <Container className="bg-dark">
+        <Row>
+          <Col>
+            <Header></Header>
+          </Col>
+        </Row>
+
         <main>
           <Row style={{ minHeight: "80vh" }} className="bg-dark text-white   ">
             <Col md={3} sm={3} lg={2}>
@@ -29,13 +31,14 @@ const UserLayout = () => {
             </Col>
           </Row>
         </main>
-      )}
-      <Row style={{ minHeight: "10vh" }} className="  bg-dark text-white">
-        <Col>
-          <Footer></Footer>
-        </Col>
-      </Row>
-    </Container>
+
+        <Row style={{ minHeight: "10vh" }} className="  bg-dark text-white">
+          <Col>
+            <Footer></Footer>
+          </Col>
+        </Row>
+      </Container>
+    </Authorization>
   );
 };
 

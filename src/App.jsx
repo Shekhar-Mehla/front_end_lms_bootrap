@@ -16,8 +16,12 @@ import DefulatLayout from "./components/DefualtLayout/DefulatLayout.jsx";
 import UserLayout from "./components/DefualtLayout/UserLayout.jsx";
 import Authorization from "./components/Authorization.jsx";
 import ActivateUser from "./pages/ActivateUser.jsx";
+import { ToastContainer } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const App = () => {
+  const user = useSelector((state) => state.userInfo);
+  console.log(user);
   return (
     <div className="wrapper bg-dark d-flex flex-wrap flex-column">
       <Routes>
@@ -34,15 +38,16 @@ const App = () => {
           ></Route>
         </Route>
         {/* private routes */}( (
-        {/* <Route path="/user" element={<UserLayout></UserLayout>}>
-        <Route index element={<Dashboard></Dashboard>}></Route>
-        <Route path="borrow-history" element={<Borrow></Borrow>}></Route>
-        <Route path="reviews" element={<Review></Review>}></Route>
-        <Route path="profile" element={<UserProfile></UserProfile>}></Route>
-        <Route path="user-list" element={<UserList></UserList>}></Route>
-      </Route> */}
+        <Route path="/user" element={<UserLayout></UserLayout>}>
+          <Route index element={<Dashboard></Dashboard>}></Route>
+          <Route path="borrow-history" element={<Borrow></Borrow>}></Route>
+          <Route path="reviews" element={<Review></Review>}></Route>
+          <Route path="profile" element={<UserProfile></UserProfile>}></Route>
+          <Route path="user-list" element={<UserList></UserList>}></Route>
+        </Route>
         ) )
       </Routes>
+      <ToastContainer></ToastContainer>
     </div>
   );
 };
