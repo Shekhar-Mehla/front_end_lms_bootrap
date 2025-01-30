@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 
 import Stack from "react-bootstrap/Stack";
 import CustomInput from "../components/CustomInput";
@@ -10,13 +9,13 @@ import { resgisterUser } from "../services/api";
 
 const SignUp = () => {
   const { handleOnChange, validationError, form } = useForm({
-    FName: "",
-    LName: "",
-    phone: "",
-    email: "",
-    password: "",
+    FName: "qwweee",
+    LName: "qweerr",
+    phone: "123456789",
+    email: "ssss112@gmail.com",
+    password: "Aa1234@",
 
-    confirmpassword: "",
+    confirmpassword: "Aa1234@",
   });
 
   const signUpInputFields = [
@@ -64,15 +63,16 @@ const SignUp = () => {
       autoComplete: "new-password",
     },
   ];
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const result = resgisterUser(form);
+    const result = await resgisterUser(form);
     console.log(result);
   };
 
   return (
     <div className="d-flex justify-content-center sigup_bg py-3 w-100  ">
-      <Form
+      <form
         className="  card bg-transaparent shadow flex-wrap px-3 text-white "
         onSubmit={handleSubmit}
       >
@@ -84,27 +84,16 @@ const SignUp = () => {
               className=""
               key={item.name}
               {...item}
+              inputError={validationError}
               onChange={handleOnChange}
             ></CustomInput>
           ))}
-          {console.log(validationError)}
-          <Button
-            type="submit"
-            disabled={validationError.length > 0 ? true : false}
-            className="my-2"
-          >
+
+          <Button type="submit" className="my-2">
             Sign Up
           </Button>
-          <div>
-            {validationError.length > 0 &&
-              validationError.map((error, i) => (
-                <li className="bg-danger rounded-2 px-2 py-2" key={i}>
-                  {error}
-                </li>
-              ))}
-          </div>
         </Stack>
-      </Form>
+      </form>
     </div>
   );
 };

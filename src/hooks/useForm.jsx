@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { inputValidator } from "../Utility/validators/InputValidator.jsx";
+import InputValidator from "../Utility/validators/InputValidator.jsx";
 
 // handle on change
 const handleOnChange = ({ e, setForm, form }) => {
@@ -11,18 +11,27 @@ const handleOnChange = ({ e, setForm, form }) => {
 
 const useForm = (initial_state) => {
   const [form, setForm] = useState(initial_state);
-  const [validationError, setValidationError] = useState([]);
+  const [validationError, setValidationError] = useState({
+    FName: [],
+    LName: [],
+    phone: [],
+    email: [],
+    password: [],
 
+    confirmpassword: [],
+  });
+  const { phone, email, password, confirmpassword, FName, LName } = form;
   useEffect(() => {
-    const error = inputValidator(
-      form.phone,
-      form.email,
-      form.password,
-      form.confirmpassword,
-      form.FName,
-      form.LName
-    );
-    error.length && setValidationError(error);
+    const error = InputValidator({
+      phone,
+      email,
+      password,
+      confirmpassword,
+      FName,
+      LName,
+    });
+
+    setValidationError(error);
   }, [
     form.phone,
     form.email,
@@ -31,7 +40,7 @@ const useForm = (initial_state) => {
     form.FName,
     form.LName,
   ]);
-
+  console.log(validationError);
   return {
     form,
     validationError,

@@ -2,7 +2,6 @@ import axios from "axios";
 import { toast } from "react-toastify";
 const baseUrl = import.meta.env.VITE_BASE_URL_BACKEND;
 const refreshJwt = () => localStorage.getItem("refreshJwt");
-console.log(refreshJwt());
 
 export const apihelper = async ({
   method,

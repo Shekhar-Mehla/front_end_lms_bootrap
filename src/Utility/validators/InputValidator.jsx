@@ -1,4 +1,4 @@
-const emailValidator = (email) => {
+const emailValidator = (email = "abc123@gmail.com") => {
   const error = [];
 
   // Regular expression for a valid email pattern
@@ -10,7 +10,7 @@ const emailValidator = (email) => {
   return error;
 };
 
-const phoneValidator = (phone = "9876543456") => {
+const phoneValidator = (phone = "123456789") => {
   const error = [];
 
   // If the phone contains any invalid characters or doesn't match the length requirement, add error
@@ -19,14 +19,17 @@ const phoneValidator = (phone = "9876543456") => {
   }
 
   // Check if the phone number length is less than 9
-  if (phone.length < 9 || phone.length >= 12) {
+  if (phone?.length < 9 || phone?.length >= 12) {
     error.push("Phone number must be at least 9 characters long.");
   }
 
   return error;
 };
 
-const passwordValidator = (password, confirmpassword) => {
+const passwordValidator = (
+  password = "Aa1234@",
+  confirmpassword = " Aa1234@"
+) => {
   const error = [];
   // Regular expression for a valid password pattern
   !/[0-9]/.test(password) &&
@@ -39,7 +42,7 @@ const passwordValidator = (password, confirmpassword) => {
     error.push(
       "Password must include atleast one special character from !@#$%^&*()_+"
     );
-  !password.length == 6 &&
+  password?.length < 6 &&
     error.push("Password length must be atleast 6 characters long");
 
   if (confirmpassword != "") {
@@ -50,48 +53,40 @@ const passwordValidator = (password, confirmpassword) => {
 
   return error;
 };
-const nameChecker = (name = "sdfhytr") => {
+const nameChecker = (name = "ehehhee") => {
   const error = [];
 
   !/[a-zA-Z]/.test(name) && error.push("invalid Name ");
   /[0-9!@#$%^&*()_+]/.test(name) &&
     error.push("Name cannot include any digit or special character ");
 
-  name.length < 3 && error.push("Name must must be atleast 6 characters long ");
+  name?.length < 3 &&
+    error.push("Name must must be atleast 3 characters long ");
   return error;
 };
 
-export const inputValidator = (
+const InputValidator = ({
   phone,
   email,
   password,
   confirmpassword,
   FName,
-  LName
-) => {
-  const emailError = emailValidator(email);
-  const phoneError = phoneValidator(phone);
-
-  const passwordError = passwordValidator(password, confirmpassword);
-  const fisrtNameError = nameChecker(FName);
-  const lastNameError = nameChecker(LName);
-  console.log(lastNameError);
-
-  if (emailError && email != "") {
-    return emailError;
-  }
-  if (fisrtNameError && FName != "") {
-    return fisrtNameError;
-  }
-  if (lastNameError && LName != "") {
-    return lastNameError;
-  }
-
-  if (phoneError && phone != "") {
-    return phoneError;
-  }
-  if (password != "") {
-    return passwordError;
-  }
-  return [];
+  LName,
+}) => {
+  return {
+    phone: { type: "phone", error: phoneValidator(phone) },
+    email: { type: "email", error: emailValidator(email) },
+    password: {
+      type: "password",
+      error: passwordValidator(password, confirmpassword),
+    },
+    confirmpassword: {
+      type: "confirmpassword",
+      error: passwordValidator(password, confirmpassword),
+    },
+    FName: { type: "FName", error: nameChecker(FName) },
+    LName: { type: "LName", error: nameChecker(LName) },
+  };
 };
+
+export default InputValidator;

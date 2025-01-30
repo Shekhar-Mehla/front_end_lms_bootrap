@@ -17,11 +17,18 @@ import UserLayout from "./components/DefualtLayout/UserLayout.jsx";
 import Authorization from "./components/Authorization.jsx";
 import ActivateUser from "./pages/ActivateUser.jsx";
 import { ToastContainer } from "react-toastify";
-import { useSelector } from "react-redux";
+
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { autoLogin } from "./feature/user/userAction.js";
 
 const App = () => {
-  const user = useSelector((state) => state.userInfo);
-  console.log(user);
+  const { user } = useSelector((state) => state.userInfo);
+  const dispatchUser = useDispatch();
+
+  useEffect(() => {
+    !user._id && dispatchUser(autoLogin());
+  }, []);
   return (
     <div className="wrapper bg-dark d-flex flex-wrap flex-column">
       <Routes>
