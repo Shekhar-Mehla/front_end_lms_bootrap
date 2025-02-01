@@ -26,10 +26,7 @@ const phoneValidator = (phone = "123456789") => {
   return error;
 };
 
-const passwordValidator = (
-  password = "Aa1234@",
-  confirmpassword = " Aa1234@"
-) => {
+const passwordValidator = (password = "Aa1234@") => {
   const error = [];
   // Regular expression for a valid password pattern
   !/[0-9]/.test(password) &&
@@ -45,10 +42,6 @@ const passwordValidator = (
   password?.length < 6 &&
     error.push("Password length must be atleast 6 characters long");
 
-  if (confirmpassword != "") {
-    password != confirmpassword &&
-      error.push("Confirmed password did not match");
-  }
   // If the email doesn't match the pattern, push an error
 
   return error;
@@ -65,28 +58,31 @@ const nameChecker = (name = "ehehhee") => {
   return error;
 };
 
-const InputValidator = ({
-  phone,
-  email,
-  password,
-  confirmpassword,
-  FName,
-  LName,
-}) => {
-  return {
-    phone: { type: "phone", error: phoneValidator(phone) },
-    email: { type: "email", error: emailValidator(email) },
-    password: {
-      type: "password",
-      error: passwordValidator(password, confirmpassword),
-    },
-    confirmpassword: {
-      type: "confirmpassword",
-      error: passwordValidator(password, confirmpassword),
-    },
-    FName: { type: "FName", error: nameChecker(FName) },
-    LName: { type: "LName", error: nameChecker(LName) },
-  };
+const InputValidator = (name, value) => {
+  const errors = {};
+  if (value) {
+    if (name == "FName") {
+      errors[name] = nameChecker(value);
+    }
+    if (name == "LName") {
+      errors[name] = nameChecker(value);
+    }
+    if (name == "email") {
+      errors[name] = emailValidator(value);
+    }
+    if (name == "phone") {
+      errors[name] = phoneValidator(value);
+    }
+    if (name == "password") {
+      errors[name] = passwordValidator(value);
+    }
+    if (name == "confirmpassword") {
+      errors[name] = passwordValidator(value);
+    }
+    return errors;
+  }
+
+  return null;
 };
 
 export default InputValidator;

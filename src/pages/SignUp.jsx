@@ -84,7 +84,7 @@ const SignUp = () => {
               className=""
               key={item.name}
               {...item}
-              inputError={validationError}
+              validationError={validationError}
               onChange={handleOnChange}
             ></CustomInput>
           ))}
