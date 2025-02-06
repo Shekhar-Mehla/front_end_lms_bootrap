@@ -14,14 +14,11 @@ const phoneValidator = (phone = "123456789") => {
   const error = [];
 
   // If the phone contains any invalid characters or doesn't match the length requirement, add error
-  if (!/[0-9+]/.test(phone)) {
+  if (!/^\d{10}$/.test(phone)) {
     error.push("Phone number should only contain digits.");
   }
 
   // Check if the phone number length is less than 9
-  if (phone?.length < 9 || phone?.length >= 12) {
-    error.push("Phone number must be at least 9 characters long.");
-  }
 
   return error;
 };
@@ -57,9 +54,19 @@ const nameChecker = (name = "ehehhee") => {
     error.push("Name must must be atleast 3 characters long ");
   return error;
 };
+const confirmedPasswordValidator = ({ value, formPassword }) => {
+  const errors = [];
+  if (value && formPassword) {
+    if (value != formPassword) {
+      errors.push("confiremd password did not match with password");
+    }
+    return errors;
+  }
+};
 
-const InputValidator = (name, value) => {
+const InputValidator = (name, value, formPassword) => {
   const errors = {};
+  const p = { password: "" };
   if (value) {
     if (name == "FName") {
       errors[name] = nameChecker(value);
@@ -77,8 +84,10 @@ const InputValidator = (name, value) => {
       errors[name] = passwordValidator(value);
     }
     if (name == "confirmpassword") {
-      errors[name] = passwordValidator(value);
+      // errocrs[name] = passwordValidator(value);
+      errors[name] = confirmedPasswordValidator({ value, formPassword });
     }
+
     return errors;
   }
 

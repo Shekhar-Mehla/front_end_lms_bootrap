@@ -1,38 +1,58 @@
 import React, { useRef } from "react";
+import { motion } from "framer-motion";
 
 import Form from "react-bootstrap/Form";
-import Alert from "react-bootstrap/Alert";
 import ErrorTooltip from "./tooltips/ErrorTooltip";
 
 const CustomInput = ({ label, name, validationError, ...rest }) => {
+  const box = {
+    width: 100,
+    height: 100,
+    backgroundColor: "#f5f5f5",
+    borderRadius: 5,
+  };
   const target = useRef(null);
+  console.log(validationError);
   return (
-    <div className="inputsize">
-      <Form.Label className="fw-bolder">
-        {label}
-        <span className="text-danger fw-bolder ">*</span>
-      </Form.Label>
-      <div>
-        <Form.Control
-          hasValidation
-          {...rest}
-          name={name}
-          isInvalid={validationError[name]?.length ? true : false}
-          ref={target}
-        />
-      </div>
-      <div>
-        {validationError[name]?.length &&
-          validationError[name].map((error, i) => (
+    <motion.div
+      animate={{
+        scale: [1, 2, 2, 1, 1],
+        rotate: [0, 0, 180, 180, 0],
+        borderRadius: ["0%", "0%", "50%", "50%", "0%"],
+      }}
+      transition={{
+        duration: 2,
+        ease: "easeInOut",
+        times: [0, 0.2, 0.5, 0.8, 1],
+
+        repeatDelay: 1,
+      }}
+    >
+      <div className="inputsize">
+        <Form.Label className="fw-bolder">
+          {label}
+          <span className="text-danger fw-bolder ">*</span>
+        </Form.Label>
+        <div>
+          <Form.Control
+            {...rest}
+            name={name}
+            isInvalid={validationError[name]?.length ? true : false}
+            ref={target}
+          />
+        </div>
+        <div>
+          {validationError[name]?.length ? (
             <ErrorTooltip
-              key={i}
-              uniquekey={i}
               target={target}
-              error={error}
+              error={validationError[name]}
             ></ErrorTooltip>
-          ))}
+          ) : (
+            ""
+          )}
+        </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

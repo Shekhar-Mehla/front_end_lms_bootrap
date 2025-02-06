@@ -34,7 +34,10 @@ const Header = () => {
               <Link className="nav-link text-white " to="/user">
                 <AiFillDashboard /> Dashboard
               </Link>
-              <Link className="nav-link text-white" to="/logout">
+              <Link
+                className="nav-link text-white"
+                onClick={(e) => console.log(e)}
+              >
                 <FaSignOutAlt /> Sign Out
               </Link>
             </>

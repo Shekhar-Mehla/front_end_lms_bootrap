@@ -1,19 +1,21 @@
 import React, { useEffect } from "react";
-import CustomInput from "../components/CustomInput";
-import { Card, Col, Form, Row, Button } from "react-bootstrap";
+
+import { Card, Col, Form, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import useForm from "../hooks/useForm";
+import CustomInput from "../components/CustomInput.jsx";
 
 import { loginUser } from "../services/api";
 import { useDispatch, useSelector } from "react-redux";
 import { userAction, autoLogin } from "../feature/user/userAction.js";
+import Button from "../components/Button/Button.jsx";
 
 const SignIn = () => {
   const { user } = useSelector((state) => state.userInfo);
   const navigator = useNavigate();
 
   const dispatchUser = useDispatch();
-  const { form, handleOnChange } = useForm({
+  const { form, handleOnChange, validationError } = useForm({
     email: "",
     password: "",
   });
@@ -75,13 +77,16 @@ const SignIn = () => {
               {signInInput.map((item) => (
                 <CustomInput
                   key={item.name}
+                  validationError={validationError}
                   onChange={handleOnChange}
                   {...item}
                 ></CustomInput>
               ))}
-              <Button type="submit" className="p-2 w-100  mb-2 ">
-                Sign Up
-              </Button>
+              <Button
+                
+                type={"submit"}
+                name={"signIn"}
+              ></Button>
             </Form>
             <Card.Text className="me-auto">
               dont have account ?{" "}
@@ -99,7 +104,6 @@ const SignIn = () => {
           </Card>
         </Col>
       </Row>
-      <InputValidatorTooltip></InputValidatorTooltip>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import Button from "react-bootstrap/Button";
+import Button from "../components/Button/Button";
 
 import Stack from "react-bootstrap/Stack";
 import CustomInput from "../components/CustomInput";
@@ -8,6 +8,7 @@ import useForm from "../hooks/useForm";
 import { resgisterUser } from "../services/api";
 
 const SignUp = () => {
+  const [disabledButton, setDisabledButton] = useState(false);
   const { handleOnChange, validationError, form } = useForm({
     FName: "qwweee",
     LName: "qweerr",
@@ -66,8 +67,11 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setDisabledButton(true);
     const result = await resgisterUser(form);
-    console.log(result);
+    if (result) {
+      setTimeout(() => setDisabledButton(false), 2000);
+    }
   };
 
   return (
@@ -89,9 +93,7 @@ const SignUp = () => {
             ></CustomInput>
           ))}
 
-          <Button type="submit" className="my-2">
-            Sign Up
-          </Button>
+          <Button name={"Sign Up"} type="submit"></Button>
         </Stack>
       </form>
     </div>

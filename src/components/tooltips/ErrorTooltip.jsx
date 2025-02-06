@@ -8,7 +8,7 @@ const ErrorTooltip = ({ error, target, uniquekey }) => {
     <Overlay
       target={target.current}
       show={error?.length ? true : false}
-      placement="right"
+      placement="bottom"
     >
       {({
         placement: _placement,
@@ -30,7 +30,9 @@ const ErrorTooltip = ({ error, target, uniquekey }) => {
             ...props.style,
           }}
         >
-          {error}
+          {error.map((er, i) => (
+            <li key={i}>{er}</li>
+          ))}
         </div>
       )}
     </Overlay>

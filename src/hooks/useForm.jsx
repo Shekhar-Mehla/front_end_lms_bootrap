@@ -12,8 +12,8 @@ const handleOnChange = ({
 }) => {
   const { value, name } = e.target;
 
-  const errorrobj = InputValidator(name, value);
-  console.log(errorrobj);
+  const errorrobj = InputValidator(name, value, form.password);
+
   setValidationError({ ...errorrobj });
 
   return setForm({ ...form, [name]: value });
