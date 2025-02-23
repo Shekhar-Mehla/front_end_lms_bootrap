@@ -82,11 +82,7 @@ const SignIn = () => {
                   {...item}
                 ></CustomInput>
               ))}
-              <Button
-                
-                type={"submit"}
-                name={"signIn"}
-              ></Button>
+              <Button type={"submit"} name={"signIn"}></Button>
             </Form>
             <Card.Text className="me-auto">
               dont have account ?{" "}
@@ -97,7 +93,7 @@ const SignIn = () => {
             </Card.Text>
             <Card.Text className="me-atuo  ">
               Forgot password ?{" "}
-              <Link to="forgot-password " className="">
+              <Link to="/forgot-password " className="">
                 Reset Now
               </Link>
             </Card.Text>

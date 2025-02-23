@@ -11,6 +11,7 @@ import {
   Review,
   UserProfile,
   UserList,
+  ForgotPassword,
 } from "./index.js";
 import DefulatLayout from "./components/DefualtLayout/DefulatLayout.jsx";
 import UserLayout from "./components/DefualtLayout/UserLayout.jsx";
@@ -37,6 +38,10 @@ const App = () => {
           <Route index element={<Home></Home>}></Route>
           <Route path="login" element={<SingIn></SingIn>}></Route>
           <Route path="register" element={<SignUp></SignUp>}></Route>
+          <Route
+            path="forgot-password"
+            element={<ForgotPassword></ForgotPassword>}
+          ></Route>
           <Route
             path="activate-user"
             element={

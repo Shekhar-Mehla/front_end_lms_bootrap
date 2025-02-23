@@ -16,8 +16,8 @@ const CustomInput = ({ label, name, validationError, ...rest }) => {
   return (
     <motion.div
       animate={{
-        scale: [1, 2, 2, 1, 1],
-        rotate: [0, 0, 180, 180, 0],
+        scale: [1, 1.5, 1],
+
         borderRadius: ["0%", "0%", "50%", "50%", "0%"],
       }}
       transition={{
