@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Alert,
   Card,
@@ -13,24 +13,38 @@ import useForm from "../hooks/useForm";
 import { Link } from "react-router-dom";
 import Button from "../components/Button/Button";
 import { FaArrowLeft } from "react-icons/fa";
+import Otp from "../components/Otp";
+import OtpForm from "../components/OtpForm";
 
 const ForgotPassword = () => {
-  const { handleOnChange } = useForm();
+  const [show, setShow] = useState(false);
 
+  const { handleOnChange, form } = useForm({
+    confirmpassword: "",
+    password: "",
+  });
+
+  const handleOnRequestOtpm = (e) => {
+    e.preventDefault();
+    setShow(true);
+  };
+
+  const otprequest = [
+    {
+      label: "Email*",
+      type: "email",
+      name: "email",
+      placeholder: "Enter email",
+      required: true,
+    },
+  ];
   return (
-    <div className="sigup_bg signInHeight text-white  sign d-flex shadow  mb-2  justify-content-center align-items-center  ">
+    <div className="  text-white  d-flex   mb-2  justify-content-center align-items-center  ">
       <Row className="">
         <Col>
           {" "}
-          <Card
-            className="mt-3   mb-3 p-5"
-            style={{
-              backgroundColor: "rgb(0 0 0 / 50%)",
-              color: " #e1f8fe",
-              width: "150%",
-            }}
-          >
-            <h3 className="p-2 text-center text-white">Forgot Password?</h3>
+          <Card className="mt-3 bg-transaparent  mb-3 p-3">
+            <h3 className="mt-1 text-center text-white">Forgot Password?</h3>
             <p className="text-white">
               Don’t worry, we’ll send an OTP to your email to reset your
               password.
@@ -38,29 +52,25 @@ const ForgotPassword = () => {
             <p className="P"></p>
 
             <hr></hr>
-            <Form>
-              <FormLabel>Email</FormLabel>
-              <FormControl type="text"></FormControl>
+            <Form onSubmit={handleOnRequestOtpm}>
+              {otprequest.map((item) => (
+                <CustomInput
+                  key={item.name}
+                  onChange={handleOnChange}
+                  {...item}
+                ></CustomInput>
+              ))}
+
               <Button type={"submit"} name={"Request OTP"}></Button>
             </Form>
 
-            <hr></hr>
-            <Alert variant="success"> we have sent you otp on your email</Alert>
-            <Form>
-              <FormLabel>OTP</FormLabel>
-              <FormControl type="password"></FormControl>
-              <FormLabel>New Password</FormLabel>
-              <FormControl type="password"></FormControl>
-              <FormLabel>Confirm New Password</FormLabel>
-              <FormControl type="password"></FormControl>
-              <Button type={"submit"} name={"submit"}></Button>
-            </Form>
+            {show && <OtpForm></OtpForm>}
 
-            <center className="mt-2 ">
-              <Link to="/login" className="">
+            <Link to="/login">
+              <center className=" ">
                 <FaArrowLeft /> back to login
-              </Link>
-            </center>
+              </center>
+            </Link>
           </Card>
         </Col>
       </Row>

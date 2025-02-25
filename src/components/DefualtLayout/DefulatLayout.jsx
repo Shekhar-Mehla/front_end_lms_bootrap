@@ -8,10 +8,10 @@ const DefulatLayout = () => {
   return (
     <div className="bg-dark d-flex  flex-column  defaultLayout ">
       <Header></Header>
-      <main >
+      <main className="flex flex-wrap">
         <Outlet></Outlet>
       </main>
-      <Footer className="footer"></Footer>
+      <Footer className=""></Footer>
     </div>
   );
 };

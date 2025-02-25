@@ -62,14 +62,11 @@ const SignIn = () => {
   };
 
   return (
-    <div className="sigup_bg signInHeight   sign d-flex shadow  mb-2  justify-content-center align-items-center  ">
+    <div className=" sign d-flex shadow  mb-2  justify-content-center align-items-center  ">
       <Row className="">
         <Col>
-          <Card
-            className="mt-3  mb-3 p-5"
-            style={{ backgroundColor: "rgb(0 0 0 / 50%)", color: " #e1f8fe" }}
-          >
-            <h3 className="p-2 text-center fw-bolder">
+          <Card className="mt-3 bg-transaparent mb-3 px-2 py-3">
+            <h3 className=" text-center text-white fw-bolder">
               Welcome to your local Library!
             </h3>
             <hr></hr>

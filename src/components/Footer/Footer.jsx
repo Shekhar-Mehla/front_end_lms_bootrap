@@ -4,11 +4,11 @@ import { Navbar, Container } from "react-bootstrap";
 
 const Footer = () => {
   return (
-    <Navbar expand="lg" className="bg-body-dark">
+    <footer expand="lg" className="bg-danger  footer">
       <Container>
         <Navbar.Brand href="#">Navbar</Navbar.Brand>
       </Container>
-    </Navbar>
+    </footer>
   );
 };
 
