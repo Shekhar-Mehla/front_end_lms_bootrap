@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { motion } from "framer-motion";
 
 import { Card, Col, Form, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
@@ -62,7 +63,23 @@ const SignIn = () => {
   };
 
   return (
-    <div className=" sign d-flex shadow  mb-2  justify-content-center align-items-center  ">
+    <motion.div
+      animate={{
+        scale: [0, 1],
+
+        borderRadius: ["0%", "0%", "50%", "50%", "0%"],
+      }}
+      transition={{
+        duration: 2,
+        ease: "easeInOut",
+        times: [0, 0.2, 0.5, 0.3, 1],
+
+        repeatDelay: 1,
+      }}
+      className=" sign d-flex shadow mb-2 justify-content-center
+      align-items-center "
+    >
+      {" "}
       <Row className="">
         <Col>
           <Card className="mt-3 bg-transaparent mb-3 px-2 py-3">
@@ -97,7 +114,7 @@ const SignIn = () => {
           </Card>
         </Col>
       </Row>
-    </div>
+    </motion.div>
   );
 };
 

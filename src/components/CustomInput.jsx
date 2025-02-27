@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import { motion } from "framer-motion";
 
 import Form from "react-bootstrap/Form";
 import ErrorTooltip from "./tooltips/ErrorTooltip";
@@ -14,20 +13,7 @@ const CustomInput = ({ label, name, validationError = "", ...rest }) => {
   const target = useRef(null);
   console.log(validationError);
   return (
-    <motion.div
-      animate={{
-        scale: [1, 1.5, 1],
-
-        borderRadius: ["0%", "0%", "50%", "50%", "0%"],
-      }}
-      transition={{
-        duration: 2,
-        ease: "easeInOut",
-        times: [0, 0.2, 0.5, 0.8, 1],
-
-        repeatDelay: 1,
-      }}
-    >
+    <div>
       <div className="inputsize">
         <Form.Label className="fw-bolder text-white">
           {label}
@@ -53,7 +39,7 @@ const CustomInput = ({ label, name, validationError = "", ...rest }) => {
           )}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import Button from "../components/Button/Button";
+import { motion } from "framer-motion";
 
 import Stack from "react-bootstrap/Stack";
 import CustomInput from "../components/CustomInput";
@@ -75,7 +76,21 @@ const SignUp = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center sigup_bg py-3 w-100  ">
+    <motion.div
+      className="d-flex justify-content-center sigup_bg py-3 w-100  "
+      animate={{
+        scale: [0, 1],
+
+        borderRadius: ["0%", "0%", "50%", "50%", "0%"],
+      }}
+      transition={{
+        duration: 2,
+        ease: "easeInOut",
+        times: [0, 0.2, 0.5, 0.3, 1],
+
+        repeatDelay: 1,
+      }}
+    >
       <form
         className="  card bg-transaparent shadow flex-wrap px-3 text-white "
         onSubmit={handleSubmit}
@@ -96,7 +111,7 @@ const SignUp = () => {
           <Button name={"Sign Up"} type="submit"></Button>
         </Stack>
       </form>
-    </div>
+    </motion.div>
   );
 };
 

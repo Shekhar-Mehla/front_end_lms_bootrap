@@ -77,3 +77,14 @@ export const renewJwt = async () => {
   };
   return await apihelper(obj);
 };
+export const getotp=async(email) => {
+  const obj = {
+    method: "post",
+    url: baseUrl + "/auth/get_otp",
+    data:email,
+
+    
+    showloader: false,
+  };
+  return await apihelper(obj);
+};

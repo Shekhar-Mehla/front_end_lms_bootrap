@@ -8,6 +8,7 @@ import {
   FormLabel,
   Row,
 } from "react-bootstrap";
+import { motion } from "framer-motion";
 import CustomInput from "../components/CustomInput";
 import useForm from "../hooks/useForm";
 import { Link } from "react-router-dom";
@@ -16,16 +17,27 @@ import { FaArrowLeft } from "react-icons/fa";
 import Otp from "../components/Otp";
 import OtpForm from "../components/OtpForm";
 
+import Loader from "../components/Loader";
+import { getotp } from "../services/api";
+
 const ForgotPassword = () => {
   const [show, setShow] = useState(false);
+  const [disabled, setdisabled] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const { handleOnChange, form } = useForm({
-    confirmpassword: "",
-    password: "",
-  });
+  const { handleOnChange, form } = useForm({ email: "" });
 
-  const handleOnRequestOtpm = (e) => {
+  const handleOnRequestOtpm = async (e) => {
     e.preventDefault();
+    console.log(e);
+    // show loader
+    setIsLoading(true);
+    setdisabled(true);
+    // call api
+    console.log(form);
+    const { status } = await getotp(form);
+    console.log(status);
+
     setShow(true);
   };
 
@@ -39,7 +51,21 @@ const ForgotPassword = () => {
     },
   ];
   return (
-    <div className="  text-white  d-flex   mb-2  justify-content-center align-items-center  ">
+    <motion.div
+      animate={{
+        scale: [0, 1],
+
+        borderRadius: ["0%", "0%", "50%", "50%", "0%"],
+      }}
+      transition={{
+        duration: 2,
+        ease: "easeInOut",
+        times: [0, 0.2, 0.5, 0.3, 1],
+
+        repeatDelay: 1,
+      }}
+      className="  text-white  d-flex   mb-2  justify-content-center align-items-center  "
+    >
       <Row className="">
         <Col>
           {" "}
@@ -61,7 +87,13 @@ const ForgotPassword = () => {
                 ></CustomInput>
               ))}
 
-              <Button type={"submit"} name={"Request OTP"}></Button>
+              <Button
+                type={"submit"}
+                disable={disabled}
+                name={isLoading ? <Loader></Loader> : "request otp"}
+              >
+                {" "}
+              </Button>
             </Form>
 
             {show && <OtpForm></OtpForm>}
@@ -74,7 +106,7 @@ const ForgotPassword = () => {
           </Card>
         </Col>
       </Row>
-    </div>
+    </motion.div>
   );
 };
 
