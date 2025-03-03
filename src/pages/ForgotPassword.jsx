@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Alert,
   Card,
@@ -14,16 +14,19 @@ import useForm from "../hooks/useForm";
 import { Link } from "react-router-dom";
 import Button from "../components/Button/Button";
 import { FaArrowLeft } from "react-icons/fa";
-import Otp from "../components/Otp";
+
 import OtpForm from "../components/OtpForm";
 
 import Loader from "../components/Loader";
 import { getotp } from "../services/api";
 
 const ForgotPassword = () => {
+  const timing = 10;
   const [show, setShow] = useState(false);
   const [disabled, setdisabled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [count, setcuount] = useState(0);
 
   const { handleOnChange, form } = useForm({ email: "" });
 
@@ -36,10 +39,25 @@ const ForgotPassword = () => {
     // call api
     console.log(form);
     const { status } = await getotp(form);
-    console.log(status);
-
-    setShow(true);
+    if (status) {
+      setIsLoading(false);
+      setcuount(timing);
+      setShow(true);
+    }
   };
+
+  useEffect(() => {
+    if (count > 0) {
+      const timer = setInterval(() => {
+        setcuount(count - 1);
+      }, 1000);
+
+      return () => clearInterval(timer);
+    }
+    if (count === 0) {
+      setdisabled(false);
+    }
+  }, [count]);
 
   const otprequest = [
     {
@@ -90,7 +108,15 @@ const ForgotPassword = () => {
               <Button
                 type={"submit"}
                 disable={disabled}
-                name={isLoading ? <Loader></Loader> : "request otp"}
+                name={
+                  isLoading ? (
+                    <Loader></Loader>
+                  ) : count > 0 ? (
+                    `request OTP again ${count} `
+                  ) : (
+                    "request OTP"
+                  )
+                }
               >
                 {" "}
               </Button>

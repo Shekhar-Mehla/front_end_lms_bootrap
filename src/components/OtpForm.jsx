@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Alert, Form, FormLabel } from "react-bootstrap";
 import CustomInput from "./CustomInput";
 import Button from "./Button/Button";
@@ -8,6 +8,8 @@ import { motion } from "framer-motion";
 
 const OtpForm = () => {
   const [otp, setOtp] = useState("");
+ 
+  
 
   const { handleOnChange, form } = useForm();
   const handleOnSubmitOTP = (e) => {
