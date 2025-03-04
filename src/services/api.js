@@ -37,7 +37,7 @@ export const apihelper = async ({
       toast.error(error.response.data.message);
     }
 
-    return error.response.data;
+    return error.response.data || error;
   }
 };
 
@@ -77,14 +77,24 @@ export const renewJwt = async () => {
   };
   return await apihelper(obj);
 };
-export const getotp=async(email) => {
+export const getotp = async (email) => {
   const obj = {
     method: "post",
     url: baseUrl + "/auth/get_otp",
-    data:email,
+    data: email,
 
-    
     showloader: false,
+  };
+  return await apihelper(obj);
+};
+export const changePassword = async (payload) => {
+  console.log(payload);
+  const obj = {
+    method: "put",
+    url: baseUrl + "/auth/reset-password",
+    data: payload,
+
+    showloader: true,
   };
   return await apihelper(obj);
 };

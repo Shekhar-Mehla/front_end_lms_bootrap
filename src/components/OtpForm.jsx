@@ -5,22 +5,28 @@ import Button from "./Button/Button";
 import useForm from "../hooks/useForm";
 import Otp from "./Otp";
 import { motion } from "framer-motion";
+import { changePassword } from "../services/api.js";
 
 const OtpForm = () => {
   const [otp, setOtp] = useState("");
- 
-  
 
-  const { handleOnChange, form } = useForm();
-  const handleOnSubmitOTP = (e) => {
+  const { handleOnChange, form } = useForm({});
+  const handleOnSubmitOTP = async (e) => {
     e.preventDefault();
-    console.log(e);
 
-    const obj = { otp, ...form };
+    console.log(form);
+    if (form.password === form.confirmpassword) {
+      const data = { otp, ...form };
+      const response = await changePassword(data);
+      console.log(response);
+      return;
+    }
+
+    console.log("did not match");
 
     // call api here
   };
-  console.log(otp);
+
   const otpFormInput = [
     {
       label: "New Password*",

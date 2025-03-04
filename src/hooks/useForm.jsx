@@ -10,6 +10,7 @@ const handleOnChange = ({
   validationError,
   setValidationError,
 }) => {
+  console.log(e);
   const { value, name } = e.target;
 
   const errorrobj = InputValidator(name, value, form.password);
