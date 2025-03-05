@@ -10,7 +10,7 @@ import { changePassword } from "../services/api.js";
 const OtpForm = () => {
   const [otp, setOtp] = useState("");
 
-  const { handleOnChange, form } = useForm({});
+  const { handleOnChange, validationError, form } = useForm({});
   const handleOnSubmitOTP = async (e) => {
     e.preventDefault();
 
@@ -71,11 +71,19 @@ const OtpForm = () => {
         {otpFormInput.map((item) => (
           <CustomInput
             key={item.name}
+            validationError={validationError}
             onChange={handleOnChange}
             {...item}
           ></CustomInput>
         ))}
-        <Button type={"submit"} name={"submit"}></Button>
+        <Button
+          type={"submit"}
+          disable={
+            validationError?.password?.length ||
+            validationError?.confirmpassword?.length
+          }
+          name={"submit"}
+        ></Button>
       </Form>
     </motion.div>
   );

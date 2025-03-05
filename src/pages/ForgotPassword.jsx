@@ -28,7 +28,7 @@ const ForgotPassword = () => {
 
   const [count, setcuount] = useState(0);
 
-  const { handleOnChange, form } = useForm({ email: "" });
+  const { handleOnChange, form, validationError } = useForm({ email: "" });
 
   const handleOnRequestOtpm = async (e) => {
     e.preventDefault();
@@ -102,12 +102,13 @@ const ForgotPassword = () => {
                   key={item.name}
                   onChange={handleOnChange}
                   {...item}
+                  validationError={validationError}
                 ></CustomInput>
               ))}
 
               <Button
                 type={"submit"}
-                disable={disabled}
+                disable={disabled || validationError?.email?.length}
                 name={
                   isLoading ? (
                     <Loader></Loader>

@@ -1,9 +1,8 @@
-import Button from "react-bootstrap/Button";
 import Overlay from "react-bootstrap/Overlay";
-import Tooltip from "react-bootstrap/Tooltip";
+
 import React from "react";
 
-const ErrorTooltip = ({ error, target, uniquekey }) => {
+const ErrorTooltip = ({ error, target }) => {
   return (
     <Overlay
       target={target.current}
