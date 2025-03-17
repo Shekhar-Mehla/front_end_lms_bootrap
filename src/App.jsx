@@ -22,6 +22,7 @@ import { ToastContainer } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { autoLogin } from "./feature/user/userAction.js";
+import NewBookForm from "./components/forms/BookForms/NewBookForm.jsx";
 
 const App = () => {
   const { user } = useSelector((state) => state.userInfo);
@@ -49,9 +50,11 @@ const App = () => {
             }
           ></Route>
         </Route>
+        
         {/* private routes */}( (
         <Route path="/user" element={<UserLayout></UserLayout>}>
           <Route index element={<Dashboard></Dashboard>}></Route>
+          <Route path="new-book" element={<NewBookForm />}></Route>
           <Route path="borrow-history" element={<Borrow></Borrow>}></Route>
           <Route path="reviews" element={<Review></Review>}></Route>
           <Route path="profile" element={<UserProfile></UserProfile>}></Route>
