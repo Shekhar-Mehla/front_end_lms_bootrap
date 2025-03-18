@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 
 import { Card, Col, Form, Row } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useForm from "../hooks/useForm";
 import CustomInput from "../components/CustomInput.jsx";
 
@@ -14,6 +14,8 @@ import Button from "../components/Button/Button.jsx";
 const SignIn = () => {
   const { user } = useSelector((state) => state.userInfo);
   const navigator = useNavigate();
+  const location = useLocation();
+  const path = location?.state?.pathname || "/user";
 
   const dispatchUser = useDispatch();
   const { form, handleOnChange, validationError } = useForm({
@@ -22,7 +24,7 @@ const SignIn = () => {
   });
 
   useEffect(() => {
-    user?._id ? navigator("/user") : dispatchUser(autoLogin());
+    user?._id ? navigator(path) : dispatchUser(autoLogin());
   }, [user?._id, navigator, dispatchUser]);
   const signInInput = [
     {

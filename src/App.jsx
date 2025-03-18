@@ -50,7 +50,6 @@ const App = () => {
             }
           ></Route>
         </Route>
-        
         {/* private routes */}( (
         <Route path="/user" element={<UserLayout></UserLayout>}>
           <Route index element={<Dashboard></Dashboard>}></Route>
