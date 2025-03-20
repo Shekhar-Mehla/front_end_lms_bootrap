@@ -15,6 +15,7 @@ export const autoLogin = () => async (dispach) => {
   if (acessJWT) {
     const { status, message } = await dispach(userAction());
     if (message === "jwt expired") {
+      console.log("this is nurring")
       const { payload } = await renewJwt();
 
       sessionStorage.setItem("accessJwt", payload);

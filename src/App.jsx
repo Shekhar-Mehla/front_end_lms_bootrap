@@ -53,7 +53,7 @@ const App = () => {
         {/* private routes */}( (
         <Route path="/user" element={<UserLayout></UserLayout>}>
           <Route index element={<Dashboard></Dashboard>}></Route>
-          <Route path="new-book" element={<NewBookForm />}></Route>
+          <Route path="insert-new-book" element={<NewBookForm />}></Route>
           <Route path="borrow-history" element={<Borrow></Borrow>}></Route>
           <Route path="reviews" element={<Review></Review>}></Route>
           <Route path="profile" element={<UserProfile></UserProfile>}></Route>

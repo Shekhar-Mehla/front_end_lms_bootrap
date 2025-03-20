@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import useForm from "../../../hooks/useForm";
 import CustomInput from "../../CustomInput";
 import { Form, Stack } from "react-bootstrap";
@@ -6,9 +6,17 @@ import Button from "../../Button/Button";
 import { motion } from "framer-motion";
 import { FaBookOpen } from "react-icons/fa";
 import { postNewBook } from "../../../services/BookApi";
+import { use } from "react";
 const NewBookForm = () => {
-  const { handleOnChange, form } = useForm({});
+  const { handleOnChange, form, setForm } = useForm({});
+  const [img, setImg] = useState();
+
   const formdata = new FormData();
+
+  const handleOnFileChange = (e) => {
+    const { files } = e.target;
+    setImg(files);
+  };
 
   const newBookFields = [
     {
@@ -41,7 +49,7 @@ const NewBookForm = () => {
     {
       label: "Publish Year",
       type: "number",
-      name: " publishedDate",
+      name: "publishedDate",
       placeholder: "enter publish",
       max: new Date().getFullYear(),
       min: 1500,
@@ -49,40 +57,44 @@ const NewBookForm = () => {
     {
       label: "Small Summary",
       type: "text",
-      name: " smallDescription",
+      name: "smallDescription",
       placeholder: "enter Small Summary",
     },
     {
       label: "Description",
       type: "text",
-      name: " description",
+      name: "description",
       placeholder: " Enter Book Description ",
       as: "textarea",
     },
     {
-      label: " Quantity",
+      label: "Quantity",
       type: "number",
-      name: " stockQuantity",
+      name: "stockQuantity",
       placeholder: " Enter Quantity ",
       min: 1,
-    },
-    {
-      label: "Choose Images",
-      type: "file",
-      name: "images",
-      multiple: true,
-      accept: "image/*",
     },
   ];
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    console.log(form);
     for (let key in form) {
-      console.log(key);
-      console.log(form[key]);
+      console.log(key, form[key]);
       formdata.append(key, form[key]);
     }
+
+    if (img.length) {
+      for (let index = 0; index < img.length; index++) {
+        formdata.append("images", img[index]);
+      }
+    }
     postNewBook(formdata);
+    for (let keys in form) {
+      console.log(keys);
+      formdata.delete(keys);
+    }
+    formdata.delete("images");
   };
 
   return (
@@ -109,7 +121,16 @@ const NewBookForm = () => {
           <FaBookOpen></FaBookOpen> Add new book!{" "}
         </h2>
         <hr />
-        <Stack gap={1} className="  ">
+        <Stack gap={1} className=" ">
+          <Form.Switch
+            className="d-flex align-items-center"
+            type="switch"
+            id="custom-switch"
+            name="status"
+            onChange={handleOnChange}
+            label={<span className="mx-3">{form.status}</span>}
+          />
+
           {newBookFields.map((item) => (
             <CustomInput
               className=""
@@ -118,6 +139,19 @@ const NewBookForm = () => {
               onChange={handleOnChange}
             ></CustomInput>
           ))}
+          <Form.Label className="fw-bolder text-white">
+            Choose files
+            <span className="text-danger fw-bolder ">*</span>
+          </Form.Label>
+
+          <Form.Control
+            name="images"
+            type="file"
+            multiple
+            accept="image/*"
+            onChange={handleOnFileChange}
+            required
+          />
 
           <Button name={"Add"} type="submit"></Button>
         </Stack>

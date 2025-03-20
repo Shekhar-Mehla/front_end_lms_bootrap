@@ -7,21 +7,28 @@ const handleOnChange = ({
   e,
   setForm,
   form,
-  validationError,
+
   setValidationError,
 }) => {
-  
-  const { value, name } = e.target;
+  let { value, name, checked } = e.target;
+  if (name == "status") {
+    checked === true ? (value = "active") : (value = "inActive");
+  }
 
   const errorrobj = InputValidator(name, value, form.password);
 
   setValidationError({ ...errorrobj });
 
-  return setForm({ ...form, [name]: value });
+  return setForm({
+    ...form,
+    [name]: value,
+  });
 };
 
 const useForm = (initial_state) => {
   const [form, setForm] = useState(initial_state);
+  const [images, setImages] = useState([]);
+
   const [validationError, setValidationError] = useState({
     FName: "",
     LName: "",
@@ -38,7 +45,15 @@ const useForm = (initial_state) => {
 
     setForm,
     handleOnChange: (e) =>
-      handleOnChange({ e, setForm, form, setValidationError, validationError }),
+      handleOnChange({
+        e,
+        setForm,
+        form,
+        setValidationError,
+        validationError,
+        images,
+        setImages,
+      }),
   };
 };
 
