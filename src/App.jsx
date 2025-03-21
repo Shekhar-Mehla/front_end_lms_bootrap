@@ -12,6 +12,7 @@ import {
   UserProfile,
   UserList,
   ForgotPassword,
+  BookList,
 } from "./index.js";
 import DefulatLayout from "./components/DefualtLayout/DefulatLayout.jsx";
 import UserLayout from "./components/DefualtLayout/UserLayout.jsx";
@@ -54,6 +55,7 @@ const App = () => {
         <Route path="/user" element={<UserLayout></UserLayout>}>
           <Route index element={<Dashboard></Dashboard>}></Route>
           <Route path="insert-new-book" element={<NewBookForm />}></Route>
+          <Route path="admin-book-table" element={<BookList />}></Route>
           <Route path="borrow-history" element={<Borrow></Borrow>}></Route>
           <Route path="reviews" element={<Review></Review>}></Route>
           <Route path="profile" element={<UserProfile></UserProfile>}></Route>
