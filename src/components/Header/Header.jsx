@@ -15,7 +15,7 @@ import { FaSignOutAlt } from "react-icons/fa";
 const Header = () => {
   const { user } = useSelector((state) => state.userInfo);
   return (
-    <Navbar expand="lg" data-bs-theme="dark" className="py-1 px-2">
+    <Navbar expand="lg" data-bs-theme="dark" className="py-2 px-2 shadow-lg">
       <Navbar.Brand href="/" className="text-white">
         <img src={logo} width={80} className="logo " alt="library logo" />
       </Navbar.Brand>
@@ -31,7 +31,7 @@ const Header = () => {
           </Link>
           {user?._id ? (
             <>
-              <Link className="nav-link text-white " to="/user">
+              <Link className="nav-link px-3 text-white " to="/user">
                 <AiFillDashboard /> Dashboard
               </Link>
               <Link

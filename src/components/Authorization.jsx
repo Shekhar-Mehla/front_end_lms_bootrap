@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  Navigate,
-  useLocation,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Authorization = ({ children }) => {

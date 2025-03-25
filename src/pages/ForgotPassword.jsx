@@ -32,12 +32,12 @@ const ForgotPassword = () => {
 
   const handleOnRequestOtpm = async (e) => {
     e.preventDefault();
-    console.log(e);
+
     // show loader
     setIsLoading(true);
     setdisabled(true);
     // call api
-    console.log(form);
+
     const { status } = await getotp(form);
     if (status) {
       setIsLoading(false);

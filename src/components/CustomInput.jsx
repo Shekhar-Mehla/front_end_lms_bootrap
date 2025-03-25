@@ -11,7 +11,7 @@ const CustomInput = ({ label, name, validationError = "", ...rest }) => {
     borderRadius: 5,
   };
   const target = useRef(null);
-  console.log(validationError);
+
   return (
     <div>
       <div className="inputsize">

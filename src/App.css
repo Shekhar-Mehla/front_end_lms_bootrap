@@ -3,14 +3,29 @@
   padding: 0px;
   box-sizing: border-box;
 }
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+.editPointer .edit :hover {
+  color: red;
+}
+
 main {
   width: 100vw;
   min-height: 80vh;
   background: url("./assets//images/lms_backgroud.jpg") center no-repeat;
   background-size: cover;
 }
+main .row {
+  --bs-gutter-x: 0 important;
+}
 .footer {
   height: 100px;
+}
+.table-responsive {
+  width: 100%;
+  padding: 10px;
 }
 
 body {

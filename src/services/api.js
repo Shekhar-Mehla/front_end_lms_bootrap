@@ -88,7 +88,6 @@ export const getotp = async (email) => {
   return await apihelper(obj);
 };
 export const changePassword = async (payload) => {
-  console.log(payload);
   const obj = {
     method: "put",
     url: baseUrl + "/auth/reset-password",

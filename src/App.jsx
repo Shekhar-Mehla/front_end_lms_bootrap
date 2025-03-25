@@ -25,13 +25,15 @@ import { useEffect } from "react";
 import { autoLogin } from "./feature/user/userAction.js";
 import NewBookForm from "./components/forms/BookForms/NewBookForm.jsx";
 
+import EditBook from "./pages/EditBook.jsx";
+
 const App = () => {
   const { user } = useSelector((state) => state.userInfo);
   const dispatchUser = useDispatch();
 
   useEffect(() => {
-    !user._id && dispatchUser(autoLogin());
-  }, []);
+    !user?._id && dispatchUser(autoLogin());
+  }, [user._id]);
   return (
     <div className="wrapper bg-dark d-flex flex-wrap flex-column">
       <Routes>
@@ -58,6 +60,7 @@ const App = () => {
           <Route path="admin-book-table" element={<BookList />}></Route>
           <Route path="borrow-history" element={<Borrow></Borrow>}></Route>
           <Route path="reviews" element={<Review></Review>}></Route>
+          <Route path="edit-book/:123" element={<EditBook></EditBook>}></Route>
           <Route path="profile" element={<UserProfile></UserProfile>}></Route>
           <Route path="user-list" element={<UserList></UserList>}></Route>
         </Route>

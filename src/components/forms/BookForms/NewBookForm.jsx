@@ -78,9 +78,8 @@ const NewBookForm = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    console.log(form);
+
     for (let key in form) {
-      console.log(key, form[key]);
       formdata.append(key, form[key]);
     }
 
@@ -91,7 +90,6 @@ const NewBookForm = () => {
     }
     postNewBook(formdata);
     for (let keys in form) {
-      console.log(keys);
       formdata.delete(keys);
     }
     formdata.delete("images");

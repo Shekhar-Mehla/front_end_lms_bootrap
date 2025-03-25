@@ -29,15 +29,7 @@ const useForm = (initial_state) => {
   const [form, setForm] = useState(initial_state);
   const [images, setImages] = useState([]);
 
-  const [validationError, setValidationError] = useState({
-    FName: "",
-    LName: "",
-    phone: "",
-    email: "",
-    password: "",
-
-    confirmpassword: "",
-  });
+  const [validationError, setValidationError] = useState({});
 
   return {
     form,

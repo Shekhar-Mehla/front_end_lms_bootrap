@@ -22,8 +22,6 @@ const OtpForm = () => {
       return;
     }
 
-    console.log("did not match");
-
     // call api here
   };
 

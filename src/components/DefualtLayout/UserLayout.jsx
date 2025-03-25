@@ -11,7 +11,7 @@ const UserLayout = () => {
 
   return (
     <Authorization>
-      <Container className="bg-dark">
+      <div className="bg-dark">
         <Row>
           <Col>
             <Header></Header>
@@ -19,13 +19,16 @@ const UserLayout = () => {
         </Row>
 
         <main>
-          <Row style={{ minHeight: "80vh" }} className="bg-dark text-white   ">
-            <Col md={3} sm={3} lg={2}>
+          <Row
+            style={{ minHeight: "100vh" }}
+            className="bg-dark text-white    "
+          >
+            <Col className="container" md={2}>
               <h3>Welccome Back name</h3>
               <hr />
               <SideBar></SideBar>
             </Col>
-            <Col className="" md={9} sm={9} lg={10}>
+            <Col md={10} className="container ">
               {" "}
               <Outlet></Outlet>
             </Col>
@@ -37,7 +40,7 @@ const UserLayout = () => {
             <Footer></Footer>
           </Col>
         </Row>
-      </Container>
+      </div>
     </Authorization>
   );
 };

@@ -13,21 +13,20 @@ const ActivateUser = () => {
   const _id = serchParams.get("id");
   const t = serchParams.get("t");
   const flagRef = t ? useRef(true) : useRef(false);
-  console.log(flagRef);
+
   useEffect(() => {
     if (_id && t && flagRef.current) {
       (async () => {
         const result = await activatUser(_id, t);
         const { status, message } = result;
         setLoader(false);
-        console.log(result);
+
         setResponse({
           status,
           message,
         });
       })();
       flagRef.current = false;
-      console.log(flagRef);
     }
   }, [_id, t]);
 
