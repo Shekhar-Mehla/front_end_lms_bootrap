@@ -23,12 +23,12 @@ const UserLayout = () => {
             style={{ minHeight: "100vh" }}
             className="bg-dark text-white    "
           >
-            <Col className="container" md={2}>
+            <Col className="container  " md={2}>
               <h3>Welccome Back name</h3>
               <hr />
               <SideBar></SideBar>
             </Col>
-            <Col md={10} className="container ">
+            <Col md={10} className="bg_form_background px-2 ">
               {" "}
               <Outlet></Outlet>
             </Col>

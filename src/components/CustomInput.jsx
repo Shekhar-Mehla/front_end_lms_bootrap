@@ -15,7 +15,7 @@ const CustomInput = ({ label, name, validationError = "", ...rest }) => {
   return (
     <div>
       <div className="inputsize">
-        <Form.Label className="fw-bolder text-white">
+        <Form.Label className="fw-bolder">
           {label}
           <span className="text-danger fw-bolder ">*</span>
         </Form.Label>

@@ -68,3 +68,14 @@ a {
   width: 3.2rem;
   height: 1.8rem;
 }
+
+.bg_form_background {
+  /* background: linear-gradient(to right, #f7c7b9, #f8e8e6); */
+  background-color: #d8cfc4; /* Light Taupe */
+  background-image: url("texture.png"); /* Subtle texture pattern */
+  background-size: cover;
+  font-family: "Verdana", sans-serif;
+  color: #4b4b4b; /* Darker text for contrast */
+  padding: 50px 0;
+  min-height: 100vh;
+}

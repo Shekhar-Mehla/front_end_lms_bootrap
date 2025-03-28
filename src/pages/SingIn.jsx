@@ -17,7 +17,7 @@ const SignIn = () => {
 
   const navigator = useNavigate();
   const location = useLocation();
-  const ref = useRef(true);
+
   const dispatchUser = useDispatch();
   const [loader, setLoader] = useState(true);
 
@@ -26,12 +26,9 @@ const SignIn = () => {
   const { form, handleOnChange, validationError } = useForm({});
 
   useEffect(() => {
-    if (ref.current == true) {
-      user?._id
-        ? navigator(path) && setLoader(false)
-        : dispatchUser(autoLogin());
-    }
-  }, []);
+    user?._id ? navigator(path) : loader && dispatchUser(autoLogin()) 
+    setLoader(false);
+  }, [user._id, path]);
 
   const signInInput = [
     {

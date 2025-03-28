@@ -1,7 +1,7 @@
 import React from "react";
 
 const LoaderPage = () => {
-  return <div>LoaderPage</div>;
+  return <div className="bg-danger">LoaderPage</div>;
 };
 
 export default LoaderPage;

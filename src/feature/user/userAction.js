@@ -21,7 +21,7 @@ export const autoLogin = () => async (dispach) => {
       const { payload } = await renewJwt();
 
       sessionStorage.setItem("accessJwt", payload);
-      return;
+      return await dispach(userAction());
     }
   }
   if (!acessJWT && refreshJwt) {
@@ -29,4 +29,5 @@ export const autoLogin = () => async (dispach) => {
     sessionStorage.setItem("accessJwt", payload);
     return await dispach(userAction());
   }
+  return;
 };
