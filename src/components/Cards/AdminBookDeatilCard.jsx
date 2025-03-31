@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, Image, Row } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import { useSelector } from "react-redux";
 import img from "../../../src/assets/images/library_logo.png";
@@ -30,12 +30,14 @@ const AdminBookDeatilCard = ({ bookId }) => {
   } = book;
   return (
     <div>
-      <Card style={{ width: "100%" }} className="d-flex flex-wrap">
+      <Card style={{ width: "100%" }} className="d-flex flex-wrap shadow-lg">
         <Row>
-          <Col className="">
+          <Col className="shadow-lg d-flex align-items-center justify-content-center ">
             {" "}
-            <Card.Img
+            <Image
+              thumbnail
               variant="top"
+              className=""
               // src={
               //   import.meta.env.VITE_BASE_URL_BACKEND_IMG +
               //   `${imageUrl.slice(6)}`
