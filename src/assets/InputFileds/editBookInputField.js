@@ -68,8 +68,7 @@ const editBookFields = [
     label: "Slug",
     type: "text",
     name: "slug",
-    disable: true,
-    required: true,
+    disabled: true,
   },
   {
     label: "Author",
@@ -80,10 +79,9 @@ const editBookFields = [
   },
   {
     label: "ISBN",
-    type: "text",
+    type: "number",
     name: "isbn",
-    disable: true,
-    required: true,
+    disabled: true,
   },
   {
     label: "Genre",
@@ -93,9 +91,9 @@ const editBookFields = [
   },
   {
     label: "Publish Year",
-    type: "number",
+    type: "date",
     name: "publishedDate",
-    
+
     max: new Date().getFullYear(),
     min: 1500,
   },

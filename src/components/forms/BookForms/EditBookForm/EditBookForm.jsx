@@ -1,7 +1,17 @@
 import { useEffect, useState } from "react";
 import useForm from "../../../../hooks/useForm";
 import { FaBookOpen } from "react-icons/fa";
-import { Button, Card, Col, Form, Row, Stack } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Col,
+  Form,
+  FormCheck,
+  FormGroup,
+  Image,
+  Row,
+  Stack,
+} from "react-bootstrap";
 import {
   Link,
   useNavigate,
@@ -13,25 +23,31 @@ import CustomInput from "../../../CustomInput";
 import { motion } from "framer-motion";
 import editBookFields from "../../../../assets/InputFileds/editBookInputField";
 import { useSelector } from "react-redux";
+import { updateBook } from "../../../../services/BookApi";
 
 const EditBookForm = () => {
   const { handleOnChange, form, setForm } = useForm({});
   const [img, setImg] = useState();
   const { slug } = useParams();
   const navigate = useNavigate();
-  console.log(slug);
+  const [publistDate, setPublishDate] = useState("");
+  const [thumbnail, setThumbanil] = useState("");
+
   const { bookList } = useSelector((state) => state.bookInfo);
 
-  const newBook = bookList?.find((book) => book.slug == slug);
-  console.log(newBook);
+  let newBook = bookList?.find((book) => book.slug == slug);
+
   useEffect(() => {
     if (!newBook?._id) {
       navigate("/user/admin-book-table");
     } else {
       setForm(newBook);
+      const formattedDate = new Date(newBook?.publishedDate)
+        .toISOString()
+        .split("T")[0];
+      setPublishDate(formattedDate);
     }
   }, []);
-  console.log(form);
 
   const formdata = new FormData();
 
@@ -40,7 +56,7 @@ const EditBookForm = () => {
     setImg(files);
   };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
 
     for (let key in form) {
@@ -52,10 +68,9 @@ const EditBookForm = () => {
         formdata.append("images", img[index]);
       }
     }
-    postNewBook(formdata);
-    for (let keys in form) {
-      formdata.delete(keys);
-    }
+    // call api one fordata is available
+    const result = await updateBook(formdata);
+
     formdata.delete("images");
   };
 
@@ -99,19 +114,46 @@ const EditBookForm = () => {
             </div>
             <form onSubmit={handleOnSubmit} className="card px-5 py-3">
               <Stack gap={1} className=" ">
-                {editBookFields.map((item) => (
-                  <CustomInput
-                    className={` px-3`}
-                    key={item.name}
-                    {...item}
-                    value={
-                      (item.name == item.name) == "isbn"
-                        ? Number(form[item.name].spllt("-").join())
-                        : form[item.name]
-                    }
-                    onChange={handleOnChange}
-                  ></CustomInput>
-                ))}
+                {editBookFields.map((item) => {
+                  return (
+                    <CustomInput
+                      className={` px-3`}
+                      key={item.name}
+                      {...item}
+                      value={
+                        item.name === "publishedDate"
+                          ? publistDate
+                          : form[item.name]
+                      }
+                      onChange={handleOnChange}
+                    ></CustomInput>
+                  );
+                })}
+                <Row className="d-flex px-2 overflow-auto">
+                  {newBook?.imageList?.map((url, i) => {
+                    console.log(url);
+                    console.log(form.imageUrl);
+                    return (
+                      <Col key={i} className="mt-3" style={{ width: "250px" }}>
+                        <FormGroup className="d-flex gap-1">
+                          <FormCheck
+                            type="radio"
+                            name={"imageUrl"}
+                            value={url}
+                            checked={url == form.imageUrl ? true : false}
+                            onChange={handleOnChange}
+                          ></FormCheck>
+                          <Form.Label>Make Thumbnail</Form.Label>
+                        </FormGroup>
+                        <Image
+                          thumbnail
+                          style={{ objectFit: "center", width: "100%" }}
+                          src={url}
+                        />
+                      </Col>
+                    );
+                  })}
+                </Row>
                 <Row className="d-flex gap-2">
                   <Col md={6} sm={6}>
                     {" "}
@@ -142,7 +184,7 @@ const EditBookForm = () => {
                       checked={form.status == "active" ? true : false}
                       label={
                         <span className="mx-3">
-                          {form.status ? form.status : "InActive"}
+                          {form?.status ? form.status : "InActive"}
                         </span>
                       }
                     />

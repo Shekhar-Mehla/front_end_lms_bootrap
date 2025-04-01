@@ -81,7 +81,7 @@ const BookList = () => {
               </tr>
             </thead>
             <tbody className="">
-              {bookList.map((book, i) => {
+              {bookList?.map((book, i) => {
                 return (
                   <tr key={book._id} className="">
                     <td>{i + 1}</td>
@@ -93,10 +93,7 @@ const BookList = () => {
                         //   `${book.imageUrl.slice(6)}`
                         // }
                         // src={book.imageUrl}
-                        src={
-                          import.meta.env.VITE_BASE_URL_BACKEND_IMG +
-                          "/img/1742947452883-799927221-library_logo.jpg"
-                        }
+                        src={book.imageUrl}
                         alt="book thumbnail"
                       />
                     </td>

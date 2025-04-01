@@ -10,3 +10,12 @@ export const postNewBook = async (payload) => {
   };
   return await apihelper(obj);
 };
+export const updateBook = async (formdata) => {
+  const obj = {
+    method: "post",
+    url: baseUrl + "/book/update-book",
+    data: formdata,
+    headers: { authorization: "bearer " + accessJwt() },
+  };
+  return await apihelper(obj);
+};
