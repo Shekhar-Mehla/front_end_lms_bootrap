@@ -28,14 +28,14 @@ import { updateBook } from "../../../../services/BookApi";
 const EditBookForm = () => {
   const { handleOnChange, form, setForm } = useForm({});
   const [img, setImg] = useState();
-  const { slug } = useParams();
+  const { _id } = useParams();
   const navigate = useNavigate();
   const [publistDate, setPublishDate] = useState("");
   const [thumbnail, setThumbanil] = useState("");
 
   const { bookList } = useSelector((state) => state.bookInfo);
 
-  let newBook = bookList?.find((book) => book.slug == slug);
+  let newBook = bookList?.find((book) => book._id === _id);
 
   useEffect(() => {
     if (!newBook?._id) {
@@ -58,19 +58,35 @@ const EditBookForm = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
+    const {
+      isbn,
+      slug,
+      updatedBy,
+      lastUpdatedBy,
+      __v,
+      updatedAt,
+      createdBy,
+      createdAt,
+      ...rest
+    } = form;
 
-    for (let key in form) {
-      formdata.append(key, form[key]);
+    for (let key in rest) {
+      console.log("this code is setting key to formdata running");
+      formdata.append(key, rest[key]);
     }
 
-    if (img.length) {
+    if (img?.length) {
       for (let index = 0; index < img.length; index++) {
         formdata.append("images", img[index]);
       }
     }
     // call api one fordata is available
     const result = await updateBook(formdata);
-
+    console.log(result);
+    for (let key in rest) {
+      console.log("this code is setting key to formdata running");
+      formdata.delete(key);
+    }
     formdata.delete("images");
   };
 
@@ -93,7 +109,7 @@ const EditBookForm = () => {
       </Row>
       <Row>
         <Col>
-          <motion.div
+          <div
             style={{ width: "" }}
             className="d-flex justify-content-center shadow "
             animate={{
@@ -112,7 +128,7 @@ const EditBookForm = () => {
             <div>
               <img src="" alt="" />
             </div>
-            <form onSubmit={handleOnSubmit} className="card px-5 py-3">
+            <Form onSubmit={handleOnSubmit} className="card px-5 py-3">
               <Stack gap={1} className=" ">
                 {editBookFields.map((item) => {
                   return (
@@ -130,16 +146,15 @@ const EditBookForm = () => {
                   );
                 })}
                 <Row className="d-flex px-2 overflow-auto">
+                  {console.log(newBook)}
                   {newBook?.imageList?.map((url, i) => {
-                    console.log(url);
-                    console.log(form.imageUrl);
                     return (
-                      <Col key={i} className="mt-3" style={{ width: "250px" }}>
+                      <Col key={i} className="mt-3" style={{ width: "200px" }}>
                         <FormGroup className="d-flex gap-1">
                           <FormCheck
                             type="radio"
                             name={"imageUrl"}
-                            value={url}
+                            value={url ?? ""}
                             checked={url == form.imageUrl ? true : false}
                             onChange={handleOnChange}
                           ></FormCheck>
@@ -147,8 +162,11 @@ const EditBookForm = () => {
                         </FormGroup>
                         <Image
                           thumbnail
-                          style={{ objectFit: "center", width: "100%" }}
-                          src={url}
+                          style={{ objectFit: "center", width: "90%" }}
+                          src={
+                            import.meta.env.VITE_BASE_URL_BACKEND_IMG +
+                            url.slice(6)
+                          }
                         />
                       </Col>
                     );
@@ -167,7 +185,6 @@ const EditBookForm = () => {
                       multiple
                       accept="image/*"
                       onChange={handleOnFileChange}
-                      required
                     />
                   </Col>
                   <Col>
@@ -195,7 +212,19 @@ const EditBookForm = () => {
                   Update
                 </Button>
               </Stack>
-            </form>
+            </Form>
+          </div>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <motion.div>
+            <div>
+              <strong>Last updated by</strong>:{form?.createdBy?.name || "N/A"}
+            </div>
+            <div>
+              <strong>Added by by</strong>:{form?.lastUpdatedBy?.name || "N/A"}
+            </div>
           </motion.div>
         </Col>
       </Row>

@@ -13,6 +13,8 @@ import { Link } from "react-router-dom";
 const NewBookForm = () => {
   const { handleOnChange, form, setForm } = useForm({});
   const [img, setImg] = useState();
+  
+  
 
   const formdata = new FormData();
 
@@ -83,6 +85,7 @@ const NewBookForm = () => {
     e.preventDefault();
 
     for (let key in form) {
+     
       formdata.append(key, form[key]);
     }
 
@@ -172,6 +175,7 @@ const NewBookForm = () => {
                       Status <span className="text-danger fw-bolder ">*</span>
                     </Form.Label>
                     <Form.Switch
+                      defaultValue={"InActive"}
                       className="d-flex align-items-center"
                       type="switch"
                       id="custom-switch"

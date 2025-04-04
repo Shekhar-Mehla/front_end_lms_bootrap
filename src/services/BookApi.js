@@ -16,6 +16,7 @@ export const updateBook = async (formdata) => {
     url: baseUrl + "/book/update-book",
     data: formdata,
     headers: { authorization: "bearer " + accessJwt() },
+    showloader: false,
   };
   return await apihelper(obj);
 };

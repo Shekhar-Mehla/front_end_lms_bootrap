@@ -60,7 +60,7 @@ const App = () => {
           <Route path="admin-book-table" element={<BookList />}></Route>
           <Route path="borrow-history" element={<Borrow></Borrow>}></Route>
           <Route path="reviews" element={<Review></Review>}></Route>
-          <Route path="edit-book/:slug" element={<EditBook></EditBook>}></Route>
+          <Route path="edit-book/:_id" element={<EditBook></EditBook>}></Route>
           <Route path="profile" element={<UserProfile></UserProfile>}></Route>
           <Route path="user-list" element={<UserList></UserList>}></Route>
         </Route>

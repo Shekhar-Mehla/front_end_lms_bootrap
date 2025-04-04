@@ -30,7 +30,7 @@ export const apihelper = async ({
         data,
         headers,
       });
-     
+
       return result.data;
     }
   } catch (error) {
@@ -39,7 +39,7 @@ export const apihelper = async ({
       toast.error(error.response.data.message);
     }
 
-    return error.response.data || error;
+    return error?.response?.data || error;
   }
 };
 

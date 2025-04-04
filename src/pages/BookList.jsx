@@ -30,7 +30,6 @@ const BookList = () => {
   const { bookList } = useSelector((state) => state.bookInfo);
 
   const ref = useRef(true);
-  console.log(bookList);
 
   useEffect(() => {
     ref.current === true && dispatch(bookActions());
@@ -54,7 +53,7 @@ const BookList = () => {
           </Row>
           <Row className="d-flex justify-content-between mt-3 mb-3">
             <Col sm={4}>
-              <h4>10 books found</h4>{" "}
+              <h4>{bookList.length} books found</h4>{" "}
             </Col>
           </Row>
         </Col>
@@ -88,12 +87,12 @@ const BookList = () => {
                     <td>
                       <img
                         style={{ width: "60px" }}
-                        // src={
-                        //   import.meta.env.VITE_BASE_URL_BACKEND_IMG +
-                        //   `${book.imageUrl.slice(6)}`
-                        // }
+                        src={
+                          import.meta.env.VITE_BASE_URL_BACKEND_IMG +
+                          `${book.imageUrl.slice(6)}`
+                        }
                         // src={book.imageUrl}
-                        src={book.imageUrl}
+                        // src={book.imageUrl}
                         alt="book thumbnail"
                       />
                     </td>
@@ -116,7 +115,7 @@ const BookList = () => {
                         </Col>
                         <Col md={4} className="flex-1">
                           <Link
-                            to={`/user/edit-book/${book.slug}`}
+                            to={`/user/edit-book/${book._id}`}
                             className="text-dark editPointer"
                           >
                             <Button variant="warning ">

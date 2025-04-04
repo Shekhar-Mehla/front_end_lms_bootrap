@@ -3,6 +3,7 @@ import { Col, Image, Row } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import { useSelector } from "react-redux";
 import img from "../../../src/assets/images/library_logo.png";
+import { motion } from "framer-motion";
 
 const AdminBookDeatilCard = ({ bookId }) => {
   const { bookList } = useSelector((state) => state.bookInfo);
@@ -32,21 +33,18 @@ const AdminBookDeatilCard = ({ bookId }) => {
     <div>
       <Card style={{ width: "100%" }} className="d-flex flex-wrap shadow-lg">
         <Row>
-          <Col className="shadow-lg d-flex align-items-center justify-content-center ">
-            {" "}
+          <Col className="shadow-lg  align-items-center justify-content-center ">
             <Image
               thumbnail
               variant="top"
               className=""
-              // src={
-              //   import.meta.env.VITE_BASE_URL_BACKEND_IMG +
-              //   `${imageUrl.slice(6)}`
-              // }
-
-              // src={imageUrl}
-              src={img}
+              src={
+                import.meta.env.VITE_BASE_URL_BACKEND_IMG +
+                `${imageUrl.slice(6)}`
+              }
             />
           </Col>
+
           <Col>
             <Card.Body>
               <Card.Title>**{title}**</Card.Title>
@@ -57,11 +55,13 @@ const AdminBookDeatilCard = ({ bookId }) => {
                 <br />
                 <strong>ISBN:</strong> {isbn}
                 <br></br>
-                <strong>Publish Date:</strong> {publishedDate}
+                <strong>Publish Date:</strong>{" "}
+                {new Date(publishedDate).toISOString().split("T")[0]}
                 <br />
                 <strong>Added By:</strong> {createdBy.name}
                 <br />
-                <strong>Added Date:</strong> {createdAt}
+                <strong>Added Date:</strong>{" "}
+                {new Date(createdAt).toISOString().split("T")[0]}
                 <br />
                 <strong>Last Updated By:</strong>{" "}
                 {lastUpdatedBy.name.length ? lastUpdatedBy.name : "N/A"}
@@ -69,12 +69,31 @@ const AdminBookDeatilCard = ({ bookId }) => {
                 <strong>Status:</strong> {status}
                 <br />
                 <strong>Availability:</strong>{" "}
-                {stockQuantity.length ? stockQuantity : "none"}
+                {stockQuantity ? stockQuantity : "none"}
                 <br />
+              </Card.Text>
+              <Card.Text>
+                <small>Last Updated Date:</small>{" "}
+                {new Date(updatedAt).toISOString().split("T")[0]}
               </Card.Text>
             </Card.Body>
             <Card.Footer>
-              <small>Last Updated Date:</small> {updatedAt}
+              <Row
+                className=""
+                style={{ width: "250px", height: "250px", overflow: "auto" }}
+              >
+                {book?.imageList?.map((url) => (
+                  <Col key={url}>
+                    <Image
+                      style={{ width: "100%" }}
+                      src={
+                        import.meta.env.VITE_BASE_URL_BACKEND_IMG +
+                        `${url.slice(6)}`
+                      }
+                    ></Image>
+                  </Col>
+                ))}
+              </Row>
             </Card.Footer>
           </Col>
         </Row>
