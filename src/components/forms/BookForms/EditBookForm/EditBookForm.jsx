@@ -23,7 +23,7 @@ import CustomInput from "../../../CustomInput";
 import { motion } from "framer-motion";
 import editBookFields from "../../../../assets/InputFileds/editBookInputField";
 import { useSelector } from "react-redux";
-import { updateBook } from "../../../../services/BookApi";
+import { deletBook, updateBook } from "../../../../services/BookApi";
 
 const EditBookForm = () => {
   const { handleOnChange, form, setForm } = useForm({});
@@ -31,12 +31,16 @@ const EditBookForm = () => {
   const { _id } = useParams();
   const navigate = useNavigate();
   const [publistDate, setPublishDate] = useState("");
-  const [thumbnail, setThumbanil] = useState("");
-
+  const [imageToDelete, setImageToDelete] = useState([]);
   const { bookList } = useSelector((state) => state.bookInfo);
 
   let newBook = bookList?.find((book) => book._id === _id);
-
+  const handleOnChangeToDeleteImage = (e) => {
+    const { checked, value } = e.target;
+    checked === true
+      ? setImageToDelete([...imageToDelete, value])
+      : setImageToDelete(imageToDelete?.filter((img) => img !== value));
+  };
   useEffect(() => {
     if (!newBook?._id) {
       navigate("/user/admin-book-table");
@@ -80,20 +84,35 @@ const EditBookForm = () => {
         formdata.append("images", img[index]);
       }
     }
+    if (imageToDelete.length) {
+      if (imageToDelete.includes(form.imageUrl)) {
+        return alert("You cannot delete the thumbnail");
+      }
+      formdata.append("imageToDelete", imageToDelete);
+    }
     // call api one fordata is available
+
     const result = await updateBook(formdata);
-    console.log(result);
+
     for (let key in rest) {
       console.log("this code is setting key to formdata running");
       formdata.delete(key);
     }
     formdata.delete("images");
+    formdata.delete("imageToDelete");
+    navigate("/user/admin-book-table");
+  };
+  const handleOnDeleteBook = async (_id) => {
+    const { status } = await deletBook(_id);
+    if (status === "success") {
+      navigate("/user/admin-book-table");
+    }
   };
 
   return (
     <div>
       <h2 className="px-3 text-dark">
-        <FaBookOpen></FaBookOpen> EDIT BOOK FORM{" "}
+        <FaBookOpen></FaBookOpen> EDIT BOOK FORM
       </h2>
 
       <div>
@@ -111,7 +130,7 @@ const EditBookForm = () => {
         <Col>
           <div
             style={{ width: "" }}
-            className="d-flex justify-content-center shadow "
+            className="d-flex  justify-content-center shadow "
             animate={{
               scale: [0, 1],
 
@@ -125,97 +144,118 @@ const EditBookForm = () => {
               repeatDelay: 1,
             }}
           >
-            <div>
-              <img src="" alt="" />
-            </div>
-            <Form onSubmit={handleOnSubmit} className="card px-5 py-3">
-              <Stack gap={1} className=" ">
-                {editBookFields.map((item) => {
-                  return (
-                    <CustomInput
-                      className={` px-3`}
-                      key={item.name}
-                      {...item}
-                      value={
-                        item.name === "publishedDate"
-                          ? publistDate
-                          : form[item.name]
-                      }
-                      onChange={handleOnChange}
-                    ></CustomInput>
-                  );
-                })}
-                <Row className="d-flex px-2 overflow-auto">
-                  {console.log(newBook)}
-                  {newBook?.imageList?.map((url, i) => {
+            <Card className="px-2 py-2">
+              <Form onSubmit={handleOnSubmit}>
+                <Stack gap={1} className=" ">
+                  {editBookFields.map((item) => {
                     return (
-                      <Col key={i} className="mt-3" style={{ width: "200px" }}>
-                        <FormGroup className="d-flex gap-1">
-                          <FormCheck
-                            type="radio"
-                            name={"imageUrl"}
-                            value={url ?? ""}
-                            checked={url == form.imageUrl ? true : false}
-                            onChange={handleOnChange}
-                          ></FormCheck>
-                          <Form.Label>Make Thumbnail</Form.Label>
-                        </FormGroup>
-                        <Image
-                          thumbnail
-                          style={{ objectFit: "center", width: "90%" }}
-                          src={
-                            import.meta.env.VITE_BASE_URL_BACKEND_IMG +
-                            url.slice(6)
-                          }
-                        />
-                      </Col>
+                      <CustomInput
+                        className={` px-3`}
+                        key={item.name}
+                        {...item}
+                        value={
+                          item.name === "publishedDate"
+                            ? publistDate
+                            : form[item.name]
+                        }
+                        onChange={handleOnChange}
+                      ></CustomInput>
                     );
                   })}
-                </Row>
-                <Row className="d-flex gap-2">
-                  <Col md={6} sm={6}>
-                    {" "}
-                    <Form.Label className="fw-bolder  ">
-                      Choose files
-                      <span className="text-danger fw-bolder ">*</span>
-                    </Form.Label>
-                    <Form.Control
-                      name="images"
-                      type="file"
-                      multiple
-                      accept="image/*"
-                      onChange={handleOnFileChange}
-                    />
-                  </Col>
-                  <Col>
-                    <Form.Label className="fw-bolder">
-                      Status <span className="text-danger fw-bolder ">*</span>
-                    </Form.Label>
-                    <Form.Switch
-                      className="d-flex align-items-center"
-                      type="switch"
-                      id="custom-switch"
-                      name="status"
-                      onChange={handleOnChange}
-                      value={form.status}
-                      checked={form.status == "active" ? true : false}
-                      label={
-                        <span className="mx-3">
-                          {form?.status ? form.status : "InActive"}
-                        </span>
-                      }
-                    />
-                  </Col>
-                </Row>
+                  <Row className="d-flex px-2 overflow-auto">
+                    {newBook?.imageList?.map((url, i) => {
+                      return (
+                        <Col
+                          key={i}
+                          className="mt-3"
+                          style={{ width: "200px" }}
+                        >
+                          <FormGroup className="d-flex gap-1">
+                            <FormCheck
+                              type="radio"
+                              name={"imageUrl"}
+                              value={url ?? ""}
+                              checked={url == form.imageUrl ? true : false}
+                              onChange={handleOnChange}
+                            ></FormCheck>
+                            <Form.Label>Make Thumbnail</Form.Label>
+                          </FormGroup>
+                          <FormGroup className="d-flex gap-1">
+                            <FormCheck
+                              type="checkBox"
+                              name={"delete"}
+                              value={url}
+                              onChange={handleOnChangeToDeleteImage}
+                            ></FormCheck>
+                            <Form.Label>Delete</Form.Label>
+                          </FormGroup>
+                          <Image
+                            thumbnail
+                            style={{ objectFit: "center", width: "90%" }}
+                            src={
+                              import.meta.env.VITE_BASE_URL_BACKEND_IMG +
+                              url.slice(6)
+                            }
+                          />
+                        </Col>
+                      );
+                    })}
+                  </Row>
+                  <Row className="d-flex gap-2">
+                    <Col md={6} sm={6}>
+                      {" "}
+                      <Form.Label className="fw-bolder  ">
+                        Choose files
+                        <span className="text-danger fw-bolder ">*</span>
+                      </Form.Label>
+                      <Form.Control
+                        name="images"
+                        type="file"
+                        multiple
+                        accept="image/*"
+                        onChange={handleOnFileChange}
+                      />
+                    </Col>
+                    <Col>
+                      <Form.Label className="fw-bolder">
+                        Status <span className="text-danger fw-bolder ">*</span>
+                      </Form.Label>
+                      <Form.Switch
+                        className="d-flex align-items-center"
+                        type="switch"
+                        id="custom-switch"
+                        name="status"
+                        onChange={handleOnChange}
+                        value={form.status}
+                        checked={form.status == "active" ? true : false}
+                        label={
+                          <span className="mx-3">
+                            {form?.status ? form.status : "InActive"}
+                          </span>
+                        }
+                      />
+                    </Col>
+                  </Row>
 
-                <Button varient={"primary"} type="submit">
-                  Update
+                  <Button variant={"warning"} type="submit">
+                    Update
+                  </Button>
+                </Stack>
+              </Form>
+              <div className=" d-grid mt-2">
+                <Button
+                  onClick={() => handleOnDeleteBook(_id)}
+                  variant="danger"
+                  type="submit"
+                >
+                  Delete This Book
                 </Button>
-              </Stack>
-            </Form>
+              </div>
+            </Card>
           </div>
         </Col>
       </Row>
+
       <Row>
         <Col>
           <motion.div>

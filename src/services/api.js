@@ -10,6 +10,7 @@ export const apihelper = async ({
   headers,
   showloader = true,
 }) => {
+  
   try {
     if (showloader) {
       const pending = axios({
@@ -34,7 +35,6 @@ export const apihelper = async ({
       return result.data;
     }
   } catch (error) {
-    console.log(error);
     if (showloader) {
       toast.error(error.response.data.message);
     }

@@ -16,7 +16,16 @@ export const updateBook = async (formdata) => {
     url: baseUrl + "/book/update-book",
     data: formdata,
     headers: { authorization: "bearer " + accessJwt() },
-    showloader: false,
+  };
+  return await apihelper(obj);
+};
+export const deletBook = async (_id) => {
+  const obj = {
+    method: "delete",
+    url: baseUrl + `/book/delete-book`,
+    data: { _id },
+
+    headers: { authorization: "bearer " + accessJwt() },
   };
   return await apihelper(obj);
 };
