@@ -7,6 +7,7 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
+import { FaBookOpen } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -46,14 +47,14 @@ const BookList = () => {
           <Row>
             <Col className="d-flex justify-content-end">
               {" "}
-              <Link to="/user/insert-new-book">
-                <Button>ADD NEW Book</Button>
+              <Link className="btn btn-primary" to="/user/insert-new-book">
+                <FaBookOpen className="mx-2"></FaBookOpen>ADD NEW Book
               </Link>
             </Col>
           </Row>
           <Row className="d-flex justify-content-between mt-3 mb-3">
             <Col sm={4}>
-              <h4>{bookList.length} books found</h4>{" "}
+              <h4>{bookList.length} books found</h4>
             </Col>
           </Row>
         </Col>
@@ -103,29 +104,26 @@ const BookList = () => {
 
                     <td>{book.status}</td>
 
-                    <td className="">
-                      <Row className="d-flex gap-1   ">
-                        <Col md={7}>
+                    <td>
+                      <div className="d-flex  gap-2">
+                        <div className="flex-2">
                           <Button
                             variant="primary"
                             onClick={() => handleShow(book._id)}
                           >
                             View Deatials
                           </Button>
-                        </Col>
-                        <Col md={4} className="flex-1">
+                        </div>
+                        <div>
                           <Link
+                            className="btn btn-warning"
                             to={`/user/edit-book/${book._id}`}
-                            className="text-dark editPointer"
                           >
-                            <Button variant="warning ">
-                              {" "}
-                              <FaRegEdit className="  "></FaRegEdit>{" "}
-                              <span>Edit</span>
-                            </Button>
+                            <FaRegEdit className="  "></FaRegEdit>{" "}
+                            <span>Edit</span>
                           </Link>
-                        </Col>
-                      </Row>
+                        </div>
+                      </div>
                     </td>
                   </tr>
                 );

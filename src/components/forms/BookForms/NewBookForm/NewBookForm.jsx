@@ -10,82 +10,33 @@ import style from "./NewBookForm.module.css";
 import formImg from "../../../../assets/images/newBookFORM.jpg";
 import { IoArrowBackOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import newBookFields from "../../../../assets/InputFileds/newBookInputfileds.js";
 const NewBookForm = () => {
-  const { handleOnChange, form, setForm } = useForm({});
+  const initailState = {
+    title: "",
+    author: "",
+    isbn: " ",
+    genre: "",
+    description: "",
+    publishedDate: "",
+    smallDescription: "",
+    stockQuantity: "",
+    status: "inActive",
+  };
+  const { handleOnChange, form, setForm } = useForm(initailState);
   const [img, setImg] = useState();
-  
-  
 
   const formdata = new FormData();
 
   const handleOnFileChange = (e) => {
-    const { files } = e.target;
+    const { files, value } = e.target;
     setImg(files);
   };
 
-  const newBookFields = [
-    {
-      label: "Title",
-      type: "text",
-      name: "title",
-      placeholder: "book tittile",
-      required: true,
-    },
-    {
-      label: "Author",
-      type: "text",
-      name: "author",
-      placeholder: "Author Name",
-      required: true,
-    },
-    {
-      label: "ISBN",
-      type: "number",
-      name: "isbn",
-      placeholder: "Enter isbn number",
-      required: true,
-    },
-    {
-      label: "Genre",
-      type: "text",
-      name: "genre",
-      placeholder: "enter genre",
-    },
-    {
-      label: "Publish Year",
-      type: "number",
-      name: "publishedDate",
-      placeholder: "enter publish",
-      max: new Date().getFullYear(),
-      min: 1500,
-    },
-    {
-      label: "Small Description",
-      type: "text",
-      name: "smallDescription",
-      placeholder: "enter Small Summary",
-    },
-    {
-      label: "Description",
-      type: "text",
-      name: "description",
-      placeholder: " Enter Book Description ",
-      as: "textarea",
-    },
-    {
-      label: "Quantity",
-      type: "number",
-      name: "stockQuantity",
-      placeholder: " Enter Quantity ",
-      min: 1,
-    },
-  ];
-
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
 
     for (let key in form) {
-     
       formdata.append(key, form[key]);
     }
 
@@ -94,11 +45,16 @@ const NewBookForm = () => {
         formdata.append("images", img[index]);
       }
     }
-    postNewBook(formdata);
-    for (let keys in form) {
-      formdata.delete(keys);
+    const { status } = await postNewBook(formdata);
+    console.log(status);
+    if (status == "success") {
+      console.log("yes");
+      setForm(initailState);
+      for (let keys in form) {
+        formdata.delete(keys);
+      }
+      formdata.delete("images");
     }
-    formdata.delete("images");
   };
 
   return (
@@ -151,6 +107,7 @@ const NewBookForm = () => {
                     className={`${style.round} px-3`}
                     key={item.name}
                     {...item}
+                    value={form[item.name]}
                     onChange={handleOnChange}
                   ></CustomInput>
                 ))}
@@ -168,6 +125,7 @@ const NewBookForm = () => {
                       accept="image/*"
                       onChange={handleOnFileChange}
                       required
+                      value={form.images}
                     />
                   </Col>
                   <Col>
@@ -181,6 +139,7 @@ const NewBookForm = () => {
                       id="custom-switch"
                       name="status"
                       onChange={handleOnChange}
+                      value={form.status}
                       label={
                         <span className="mx-3">
                           {form.status ? form.status : "InActive"}

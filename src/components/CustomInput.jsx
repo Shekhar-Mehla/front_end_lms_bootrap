@@ -11,6 +11,7 @@ const CustomInput = ({ label, name, validationError = "", ...rest }) => {
     borderRadius: 5,
   };
   const target = useRef(null);
+  
 
   return (
     <div>
@@ -24,6 +25,7 @@ const CustomInput = ({ label, name, validationError = "", ...rest }) => {
             className=""
             {...rest}
             name={name}
+            
             isInvalid={validationError[name]?.length ? true : false}
             ref={target}
           />

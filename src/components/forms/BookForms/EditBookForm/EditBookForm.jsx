@@ -103,9 +103,14 @@ const EditBookForm = () => {
     navigate("/user/admin-book-table");
   };
   const handleOnDeleteBook = async (_id) => {
-    const { status } = await deletBook(_id);
-    if (status === "success") {
-      navigate("/user/admin-book-table");
+    confirm(
+      "Are you sure you want to delete this book? This action cannot be undone."
+    );
+    if (window.confirm == true) {
+      const { status } = await deletBook(_id);
+      if (status === "success") {
+        navigate("/user/admin-book-table");
+      }
     }
   };
 
