@@ -43,7 +43,6 @@ const AdminBookDeatilCard = ({ bookId }) => {
               {imageList?.map((path) => (
                 <Carousel.Item key={path}>
                   <img
-                    className="w-100"
                     src={
                       import.meta.env.VITE_BASE_URL_BACKEND_IMG +
                       `${path.slice(6)}`
@@ -56,14 +55,16 @@ const AdminBookDeatilCard = ({ bookId }) => {
         ) : (
           <>
             {" "}
-            <img
-              width={"80%"}
-              className="img-thumbnail"
-              src={
-                import.meta.env.VITE_BASE_URL_BACKEND_IMG +
-                `${imageUrl.slice(6)}`
-              }
-            />
+            <div style={{ height: "30vh" }}>
+              <img
+                style={{ height: "30vh", width: "100%", objectFit: "contain" }}
+                className="img-thumbnail"
+                src={
+                  import.meta.env.VITE_BASE_URL_BACKEND_IMG +
+                  `${imageUrl.slice(6)}`
+                }
+              />
+            </div>
           </>
         )}
       </center>

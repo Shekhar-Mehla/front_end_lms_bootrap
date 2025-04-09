@@ -83,3 +83,27 @@ a {
   scale: 1.5;
   cursor: pointer;
 }
+/* carasoul style start */
+
+.carousel-item {
+  height: 30vh;
+}
+.carousel-item img {
+  height: 30vh;
+  object-fit: contain;
+  display: block;
+  width: 100%;
+}
+/* carasoul style end */
+
+.imgscroll::-webkit-scrollbar {
+  height: 10px;
+  background-color: rgba(182, 182, 178, 0.555);
+  border-radius: 10px;
+  border: 2px solid black;
+}
+.imgscroll::-webkit-scrollbar-thumb {
+  background-color: red;
+  width: 1px;
+  border-radius: 10px;
+}

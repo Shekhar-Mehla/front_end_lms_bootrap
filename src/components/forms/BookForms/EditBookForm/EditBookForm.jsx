@@ -123,16 +123,16 @@ const EditBookForm = () => {
       <div>
         <hr />
       </div>
-      <Row>
-        <Col md={6} className="px-2 d-flex flex-wrap ">
+      <Row className="">
+        <Col className="px-2 ">
           {" "}
           <Link className="text-primary" to="/user/admin-book-table">
             <IoArrowBackOutline className=""></IoArrowBackOutline>Go Back
           </Link>
         </Col>
       </Row>
-      <Row>
-        <Col>
+      <Row className="d-flex justify-content-center">
+        <Col md={6}>
           <div
             style={{ width: "" }}
             className="d-flex  justify-content-center shadow "
@@ -167,14 +167,10 @@ const EditBookForm = () => {
                       ></CustomInput>
                     );
                   })}
-                  <Row className="d-flex px-2 overflow-auto">
+                  <Row className=" d-flex flex-nowrap gap-2 imgscroll overflow-auto  ">
                     {newBook?.imageList?.map((url, i) => {
                       return (
-                        <Col
-                          key={i}
-                          className="mt-3"
-                          style={{ width: "200px" }}
-                        >
+                        <Col key={i} className="mt-3 ">
                           <FormGroup className="d-flex gap-1">
                             <FormCheck
                               type="radio"
@@ -194,14 +190,27 @@ const EditBookForm = () => {
                             ></FormCheck>
                             <Form.Label>Delete</Form.Label>
                           </FormGroup>
-                          <Image
-                            thumbnail
-                            style={{ objectFit: "center", width: "90%" }}
-                            src={
-                              import.meta.env.VITE_BASE_URL_BACKEND_IMG +
-                              url.slice(6)
-                            }
-                          />
+                          <div
+                            className="  gap-1"
+                            style={{
+                              overflow: "auto",
+                            }}
+                          >
+                            <Image
+                              thumbnail
+                              style={{
+                                maxheight: "30vh",
+                                display: "inline-block",
+                                width: "100%",
+                                objectPosition: "center",
+                                padding: "5px",
+                              }}
+                              src={
+                                import.meta.env.VITE_BASE_URL_BACKEND_IMG +
+                                url.slice(6)
+                              }
+                            />
+                          </div>
                         </Col>
                       );
                     })}
@@ -262,7 +271,7 @@ const EditBookForm = () => {
       </Row>
 
       <Row>
-        <Col>
+        <Col md={6}>
           <motion.div>
             <div>
               <strong>Last updated by</strong>:{form?.createdBy?.name || "N/A"}
