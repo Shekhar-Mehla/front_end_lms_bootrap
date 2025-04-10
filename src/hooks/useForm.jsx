@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useState } from "react";
 
 import InputValidator from "../Utility/validators/InputValidator.jsx";
 
@@ -13,6 +13,9 @@ const handleOnChange = ({
   let { value, name, checked } = e.target;
   if (name == "status") {
     checked === true ? (value = "active") : (value = "inActive");
+  }
+  if (name == "Carousel") {
+    checked === true ? (value = "Yes") : (value = "No");
   }
 
   const errorrobj = InputValidator(name, value, form.password);

@@ -3,7 +3,7 @@ import CustomCarousel from "../../Carousels/CustomCarousel";
 
 const Hero = () => {
   return (
-    <div className="mt-2" style={{ height: "40vh", background: "red" }}>
+    <div className="mt-2 p-2" style={{ height: "40vh" }}>
       <CustomCarousel></CustomCarousel>;
     </div>
   );

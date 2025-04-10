@@ -46,13 +46,14 @@ const EditBookForm = () => {
       navigate("/user/admin-book-table");
     } else {
       setForm(newBook);
+
       const formattedDate = new Date(newBook?.publishedDate)
         .toISOString()
         .split("T")[0];
       setPublishDate(formattedDate);
     }
   }, []);
-
+  console.log(form);
   const formdata = new FormData();
 
   const handleOnFileChange = (e) => {
@@ -216,7 +217,7 @@ const EditBookForm = () => {
                     })}
                   </Row>
                   <Row className="d-flex gap-2">
-                    <Col md={6} sm={6}>
+                    <Col md={4}>
                       {" "}
                       <Form.Label className="fw-bolder  ">
                         Choose files
@@ -228,6 +229,26 @@ const EditBookForm = () => {
                         multiple
                         accept="image/*"
                         onChange={handleOnFileChange}
+                      />
+                    </Col>
+                    <Col md={3} className="my-1">
+                      <Form.Label className="fw-bolder">
+                        CAROUSEL
+                        <span className="text-danger fw-bolder ">*</span>
+                      </Form.Label>
+                      <Form.Switch
+                        className="d-flex align-items-center"
+                        type="switch"
+                        id="custom-switch"
+                        name="Carousel"
+                        onChange={handleOnChange}
+                        value={form.Carousel}
+                        checked={form.Carousel == "Yes" ? true : false}
+                        label={
+                          <span className="mx-3">
+                            {form.Carousel == "Yes" ? "YES" : "No"}
+                          </span>
+                        }
                       />
                     </Col>
                     <Col>

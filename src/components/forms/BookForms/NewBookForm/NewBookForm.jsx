@@ -22,6 +22,7 @@ const NewBookForm = () => {
     smallDescription: "",
     stockQuantity: "",
     status: "inActive",
+    Carousel: "No",
   };
   const { handleOnChange, form, setForm } = useForm(initailState);
   const [img, setImg] = useState();
@@ -50,13 +51,13 @@ const NewBookForm = () => {
     if (status == "success") {
       console.log("yes");
       setForm(initailState);
-      for (let keys in form) {
-        formdata.delete(keys);
-      }
-      formdata.delete("images");
     }
+    for (let keys in form) {
+      formdata.delete(keys);
+    }
+    formdata.delete("images");
   };
-
+  console.log(form);
   return (
     <div className={style.bg_form_background}>
       <h2 className="px-3 text-dark">
@@ -111,9 +112,9 @@ const NewBookForm = () => {
                     onChange={handleOnChange}
                   ></CustomInput>
                 ))}
-                <Row className="d-flex gap-2">
-                  <Col md={6} sm={6}>
-                    {" "}
+                <Row className="d-flex  gap-4">
+                  <Col md={4}>
+                    <div className=""></div>
                     <Form.Label className="fw-bolder  ">
                       Choose files
                       <span className="text-danger fw-bolder ">*</span>
@@ -126,6 +127,26 @@ const NewBookForm = () => {
                       onChange={handleOnFileChange}
                       required
                       value={form.images}
+                    />
+                  </Col>
+                  <Col md={3} className="my-1">
+                    <Form.Label className="fw-bolder">
+                      CAROUSEL
+                      <span className="text-danger fw-bolder ">*</span>
+                    </Form.Label>
+                    <Form.Switch
+                      defaultValue={"No"}
+                      className="d-flex align-items-center"
+                      type="switch"
+                      id="custom-switch"
+                      name="Carousel"
+                      onChange={handleOnChange}
+                      value={form.Carousel}
+                      label={
+                        <span className="mx-3">
+                          {form.Carousel == "Yes" ? "YES" : "No"}
+                        </span>
+                      }
                     />
                   </Col>
                   <Col>

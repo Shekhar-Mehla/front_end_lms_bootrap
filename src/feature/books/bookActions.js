@@ -1,11 +1,15 @@
-import { fetchBookAdmin } from "./booksApi.js";
+import { fetchBookAdmin,fetchPublickBook } from "./booksApi.js";
 import { setBookList } from "./bookSlice.js";
 
-const bookActions = () => async (dispach) => {
+export const AdminbookActions = () => async (dispach) => {
   // call book api
   const { payload, status } = await fetchBookAdmin();
 
   return dispach(setBookList(payload));
 };
+export const publicBookActions = () => async (dispach) => {
+  // call book api
+  const { payload, status } = await fetchPublickBook();
 
-export default bookActions;
+  return dispach(setBookList(payload));
+};

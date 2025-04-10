@@ -12,3 +12,12 @@ export const fetchBookAdmin = async () => {
   };
   return await apihelper(obj);
 };
+export const fetchPublickBook = async () => {
+  const obj = {
+    method: "get",
+    url: baseUrl + "/book",
+
+    showloader: false,
+  };
+  return await apihelper(obj);
+};
