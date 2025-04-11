@@ -26,7 +26,7 @@ const SignIn = () => {
   const { form, handleOnChange, validationError } = useForm({});
 
   useEffect(() => {
-    user?._id ? navigator(path) : loader && dispatchUser(autoLogin()) 
+    user?._id ? navigator(path) : loader && dispatchUser(autoLogin());
     setLoader(false);
   }, [user._id, path]);
 
@@ -109,7 +109,7 @@ const SignIn = () => {
                         {...item}
                       ></CustomInput>
                     ))}
-                    <Button type={"submit"} name={"signIn"}></Button>
+                    <Button>Sign In</Button>
                   </Form>
                   <Card.Text className="me-auto">
                     dont have account ?{" "}

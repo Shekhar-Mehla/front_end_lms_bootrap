@@ -13,7 +13,7 @@ const CustomCarousel = () => {
 
   return (
     <Carousel
-      className="  rounded rounded-3 shadow-lg"
+      className="  rounded rounded-3 shadow-lg w-100"
       style={{ height: "40vh", paddingTop: "20px", background: "#172eed9e " }}
     >
       {carasoulList.map((book) => {
@@ -44,7 +44,10 @@ const CustomCarousel = () => {
               <div></div>
               <div>
                 <h2>{title}</h2>
-                <h4>{author}</h4>
+                <div>
+                  By:<strong>{author}</strong>
+                </div>
+                <h5>{smallDescription}</h5>
               </div>
               <div>
                 <img
