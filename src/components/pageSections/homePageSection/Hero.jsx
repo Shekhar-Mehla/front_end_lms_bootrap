@@ -4,9 +4,9 @@ import { Col, Container, Row } from "react-bootstrap";
 
 const Hero = () => {
   return (
-    <div className="mx-1 my-4 py-4 " style={{ height: "40vh", width: "100%" }}>
+    <div className=" " style={{ width: "100%" }}>
       {" "}
-      <CustomCarousel></CustomCarousel>;
+      <CustomCarousel></CustomCarousel>
     </div>
   );
 };

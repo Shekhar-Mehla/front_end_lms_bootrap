@@ -26,6 +26,7 @@ import { autoLogin } from "./feature/user/userAction.js";
 import NewBookForm from "./components/forms/BookForms/NewBookForm/NewBookForm.jsx";
 
 import EditBook from "./pages/EditBook.jsx";
+import PublicBookList from "./pages/PublicBookList.jsx";
 
 const App = () => {
   const { user } = useSelector((state) => state.userInfo);
@@ -42,6 +43,12 @@ const App = () => {
           <Route index element={<Home></Home>}></Route>
           <Route path="login" element={<SingIn></SingIn>}></Route>
           <Route path="register" element={<SignUp></SignUp>}></Route>
+
+          <Route
+            path="all-books"
+            element={<PublicBookList></PublicBookList>}
+          ></Route>
+          <Route path="book/:slug" element={<Book></Book>}></Route>
           <Route
             path="forgot-password"
             element={<ForgotPassword></ForgotPassword>}
@@ -52,6 +59,7 @@ const App = () => {
               <ActivateUser className="text-white bg-red"></ActivateUser>
             }
           ></Route>
+          <Route path="*" element={<h2>404 Page not found</h2>}></Route>
         </Route>
         {/* private routes */}( (
         <Route path="/user" element={<UserLayout></UserLayout>}>

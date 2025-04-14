@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import c from "../../assets/images/c1.jpg";
+
 import { Link } from "react-router-dom";
 import { Col } from "react-bootstrap";
 import { motion } from "framer-motion";
@@ -21,13 +21,25 @@ const ProductCard = ({
           transition: { duration: 0.4 },
         }}
       >
-        <Card style={{ width: "20rem" }} className="shadow-lg flex-grow-sm-1 ">
-          <div className="m-2 shadow-sm">
+        <Card
+          style={{ width: "20rem" }}
+          className="shadow-lg flex-grow-sm-1 d-flex justify-content-center align-items-center "
+        >
+          <div
+            className="m-2 px-2 d-flex justify-content-center align-items-center"
+            style={{ width: "250px", height: "250px" }}
+          >
             <Card.Img
+              style={{
+                width: "250px",
+                height: "250px",
+                objectFit: "contain",
+                objectPosition: "center",
+              }}
               className="rounded"
               variant="top"
               src={
-                import.meta.env.VITE_BASE_URL_BACKEND_IMG + imageUrl.slice(6)
+                import.meta.env.VITE_BASE_URL_BACKEND_IMG + imageUrl?.slice(6)
               }
             />
           </div>
@@ -37,7 +49,7 @@ const ProductCard = ({
               {author}-{publishedDate}
             </Card.Text>
 
-            <Link to={slug}>
+            <Link to={`/book/${slug}`}>
               <motion.div whileTap={{ scale: 0.6 }}>
                 <Button variant="dark" className="">
                   View Details

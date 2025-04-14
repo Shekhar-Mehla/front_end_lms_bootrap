@@ -29,3 +29,12 @@ export const deletBook = async (_id) => {
   };
   return await apihelper(obj);
 };
+export const getSingleBook = async (slug) => {
+  const obj = {
+    method: "get",
+    url: baseUrl + `/book/${slug}`,
+
+    showloader: false,
+  };
+  return await apihelper(obj);
+};

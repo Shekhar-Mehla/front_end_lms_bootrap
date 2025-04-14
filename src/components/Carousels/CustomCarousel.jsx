@@ -1,10 +1,8 @@
 import React from "react";
 import Carousel from "react-bootstrap/Carousel";
-import c1 from "../../assets/images/c1.jpg";
-import c2 from "../../assets/images/c2.jpg";
-import c3 from "../../assets/images/c3.jpg";
-import HeroCard from "../Cards/heroCard";
+
 import { useSelector } from "react-redux";
+import { Col } from "react-bootstrap";
 
 const CustomCarousel = () => {
   const { bookList } = useSelector((state) => state.bookInfo);
@@ -13,8 +11,12 @@ const CustomCarousel = () => {
 
   return (
     <Carousel
-      className="  rounded rounded-3 shadow-lg w-100"
-      style={{ height: "40vh", paddingTop: "20px", background: "#172eed9e " }}
+      className="  rounded rounded-3 shadow-lg w-100 py-4 px-3"
+      style={{
+        paddingTop: "20px",
+        background: "#172eed9e ",
+        marginBottom: "10px",
+      }}
     >
       {carasoulList.map((book) => {
         const {
@@ -39,25 +41,27 @@ const CustomCarousel = () => {
         } = book;
 
         return (
-          <Carousel.Item key={book._id} className="w-100 h-100">
-            <div className="d-flex justify-content-around align-items-center w-100   ">
-              <div></div>
-              <div>
+          <Carousel.Item key={book._id} className="w-100 h-100 ">
+            <div className="d-flex row  flex-wrap justify-content-around align-items-center w-100 px-5   ">
+              <Col></Col>
+              <Col md={4}>
                 <h2>{title}</h2>
                 <div>
                   By:<strong>{author}</strong>
                 </div>
                 <h5>{smallDescription}</h5>
-              </div>
-              <div>
+              </Col>
+              <Col
+                md={6}
+                className="flex-grow-1 py-2 d-flex flex-wrap  "
+                style={{ height: "50%" }}
+              >
                 <img
-                  className=" shadow-lg "
+                  className=" "
                   style={{
                     display: "block",
                     width: "100%",
                     objectFit: "contain",
-                    objectPosition: "center",
-                    BlockSize: "30vh",
                   }}
                   src={
                     import.meta.env.VITE_BASE_URL_BACKEND_IMG +
@@ -65,7 +69,7 @@ const CustomCarousel = () => {
                   }
                   alt=""
                 />
-              </div>
+              </Col>
             </div>
           </Carousel.Item>
         );

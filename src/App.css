@@ -106,3 +106,12 @@ a {
   width: 1px;
   border-radius: 10px;
 }
+/* Breadcrumb style start */
+
+.breadcrumb a {
+  color: black;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+  content: var(--bs-breadcrumb-divider, ">");
+}
+/* Breadcrumb style end */

@@ -20,9 +20,9 @@ const Home = () => {
   }, []);
 
   return (
-    <div style={{ minHeight: "100vh", background: "white" }} className="">
-      <Container>
-        <Row className="container d-flex justify-content-center">
+    <div style={{ minHeight: "100vh", background: "white" }} className="p-3">
+      <Container className="">
+        <Row style={{ marginBottom: "" }} className="">
           <Col>
             <Hero></Hero>
           </Col>
