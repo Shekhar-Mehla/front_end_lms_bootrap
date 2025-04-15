@@ -4,13 +4,13 @@ import JustIn from "../components/pageSections/homePageSection/JustIn";
 import BestRead from "../components/pageSections/homePageSection/BestRead";
 import Recomdation from "../components/pageSections/homePageSection/Recomdation";
 import { Col, Row, Container } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useRef } from "react";
 import { publicBookActions } from "../feature/books/bookActions";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { bookList } = useSelector((state) => state.bookInfo);
+  
 
   const ref = useRef(true);
 

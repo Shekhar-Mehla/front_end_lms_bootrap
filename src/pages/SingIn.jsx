@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
-import { Card, Col, Form, Row } from "react-bootstrap";
+import { Card, Col, Form, Row, Button } from "react-bootstrap";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useForm from "../hooks/useForm";
 import CustomInput from "../components/CustomInput.jsx";
@@ -9,7 +9,7 @@ import CustomInput from "../components/CustomInput.jsx";
 import { loginUser } from "../services/api";
 import { useDispatch, useSelector } from "react-redux";
 import { userAction, autoLogin } from "../feature/user/userAction.js";
-import Button from "../components/Button/Button.jsx";
+
 import LoaderPage from "./LoaderPage.jsx";
 
 const SignIn = () => {
@@ -109,7 +109,12 @@ const SignIn = () => {
                         {...item}
                       ></CustomInput>
                     ))}
-                    <Button>Sign In</Button>
+                    <Button
+                      className="btn btn-primary my-3 d-grid w-100"
+                      type="submit"
+                    >
+                      Sign In
+                    </Button>
                   </Form>
                   <Card.Text className="me-auto">
                     dont have account ?{" "}

@@ -5,9 +5,9 @@ import { useSelector } from "react-redux";
 import { Col } from "react-bootstrap";
 
 const CustomCarousel = () => {
-  const { bookList } = useSelector((state) => state.bookInfo);
+  const { publicBookList } = useSelector((state) => state.bookInfo);
 
-  const carasoulList = bookList?.filter((book) => book.Carousel == "Yes");
+  const carasoulList = publicBookList?.filter((book) => book.Carousel == "Yes");
 
   return (
     <Carousel
