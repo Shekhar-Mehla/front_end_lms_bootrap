@@ -69,7 +69,7 @@ const SignIn = () => {
   };
 
   return (
-    <>
+    <div className="signIngBackgroud d-flex justify-content-center align-items-center">
       {loader ? (
         <>
           <LoaderPage></LoaderPage>
@@ -135,7 +135,7 @@ const SignIn = () => {
           </motion.div>
         </>
       )}
-    </>
+    </div>
   );
 };
 

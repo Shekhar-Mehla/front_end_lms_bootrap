@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Form, Button, Navbar } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
@@ -8,12 +8,25 @@ import logo from "../../assets/images/library_logo.png";
 import { FaHome } from "react-icons/fa";
 import { FaSignInAlt } from "react-icons/fa";
 import { FaUserEdit } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AiFillDashboard } from "react-icons/ai";
 import { FaSignOutAlt } from "react-icons/fa";
 
+import { useNavigate } from "react-router-dom";
+import { logOutUserAction } from "../../feature/user/userAction";
+
 const Header = () => {
   const { user } = useSelector((state) => state.userInfo);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    !user._id && navigate("/login");
+  }, [user, dispatch]);
+
+  const handleOnSignOut = async (e) => {
+    // call api becasue if you remove the token from storage first then you cannot send token with header
+    dispatch(logOutUserAction());
+  };
   return (
     <Navbar expand="lg" data-bs-theme="dark" className="py-2 px-2 shadow-lg ">
       <Navbar.Brand href="/" className="text-white">
@@ -34,10 +47,7 @@ const Header = () => {
               <Link className="nav-link px-3 text-white " to="/user">
                 <AiFillDashboard /> Dashboard
               </Link>
-              <Link
-                className="nav-link text-white"
-                onClick={(e) => console.log(e)}
-              >
+              <Link className="nav-link text-white" onClick={handleOnSignOut}>
                 <FaSignOutAlt /> Sign Out
               </Link>
             </>

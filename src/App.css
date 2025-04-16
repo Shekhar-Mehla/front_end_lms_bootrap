@@ -14,6 +14,7 @@ main {
   width: 100vw;
   min-height: 80vh;
   /* background: url("./assets//images/lms_backgroud.jpg") center no-repeat; */
+  background: black;
   background-size: cover;
 }
 main .row {
@@ -55,9 +56,9 @@ a {
 }
 .bg-transaparent {
   background-color: rgba(0, 0, 0, 0.594);
-  border-radius: 30px;
+
   backdrop-filter: blur(10px);
-  border: white 2px solid;
+
   height: auto;
 
   box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
@@ -115,3 +116,11 @@ a {
   content: var(--bs-breadcrumb-divider, ">");
 }
 /* Breadcrumb style end */
+/* signIn style start */
+
+.signIngBackgroud {
+  height: 90vh;
+  background: url("./assets//images/lms_backgroud.jpg") center no-repeat;
+  background-size: cover;
+}
+/* signIn style end */

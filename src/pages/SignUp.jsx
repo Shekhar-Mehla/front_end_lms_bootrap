@@ -1,12 +1,14 @@
 import React from "react";
 import { useState } from "react";
-import Button from "../components/Button/Button";
+
 import { motion } from "framer-motion";
 
 import Stack from "react-bootstrap/Stack";
 import CustomInput from "../components/CustomInput";
 import useForm from "../hooks/useForm";
 import { resgisterUser } from "../services/api";
+import { Col, Row, Button } from "react-bootstrap";
+import signupimg from "../assets/images/signupimg.jpg";
 
 const SignUp = () => {
   const [disabledButton, setDisabledButton] = useState(false);
@@ -76,42 +78,70 @@ const SignUp = () => {
   };
 
   return (
-    <motion.div
-      className="d-flex justify-content-center sigup_bg py-3 w-100  "
-      animate={{
-        scale: [0, 1],
+    <div className="signIngBackgroud">
+      <Row className="d-flex p-3 rounded justify-content-center align-items-center ">
+        <Col md={5} className="bg-white ">
+          <h2 className="text-center mt-3">
+            Join our library family—adventures, learning, and stories await{" "}
+          </h2>
+          <hr />
+          <div
+            className="d-flex justify-content-center"
+            style={{ width: "100%", height: "500px", background: "white" }}
+          >
+            <img
+              width={"80%"}
+              height={"80%"}
+              style={{ objectFit: "cover", objectPosition: "center" }}
+              src={signupimg}
+              alt=""
+            />
+          </div>
+          <h2 className="text-center text-bold text-primary">Join Us Today!</h2>
+        </Col>
+        <Col md={4}>
+          <motion.div
+            className="d-flex justify-content-center sigup_bg py-3 w-100  "
+            animate={{
+              scale: [0, 1],
+            }}
+            transition={{
+              duration: 2,
+              ease: "easeInOut",
+              times: [0, 0.2, 0.5, 0.3, 1],
 
-        borderRadius: ["0%", "0%", "50%", "50%", "0%"],
-      }}
-      transition={{
-        duration: 2,
-        ease: "easeInOut",
-        times: [0, 0.2, 0.5, 0.3, 1],
+              repeatDelay: 1,
+            }}
+          >
+            <form
+              className="   bg-transaparent shadow flex-wrap px-3 text-white "
+              onSubmit={handleSubmit}
+            >
+              <h2 className="text-center mt-3">
+                Join our library family—adventures, learning, and stories await{" "}
+              </h2>
 
-        repeatDelay: 1,
-      }}
-    >
-      <form
-        className="  card bg-transaparent shadow flex-wrap px-3 text-white "
-        onSubmit={handleSubmit}
-      >
-        <h2 className="text-center mt-3">Welcome to the Family </h2>
-        <hr />
-        <Stack gap={1} className="  ">
-          {signUpInputFields.map((item) => (
-            <CustomInput
-              className=""
-              key={item.name}
-              {...item}
-              validationError={validationError}
-              onChange={handleOnChange}
-            ></CustomInput>
-          ))}
+              <hr />
+              <Stack gap={1} className="  ">
+                {signUpInputFields.map((item) => (
+                  <CustomInput
+                    className=""
+                    key={item.name}
+                    {...item}
+                    validationError={validationError}
+                    onChange={handleOnChange}
+                  ></CustomInput>
+                ))}
 
-          <Button name={"Sign Up"} type="submit"></Button>
-        </Stack>
-      </form>
-    </motion.div>
+                <Button type="submit" className="btn btn-primary mb-2 mt-2">
+                  Sign Up{" "}
+                </Button>
+              </Stack>
+            </form>
+          </motion.div>
+        </Col>
+      </Row>
+    </div>
   );
 };
 

@@ -1,6 +1,6 @@
 import { fetchUser } from "./userApi.js";
 import { setUserInfo } from "./userSlice.js";
-import { renewJwt } from "../../services/api.js";
+import { logoutUser, renewJwt } from "../../services/api.js";
 export const userAction = () => async (dispach) => {
   const user = await fetchUser();
 
@@ -31,3 +31,17 @@ export const autoLogin = () => async (dispach) => {
   }
   return;
 };
+export const logOutUserAction = ()=>async (dispach)=>{
+ const { status, message } = await logoutUser();
+     if (status == "success") {
+      return dispach(setUserInfo({}));
+       localStorage.removeItem("refreshJwt");
+       sessionStorage.removeItem("accessJwt");
+
+       
+       
+     }
+
+
+
+}

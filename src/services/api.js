@@ -2,6 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 const baseUrl = import.meta.env.VITE_BASE_URL_BACKEND;
 const refreshJwt = () => localStorage.getItem("refreshJwt");
+const accessJwt = () => sessionStorage.getItem("accessJwt");
 
 export const apihelper = async ({
   method,
@@ -10,7 +11,6 @@ export const apihelper = async ({
   headers,
   showloader = true,
 }) => {
-  
   try {
     if (showloader) {
       const pending = axios({
@@ -96,6 +96,16 @@ export const changePassword = async (payload) => {
     data: payload,
 
     showloader: true,
+  };
+  return await apihelper(obj);
+};
+
+// logout user api
+export const logoutUser = async () => {
+  const obj = {
+    method: "post",
+    url: baseUrl + "/auth/logout",
+    headers: { authorization: "bearer " + accessJwt() },
   };
   return await apihelper(obj);
 };
