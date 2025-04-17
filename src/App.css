@@ -55,14 +55,15 @@ a {
   left: 100px;
 }
 .bg-transaparent {
-  background-color: rgba(0, 0, 0, 0.594);
+  /* background-color: rgba(0, 0, 0, 0.594); */
+  background: linear-gradient(135deg, #4a90e2, #50e3c2);
 
   backdrop-filter: blur(10px);
 
   height: auto;
 
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
-    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+  /* box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset; */
 }
 .form-switch .form-check-input {
   width: 3.2rem;
@@ -124,3 +125,46 @@ a {
   background-size: cover;
 }
 /* signIn style end */
+/* join us section style in sign up start here */
+
+.join-us {
+  background: linear-gradient(135deg, #4a90e2, #50e3c2);
+  color: #fff;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+.join-us h2 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.join-us p {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.join-us ul {
+  list-style: none;
+  padding: 0;
+}
+
+.join-us li {
+  margin-bottom: 10px;
+  font-size: 1em;
+  padding-left: 20px;
+  position: relative;
+}
+
+.join-us li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: #fff;
+}
+
+/* join us section style in sign up end here */

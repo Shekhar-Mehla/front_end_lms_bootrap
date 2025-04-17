@@ -8,7 +8,6 @@ import CustomInput from "../components/CustomInput";
 import useForm from "../hooks/useForm";
 import { resgisterUser } from "../services/api";
 import { Col, Row, Button } from "react-bootstrap";
-import signupimg from "../assets/images/signupimg.jpg";
 
 const SignUp = () => {
   const [disabledButton, setDisabledButton] = useState(false);
@@ -79,68 +78,65 @@ const SignUp = () => {
 
   return (
     <div className="signIngBackgroud">
-      <Row className="d-flex p-3 rounded justify-content-center align-items-center ">
-        <Col md={5} className="bg-white ">
-          <h2 className="text-center mt-3">
-            Join our library family—adventures, learning, and stories await{" "}
-          </h2>
-          <hr />
-          <div
-            className="d-flex justify-content-center"
-            style={{ width: "100%", height: "500px", background: "white" }}
-          >
-            <img
-              width={"80%"}
-              height={"80%"}
-              style={{ objectFit: "cover", objectPosition: "center" }}
-              src={signupimg}
-              alt=""
-            />
-          </div>
-          <h2 className="text-center text-bold text-primary">Join Us Today!</h2>
-        </Col>
-        <Col md={4}>
-          <motion.div
-            className="d-flex justify-content-center sigup_bg py-3 w-100  "
-            animate={{
-              scale: [0, 1],
-            }}
-            transition={{
-              duration: 2,
-              ease: "easeInOut",
-              times: [0, 0.2, 0.5, 0.3, 1],
+      <motion.div
+        animate={{
+          scale: [0, 1],
+        }}
+        transition={{
+          duration: 2,
+          ease: "easeInOut",
+          times: [0, 0.2, 0.5, 0.3, 1],
 
-              repeatDelay: 1,
-            }}
-          >
-            <form
-              className="   bg-transaparent shadow flex-wrap px-3 text-white "
-              onSubmit={handleSubmit}
-            >
-              <h2 className="text-center mt-3">
-                Join our library family—adventures, learning, and stories await{" "}
-              </h2>
+          repeatDelay: 1,
+        }}
+      >
+        <Row className="d-flex  p-4 justify-content-center align-items-stretch ">
+          <Col md={4} className="bg-white d-flex justify-content-center">
+            <div class="join-us">
+              <h2>Join Us Today!</h2>
+              <p>
+                Be part of a growing community, get exclusive benefits, and
+                start your journey with us.
+              </p>
+              <ul>
+                <li>✔ Free account setup</li>
+                <li>✔ Access to premium content</li>
+                <li>✔ Personalized dashboard</li>
+              </ul>
+            </div>
+          </Col>
+          <Col md={4}>
+            <div className="d-flex justify-content-center  sigup_bg  bg-transaparent w-100  ">
+              <form
+                className="    shadow flex-wrap px-3 text-white "
+                onSubmit={handleSubmit}
+              >
+                <h2 className="text-center mt-3">
+                  Join our library family—adventures, learning, and stories
+                  await{" "}
+                </h2>
 
-              <hr />
-              <Stack gap={1} className="  ">
-                {signUpInputFields.map((item) => (
-                  <CustomInput
-                    className=""
-                    key={item.name}
-                    {...item}
-                    validationError={validationError}
-                    onChange={handleOnChange}
-                  ></CustomInput>
-                ))}
+                <hr />
+                <Stack gap={1} className="  ">
+                  {signUpInputFields.map((item) => (
+                    <CustomInput
+                      className=""
+                      key={item.name}
+                      {...item}
+                      validationError={validationError}
+                      onChange={handleOnChange}
+                    ></CustomInput>
+                  ))}
 
-                <Button type="submit" className="btn btn-primary mb-2 mt-2">
-                  Sign Up{" "}
-                </Button>
-              </Stack>
-            </form>
-          </motion.div>
-        </Col>
-      </Row>
+                  <Button type="submit" className="btn btn-primary mb-2 mt-2">
+                    Sign Up{" "}
+                  </Button>
+                </Stack>
+              </form>
+            </div>
+          </Col>
+        </Row>
+      </motion.div>
     </div>
   );
 };
