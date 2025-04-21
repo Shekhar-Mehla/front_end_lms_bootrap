@@ -7,6 +7,8 @@ import {
   Nav,
   Row,
   Spinner,
+  Tab,
+  Tabs,
 } from "react-bootstrap";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import { Link, useParams } from "react-router-dom";
@@ -14,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { singlepublicBookActions } from "../feature/books/bookActions";
 import { FaStar } from "react-icons/fa";
 import { motion } from "framer-motion";
+import Review from "./Review";
 
 const Book = () => {
   const { slug } = useParams();
@@ -168,15 +171,19 @@ const Book = () => {
               </Row>
               <Row>
                 <Col>
-                  {" "}
-                  <Nav variant="tabs" defaultActiveKey="/home">
-                    <Nav.Item>
-                      <Nav.Link eventKey="link-1">Option 2</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                      <Nav.Link eventKey="disabled">Disabled</Nav.Link>
-                    </Nav.Item>
-                  </Nav>
+                  <h3 className="text-center mt-5">More Details</h3>{" "}
+                  <Tabs variant="tabs" defaultActiveKey="/Description">
+                    <Tab
+                      eventKey="/Description"
+                      className="px-2 py-1"
+                      title="description"
+                    >
+                      {siglePublicBook?.description}
+                    </Tab>
+                    <Tab eventKey="/review" title="review">
+                      <Review></Review>
+                    </Tab>
+                  </Tabs>
                 </Col>
               </Row>
             </>

@@ -69,7 +69,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className="signIngBackgroud d-flex justify-content-center align-items-center">
+    <div className="signIngBackgroud d-flex   justify-content-center align-items-center">
       {loader ? (
         <>
           <LoaderPage></LoaderPage>
@@ -89,13 +89,13 @@ const SignIn = () => {
 
               repeatDelay: 1,
             }}
-            className=" sign d-flex shadow mb-2 justify-content-center
+            className=" sign  d-flex shadow mb-2 justify-content-center
       align-items-center "
           >
             {" "}
             <Row className="">
               <Col>
-                <Card className="mt-3 bg-transaparent mb-3 px-2 py-3">
+                <Card className="mt-3 bg-transaparent mb-3 px-5 py-3">
                   <h3 className=" text-center text-white fw-bolder">
                     Welcome to your local Library!
                   </h3>

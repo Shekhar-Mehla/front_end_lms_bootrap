@@ -93,7 +93,9 @@ const CustomCarousel = (props) => {
   const carasoulList = publicBookList?.filter((book) => book.Carousel == "Yes");
 
   const { slides, options } = props;
-  const [emblaRef, emblaApi] = useEmblaCarousel({}, [Autoplay({ jump: true })]);
+  const [emblaRef, emblaApi] = useEmblaCarousel({}, [
+    Autoplay({ delay: 4000, speed: 200, align: "center" }),
+  ]);
 
   const onNavButtonClick = useCallback((emblaApi) => {
     const autoplay = emblaApi?.plugins()?.autoplay;
@@ -113,7 +115,7 @@ const CustomCarousel = (props) => {
   );
 
   return (
-    <section className="embla  px-2">
+    <section className="embla py-3 border-rounded">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
           {carasoulList?.map((book, index) => {
@@ -179,11 +181,12 @@ const CustomCarousel = (props) => {
         </div>
       </div>
 
-      <div className="embla__controls">
-        <div className="embla__dots">
+      <div className="embla__control p-3 ">
+        <div className="embla__dots ">
           {carasoulList?.map((book, index) => (
             <DotButton
               key={index}
+              imageUrl={book.imageUrl}
               onClick={() => onDotButtonClick(index)}
               className={"embla__dot".concat(
                 index === selectedIndex ? " embla__dot--selected" : ""

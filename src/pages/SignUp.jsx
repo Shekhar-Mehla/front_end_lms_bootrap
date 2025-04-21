@@ -106,7 +106,7 @@ const SignUp = () => {
             </div>
           </Col>
           <Col md={4}>
-            <div className="d-flex justify-content-center  sigup_bg  bg-transaparent w-100  ">
+            <div className="d-flex justify-content-center py-2  sigup_bg  bg-transaparent w-100  ">
               <form
                 className="    shadow flex-wrap px-3 text-white "
                 onSubmit={handleSubmit}
