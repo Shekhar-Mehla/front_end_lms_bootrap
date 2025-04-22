@@ -15,17 +15,22 @@ const ErrorTooltip = ({ error, target }) => {
         show: _show,
         popper: _popper,
         hasDoneInitialMeasure: _hasDoneInitialMeasure,
+        inset,
+
         ...props
       }) => (
-        <div
+        <div className="error-tooltip"
           {...props}
           style={{
             position: "absolute",
+
             backgroundColor: "rgba(195, 9, 9, 0.85)",
             padding: "6px 10px",
             color: "white",
             borderRadius: 4,
             border: 4,
+            
+
             ...props.style,
           }}
         >

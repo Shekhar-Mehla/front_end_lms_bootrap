@@ -31,17 +31,11 @@ export const autoLogin = () => async (dispach) => {
   }
   return;
 };
-export const logOutUserAction = ()=>async (dispach)=>{
- const { status, message } = await logoutUser();
-     if (status == "success") {
-      return dispach(setUserInfo({}));
-       localStorage.removeItem("refreshJwt");
-       sessionStorage.removeItem("accessJwt");
-
-       
-       
-     }
-
-
-
-}
+export const logOutUserAction = () => async (dispach) => {
+  const { status, message } = await logoutUser();
+  if (status == "success") {
+    dispach(setUserInfo({}));
+    localStorage.removeItem("refreshJwt");
+    sessionStorage.removeItem("accessJwt");
+  }
+};

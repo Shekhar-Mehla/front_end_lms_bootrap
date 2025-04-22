@@ -16,7 +16,7 @@ import {
 } from "./index.js";
 import DefulatLayout from "./components/DefualtLayout/DefulatLayout.jsx";
 import UserLayout from "./components/DefualtLayout/UserLayout.jsx";
-import Authorization from "./components/Authorization.jsx";
+
 import ActivateUser from "./pages/ActivateUser.jsx";
 import { ToastContainer } from "react-toastify";
 
@@ -27,6 +27,7 @@ import NewBookForm from "./components/forms/BookForms/NewBookForm/NewBookForm.js
 
 import EditBook from "./pages/EditBook.jsx";
 import PublicBookList from "./pages/PublicBookList.jsx";
+import BorrowingList from "./pages/BorrowingList.jsx";
 
 const App = () => {
   const { user } = useSelector((state) => state.userInfo);
@@ -39,8 +40,9 @@ const App = () => {
     <div className="wrapper bg-dark d-flex flex-wrap flex-column">
       <Routes>
         {/* public routes */}
-        <Route path="/" element={<DefulatLayout></DefulatLayout>}>
+        <Route element={<DefulatLayout></DefulatLayout>}>
           <Route index element={<Home></Home>}></Route>
+
           <Route path="login" element={<SingIn></SingIn>}></Route>
           <Route path="register" element={<SignUp></SignUp>}></Route>
 
@@ -49,6 +51,10 @@ const App = () => {
             element={<PublicBookList></PublicBookList>}
           ></Route>
           <Route path="book/:slug" element={<Book></Book>}></Route>
+          <Route
+            path="borrowing-list"
+            element={<BorrowingList></BorrowingList>}
+          ></Route>
           <Route
             path="forgot-password"
             element={<ForgotPassword></ForgotPassword>}

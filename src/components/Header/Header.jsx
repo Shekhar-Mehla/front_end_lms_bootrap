@@ -14,13 +14,14 @@ import { FaSignOutAlt } from "react-icons/fa";
 
 import { useNavigate } from "react-router-dom";
 import { logOutUserAction } from "../../feature/user/userAction";
+import { GiShoppingCart } from "react-icons/gi";
 
 const Header = () => {
   const { user } = useSelector((state) => state.userInfo);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
-    !user._id && navigate("/login");
+    !user._id && navigate("/");
   }, [user, dispatch]);
 
   const handleOnSignOut = async (e) => {
@@ -28,7 +29,7 @@ const Header = () => {
     dispatch(logOutUserAction());
   };
   return (
-    <Navbar expand="lg" data-bs-theme="dark" className="py-2 px-2 shadow-lg ">
+    <Navbar expand="lg" data-bs-theme="white" className="py-2 px-2  shadow-lg ">
       <Navbar.Brand href="/" className="text-white">
         <img src={logo} width={80} className="logo " alt="library logo" />
       </Navbar.Brand>
@@ -37,41 +38,56 @@ const Header = () => {
         className=" text-white"
       />
 
-      <Navbar.Collapse id="basic-navbar-nav" className="">
-        <Nav className="ms-auto px-3 d-flex gap-3">
-          <Link className="nav-link text-white" to="/">
-            <FaHome /> Home
-          </Link>
-          {user?._id ? (
-            <>
-              <Link className="nav-link px-3 text-white " to="/user">
-                <AiFillDashboard /> Dashboard
-              </Link>
-              <Link className="nav-link text-white" onClick={handleOnSignOut}>
-                <FaSignOutAlt /> Sign Out
-              </Link>
-            </>
-          ) : (
-            <>
-              {" "}
-              <Link className="nav-link text-white " to="/login">
-                <FaSignInAlt /> Sign in
-              </Link>
-              <Link className="nav-link text-white" to="/register">
-                <FaUserEdit /> Sign Up
-              </Link>
-            </>
-          )}
-
-          <Form className="d-flex">
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-1"
-              aria-label="Search"
-            />
-            <Button variant="outline-success">Search</Button>
-          </Form>
+      <Navbar.Collapse id="basic-navbar-nav" className="justify-content-center">
+        <Nav className="    flex-grow-1 align-items-center ">
+          <div className="text-white w-25 "></div>
+          <div className="flex-grow-1 justify-content-center  ">
+            {" "}
+            <Form className="d-flex  ">
+              <Form.Control
+                className=""
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <Button variant="outline-success">Search</Button>
+            </Form>
+          </div>
+          <div className="d-flex align-items-center gap-3">
+            {" "}
+            <Link className="nav-link text-white" to="/">
+              <FaHome /> Home
+            </Link>
+            {user?._id ? (
+              <>
+                <Link className="nav-link px-3 text-white " to="/user">
+                  <AiFillDashboard /> Dashboard
+                </Link>
+                <Link className="nav-link text-white" onClick={handleOnSignOut}>
+                  <FaSignOutAlt /> Sign Out
+                </Link>
+              </>
+            ) : (
+              <>
+                {" "}
+                <Link className="nav-link text-white " to="/login">
+                  <FaSignInAlt /> Sign in
+                </Link>
+                <Link className="nav-link text-white" to="/register">
+                  <FaUserEdit /> Sign Up
+                </Link>
+              </>
+            )}
+            <Link
+              to={"/borrowing-list"}
+              className=" text-white  d-flex position-relative  align-items-center"
+            >
+              <GiShoppingCart className=" cart-icon " />
+              <span className="text-white cart-count position-absolute bg-danger d-flex align-items-center  justify-content-center">
+                0
+              </span>
+            </Link>
+          </div>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

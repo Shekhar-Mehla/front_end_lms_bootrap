@@ -14,9 +14,10 @@ import Breadcrumb from "react-bootstrap/Breadcrumb";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { singlepublicBookActions } from "../feature/books/bookActions";
-import { FaStar } from "react-icons/fa";
+
 import { motion } from "framer-motion";
 import Review from "./Review";
+import Star from "../components/stars/Star";
 
 const Book = () => {
   const { slug } = useParams();
@@ -152,18 +153,18 @@ const Book = () => {
                         {siglePublicBook.genre} |
                       </span>
                       <span>
-                        <FaStar></FaStar>
-                        <FaStar></FaStar>
-                        <FaStar></FaStar>
-                        <FaStar></FaStar>
-                        <FaStar></FaStar>
+                        <Star></Star>
                         <span style={{ marginLeft: "8px" }}>400 Reviews</span>
                       </span>
                     </div>
                     <div>{siglePublicBook.smallDescription}</div>
                   </div>
                   <motion.div whileTap={{ scale: 0.6 }}>
-                    <Button variant="dark" className="d-grid my-5 w-100">
+                    <Button
+                      // onClick={handleOnBorrowingList}
+                      variant="dark"
+                      className="d-grid my-5 w-100"
+                    >
                       Add To Borrowing List
                     </Button>
                   </motion.div>
@@ -175,12 +176,20 @@ const Book = () => {
                   <Tabs variant="tabs" defaultActiveKey="/Description">
                     <Tab
                       eventKey="/Description"
-                      className="px-2 py-1"
+                      className="px-2 py-2  shadow-lg mt-2 description-tab"
                       title="description"
                     >
                       {siglePublicBook?.description}
                     </Tab>
-                    <Tab eventKey="/review" title="review">
+                    <Tab
+                      className="d-flex flex-column gap-3 py-2"
+                      eventKey="/review"
+                      title="review"
+                    >
+                      <Review></Review>
+                      <Review></Review>
+                      <Review></Review>
+                      <Review></Review>
                       <Review></Review>
                     </Tab>
                   </Tabs>

@@ -21,14 +21,15 @@ const SignIn = () => {
   const dispatchUser = useDispatch();
   const [loader, setLoader] = useState(true);
 
-  const path = location?.state?.pathname || "/user";
+  const path = location?.state?.pathname || "/home";
+  console.log(path);
 
   const { form, handleOnChange, validationError } = useForm({});
 
   useEffect(() => {
     user?._id ? navigator(path) : loader && dispatchUser(autoLogin());
     setLoader(false);
-  }, [user._id, path]);
+  }, [user._id, loader, path]);
 
   const signInInput = [
     {

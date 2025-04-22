@@ -253,12 +253,38 @@ a {
 /* embla carasual style ends from here */
 /* review page style start here */
 
+.review,
+.description-tab {
+  background-color: #aaa5a566;
+  border-radius: 5px;
+}
 .avatar div {
-  height: 100px;
-  width: 100px;
- 
+  height: 120px;
+  width: 120px;
+  background-color: whitesmoke;
+
   border-radius: 50%;
- 
 }
 
 /* review page style end here */
+
+/* error tooltip  start here*/
+.error-tooltip {
+  inset: 5px auto auto 5px !important;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+/* error tooltip  end here*/
+/* cart-icon start here */
+.cart-icon {
+  font-size: 70px;
+}
+.cart-count {
+  left: 0px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  top: -5px;
+}
+/* cart-icon end here */
