@@ -21,7 +21,7 @@ const SignIn = () => {
   const dispatchUser = useDispatch();
   const [loader, setLoader] = useState(true);
 
-  const path = location?.state?.pathname || "/home";
+  const path = location?.state?.pathname || "/user";
   console.log(path);
 
   const { form, handleOnChange, validationError } = useForm({});

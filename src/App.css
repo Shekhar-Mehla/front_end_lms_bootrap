@@ -288,3 +288,10 @@ a {
   top: -5px;
 }
 /* cart-icon end here */
+/* .navbar-brand style start  here */
+
+.navbar-brand {
+  margin-right: 0px;
+}
+
+/* .navbar-brand style end here */

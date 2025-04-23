@@ -65,7 +65,14 @@ const App = () => {
               <ActivateUser className="text-white bg-red"></ActivateUser>
             }
           ></Route>
-          <Route path="*" element={<h2>404 Page not found</h2>}></Route>
+          <Route
+            path="*"
+            element={
+              <h2 className="text-white text-center p-5 mt-5">
+                404 Page not found
+              </h2>
+            }
+          ></Route>
         </Route>
         {/* private routes */}( (
         <Route path="/user" element={<UserLayout></UserLayout>}>

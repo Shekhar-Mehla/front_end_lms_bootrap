@@ -23,9 +23,9 @@ const Review = ({
           <Star avgRating={rating}></Star>
           <div>
             {" "}
-            {formatDistance(subDays(new Date(createdAt)), new Date(), {
+            {/* {formatDistance(subDays(new Date(createdAt)), new Date(), {
               addSuffix: true,
-            })}
+            })} */}
           </div>
         </div>
         <p>
