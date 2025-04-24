@@ -39,71 +39,6 @@ const Header = () => {
     dispatch(logOutUserAction());
   };
   return (
-    // <Navbar expand="lg" data-bs-theme="white" className="py-2 px-2  shadow-lg ">
-    // <Navbar.Brand href="/" className="text-white">
-    //   <img src={logo} width={80} className="logo " alt="library logo" />
-    // </Navbar.Brand>
-    // <Navbar.Toggle
-    //   aria-controls="basic-navbar-nav "
-    //   className=" text-white"
-    // />
-
-    //   <Navbar.Collapse
-    //     id="basic-navbar-nav"
-    //     className="justify-content-center py-4 "
-    //   >
-    //     <Nav className="  d-flex  flex-grow-1 align-items-cente align-items-md-start  flex-wrap ">
-    //       <div className="text-white w-25 "></div>
-    //       <div className="flex-grow-1 justify-content-center align-items-md-start w-100   ">
-    //         {" "}
-    //         <Form className="d-flex  ">
-    //           <Form.Control
-    //             className=""
-    //             type="search"
-    //             placeholder="Search"
-    //             aria-label="Search"
-    //           />
-    //           <Button variant="outline-success">Search</Button>
-    //         </Form>
-    //       </div>
-    //       <div className="d-flex  align-items-center flex-md-row  gap-3">
-    //         {" "}
-    //         <Link className="nav-link  text-white " to="/">
-    //           <FaHome /> Home
-    //         </Link>
-    //         {user?._id ? (
-    //           <>
-    //             <Link className="nav-link px-3 text-white " to="/user">
-    //               <AiFillDashboard /> Dashboard
-    //             </Link>
-    //             <Link className="nav-link text-white" onClick={handleOnSignOut}>
-    //               <FaSignOutAlt /> Sign Out
-    //             </Link>
-    //           </>
-    //         ) : (
-    //           <>
-    //             {" "}
-    //             <Link className="nav-link text-white  " to="/login">
-    //               <FaSignInAlt /> Sign in
-    //             </Link>
-    //             <Link className="nav-link text-white" to="/register">
-    //               <FaUserEdit /> Sign Up
-    //             </Link>
-    //           </>
-    //         )}
-    //         <Link
-    //           to={"/borrowing-list"}
-    //           className=" text-white  d-flex position-relative  align-items-center"
-    //         >
-    //           <GiShoppingCart className=" cart-icon " />
-    //           <span className="text-white cart-count position-absolute bg-danger d-flex align-items-center  justify-content-center">
-    //             0
-    //           </span>
-    //         </Link>
-    //       </div>
-    //     </Nav>
-    //   </Navbar.Collapse>
-    // </Navbar>
     <Navbar expand="lg" data-bs-theme="dark " className=" text-white">
       <Container fluid className="gap-3  ">
         <Navbar.Brand href="/" className="text-white">
@@ -133,9 +68,9 @@ const Header = () => {
   my-2 my-lg-0 "
           >
             <Link className="nav-link text-white " to="/">
-              <FaHome className="" /> Home Home
+              <FaHome className="" /> Home
             </Link>
-            <Link className="nav-link text-white">
+            <Link to={"all-books"} className="nav-link text-white">
               <IoIosBook></IoIosBook> Books
             </Link>
 

@@ -177,14 +177,14 @@ const Book = () => {
                     <Tab
                       eventKey="/Description"
                       className="px-2 py-2  shadow-lg mt-2 description-tab"
-                      title="description"
+                      title="Description"
                     >
                       {siglePublicBook?.description}
                     </Tab>
                     <Tab
                       className="d-flex flex-column gap-3 py-2"
                       eventKey="/review"
-                      title="review"
+                      title="Reviews"
                     >
                       <Review></Review>
                       <Review></Review>

@@ -9,21 +9,19 @@ const JustIn = () => {
   return (
     <div className="mx-1 my-4 py-4">
       <HomePageTittle tittle={"Just in!"}></HomePageTittle>
-      <Row className="my-4 px-2 d-flex flex-wrap justify-content-center  gap-3 ">
+      <div className="d-flex gap-3 flex-wrap justify-content-center">
         {publicBookList?.map((book) => {
           return (
-            <Col key={book._id}>
-              <ProductCard
-                key={book._id}
-                author={book.author}
-                title={book.title}
-                imageUrl={book.imageUrl}
-                slug={book.slug}
-              ></ProductCard>
-            </Col>
+            <ProductCard
+              key={book._id}
+              author={book.author}
+              title={book.title}
+              imageUrl={book.imageUrl}
+              slug={book.slug}
+            ></ProductCard>
           );
         })}
-      </Row>
+      </div>
     </div>
   );
 };
