@@ -12,9 +12,9 @@ a {
 
 main {
   width: 100vw;
-  min-height: 80vh;
+  min-height: 100vh;
   /* background: url("./assets//images/lms_backgroud.jpg") center no-repeat; */
-  background: black;
+
   background-size: cover;
 }
 main .row {

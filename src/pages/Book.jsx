@@ -11,13 +11,16 @@ import {
   Tabs,
 } from "react-bootstrap";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
-import { Link, useParams } from "react-router-dom";
+import { Link, Links, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { singlepublicBookActions } from "../feature/books/bookActions";
 
 import { motion } from "framer-motion";
 import Review from "./Review";
 import Star from "../components/stars/Star";
+import { setCartList } from "../feature/cart/cartSlice";
+import { use } from "react";
+import { toast } from "react-toastify";
 
 const Book = () => {
   const { slug } = useParams();
@@ -25,6 +28,8 @@ const Book = () => {
   const { siglePublicBook } = useSelector((state) => state.bookInfo);
   const [show, setShow] = useState(true);
   const [image, setImage] = useState("");
+  const { cart } = useSelector((state) => state.cartInfo);
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -38,9 +43,18 @@ const Book = () => {
   }, [slug, dispatch, siglePublicBook]);
   console.log(image);
   const handeleOnClickImage = (url) => setImage(url);
+  // add book on button click to add to borrowList
+  const handleOnAddingBookToCart = (book_id) => {
+    // check cart list if book is already in the cart list
+    toast("book has been added to cart");
+    dispatch(setCartList(book_id));
+  };
+  const handleOnProceedToCart = () => {
+    navigate("/cart");
+  };
 
   return (
-    <Container style={{ minHeight: "100vh" }} className="bg-white text-dark ">
+    <Container style={{ minHeight: "80vh" }} className="bg-white text-dark ">
       <Row className="py-4">
         <Col>
           <Breadcrumb>
@@ -71,7 +85,7 @@ const Book = () => {
         <>
           {siglePublicBook?._id ? (
             <>
-              <Row className="d-flex gap-3 justify-content-around ">
+              <Row className="d-flex gap-3 justify-content-center ">
                 <Col
                   className="d-flex justify-content-center  align-items-center flex-column gap-2  "
                   md={5}
@@ -79,8 +93,9 @@ const Book = () => {
                   <div style={{ width: "250px", height: "250px" }}>
                     <motion.div
                       whileHover={{
-                        scale: 2,
-                        transition: { duration: 0.7 },
+                        scale: 1.5,
+                        transition: { duration: 0.2 },
+                        cursor: "pointer",
                       }}
                     >
                       <img
@@ -105,29 +120,21 @@ const Book = () => {
                           key={i}
                           style={{ width: "100px", height: "100px" }}
                         >
-                          <motion.div
-                            whileHover={{
-                              scale: 5,
-                              transition: { duration: 0.7 },
+                          <img
+                            style={{
+                              width: "100px",
+                              height: "100px",
+                              objectFit: "contain",
+                              objectPosition: "center",
                             }}
-                          >
-                            {" "}
-                            <img
-                              style={{
-                                width: "100px",
-                                height: "100px",
-                                objectFit: "contain",
-                                objectPosition: "center",
-                              }}
-                              className="rounded-4"
-                              onClick={() => handeleOnClickImage(url)}
-                              src={
-                                import.meta.env.VITE_BASE_URL_BACKEND_IMG +
-                                url?.slice(6)
-                              }
-                              alt={"ft"}
-                            />
-                          </motion.div>
+                            className="rounded-4"
+                            onClick={() => handeleOnClickImage(url)}
+                            src={
+                              import.meta.env.VITE_BASE_URL_BACKEND_IMG +
+                              url?.slice(6)
+                            }
+                            alt={"ft"}
+                          />
                         </div>
                       );
                     })}
@@ -159,15 +166,31 @@ const Book = () => {
                     </div>
                     <div>{siglePublicBook.smallDescription}</div>
                   </div>
-                  <motion.div whileTap={{ scale: 0.6 }}>
-                    <Button
-                      // onClick={handleOnBorrowingList}
+                  {cart.includes(siglePublicBook._id) ? (
+                    <motion.button
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      whileTap={{ scale: 0.5 }}
                       variant="dark"
-                      className="d-grid my-5 w-100"
+                      className="d-grid btn btn-dark my-5 w-100"
+                      onClick={handleOnProceedToCart}
                     >
-                      Add To Borrowing List
-                    </Button>
-                  </motion.div>
+                      Procced to Cart
+                    </motion.button>
+                  ) : (
+                    <motion.button
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      whileTap={{ scale: 0.5 }}
+                      onClick={() =>
+                        handleOnAddingBookToCart(siglePublicBook._id)
+                      }
+                      variant="dark"
+                      className="d-grid btn btn-dark my-5 w-100"
+                    >
+                      Add Book to cart
+                    </motion.button>
+                  )}
                 </Col>
               </Row>
               <Row>

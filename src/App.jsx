@@ -27,7 +27,8 @@ import NewBookForm from "./components/forms/BookForms/NewBookForm/NewBookForm.js
 
 import EditBook from "./pages/EditBook.jsx";
 import PublicBookList from "./pages/PublicBookList.jsx";
-import BorrowingList from "./pages/BorrowingList.jsx";
+
+import Cart from "./pages/Cart.jsx";
 
 const App = () => {
   const { user } = useSelector((state) => state.userInfo);
@@ -37,7 +38,7 @@ const App = () => {
     !user?._id && dispatchUser(autoLogin());
   }, [user._id]);
   return (
-    <div className="wrapper bg-dark d-flex flex-wrap flex-column">
+    <div className="wrapper  d-flex flex-wrap flex-column">
       <Routes>
         {/* public routes */}
         <Route element={<DefulatLayout></DefulatLayout>}>
@@ -51,10 +52,7 @@ const App = () => {
             element={<PublicBookList></PublicBookList>}
           ></Route>
           <Route path="book/:slug" element={<Book></Book>}></Route>
-          <Route
-            path="borrowing-list"
-            element={<BorrowingList></BorrowingList>}
-          ></Route>
+          <Route path="cart" element={<Cart></Cart>}></Route>
           <Route
             path="forgot-password"
             element={<ForgotPassword></ForgotPassword>}

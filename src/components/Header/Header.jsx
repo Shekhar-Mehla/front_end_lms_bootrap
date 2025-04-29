@@ -29,17 +29,14 @@ const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
-  console.log(location);
-  // useEffect(() => {
-  //   !user._id && navigate("/");
-  // }, [user, dispatch]);
+  const { cart } = useSelector((state) => state.cartInfo);
 
   const handleOnSignOut = async (e) => {
     // call api becasue if you remove the token from storage first then you cannot send token with header
     dispatch(logOutUserAction());
   };
   return (
-    <Navbar expand="lg" data-bs-theme="dark " className=" text-white">
+    <Navbar expand="lg" data-bs-theme="dark " className=" bg-dark">
       <Container fluid className="gap-3  ">
         <Navbar.Brand href="/" className="text-white">
           <img src={logo} width={80} className="logo " alt="library logo" />
@@ -98,12 +95,12 @@ const Header = () => {
               </>
             )}
             <Link
-              to={"/borrowing-list"}
+              to={"/cart"}
               className=" text-white  d-flex position-relative  align-items-center"
             >
               <GiShoppingCart className=" cart-icon " />
               <span className="text-white cart-count position-absolute bg-danger d-flex align-items-center  justify-content-center">
-                0
+                {cart.length || 0}
               </span>
             </Link>
           </Nav>
