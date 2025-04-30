@@ -4,12 +4,17 @@ const cartSlice = createSlice({
   initialState: { cart: [] },
   reducers: {
     setCartList: (state, { payload }) => {
-      console.log(state);
       state.cart = [...state.cart, payload];
+    },
+    deleteCartList: (state, { payload }) => {
+      console.log(payload);
+      state.cart = state.cart.filter((item) => {
+        return !payload.includes(item._id);
+      });
     },
   },
 });
 
 const { reducer, actions } = cartSlice;
 export default reducer;
-export const { setCartList } = actions;
+export const { setCartList, deleteCartList } = actions;

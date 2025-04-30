@@ -41,13 +41,13 @@ const Book = () => {
     }, 1000);
     return () => clearTimeout(time);
   }, [slug, dispatch, siglePublicBook]);
-  console.log(image);
+
   const handeleOnClickImage = (url) => setImage(url);
   // add book on button click to add to borrowList
-  const handleOnAddingBookToCart = (book_id) => {
+  const handleOnAddingBookToCart = (siglePublicBook) => {
     // check cart list if book is already in the cart list
     toast("book has been added to cart");
-    dispatch(setCartList(book_id));
+    dispatch(setCartList(siglePublicBook));
   };
   const handleOnProceedToCart = () => {
     navigate("/cart");
@@ -166,7 +166,7 @@ const Book = () => {
                     </div>
                     <div>{siglePublicBook.smallDescription}</div>
                   </div>
-                  {cart.includes(siglePublicBook._id) ? (
+                  {cart.some((item) => item._id == siglePublicBook._id) ? (
                     <motion.button
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
@@ -182,9 +182,7 @@ const Book = () => {
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       whileTap={{ scale: 0.5 }}
-                      onClick={() =>
-                        handleOnAddingBookToCart(siglePublicBook._id)
-                      }
+                      onClick={() => handleOnAddingBookToCart(siglePublicBook)}
                       variant="dark"
                       className="d-grid btn btn-dark my-5 w-100"
                     >

@@ -86,7 +86,7 @@ const PublicBookList = () => {
           </div>
         </>
       )}
-      <div className="d-flex mt-2 justify-content-center">
+      <div className="d-flex mt-5 justify-content-center">
         <CustomPagination
           active={active}
           setActive={setActive}
