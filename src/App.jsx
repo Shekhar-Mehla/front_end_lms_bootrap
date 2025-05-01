@@ -29,6 +29,7 @@ import EditBook from "./pages/EditBook.jsx";
 import PublicBookList from "./pages/PublicBookList.jsx";
 
 import Cart from "./pages/Cart.jsx";
+import { Search } from "./pages/Search.jsx";
 
 const App = () => {
   const { user } = useSelector((state) => state.userInfo);
@@ -51,6 +52,7 @@ const App = () => {
             path="all-books"
             element={<PublicBookList></PublicBookList>}
           ></Route>
+          <Route path="search" element={<Search></Search>}></Route>
           <Route path="book/:slug" element={<Book></Book>}></Route>
           <Route path="cart" element={<Cart></Cart>}></Route>
           <Route

@@ -33,7 +33,6 @@ const Cart = () => {
         if (checked == true) {
           setCartItemsToDelete([...cartItemsToDelete, value]);
         } else {
-          console.log(cartItemsToDelete);
           setCartItemsToDelete(
             cartItemsToDelete.filter((item) => item != value)
           );

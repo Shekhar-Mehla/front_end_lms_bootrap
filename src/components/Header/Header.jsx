@@ -23,18 +23,32 @@ import { useNavigate } from "react-router-dom";
 import { logOutUserAction } from "../../feature/user/userAction";
 import { GiShoppingCart } from "react-icons/gi";
 import { IoIosBook } from "react-icons/io";
+import { useRef } from "react";
 
 const Header = () => {
   const { user } = useSelector((state) => state.userInfo);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const location = useLocation();
+  const searchRef = useRef();
+
   const { cart } = useSelector((state) => state.cartInfo);
 
   const handleOnSignOut = async (e) => {
     // call api becasue if you remove the token from storage first then you cannot send token with header
     dispatch(logOutUserAction());
   };
+
+  // handle on search button click
+  const handleOnSearch = (e) => {
+    e.preventDefault();
+
+    const query = searchRef.current.value.split(" ").join("+");
+
+    if (query != "") {
+      return navigate(`/search?query=${query}`);
+    }
+  };
+
   return (
     <Navbar expand="lg" data-bs-theme="dark " className=" bg-dark">
       <Container fluid className="gap-3  ">
@@ -48,14 +62,23 @@ const Header = () => {
 
         <Navbar.Collapse id="navbarScroll">
           <div className="w-25"></div>
-          <Form className="d-flex   flex-grow-1 px-3 ">
+          <Form
+            className="d-flex   flex-grow-1 px-3  "
+            onSubmit={handleOnSearch}
+          >
             <Form.Control
               type="search"
               placeholder="Search"
               className="me-1"
               aria-label="Search"
+              name="search"
+              ref={searchRef}
             />
-            <Button className="tetx-white" variant="outline-success">
+            <Button
+              className="tetx-white"
+              type="submit"
+              variant="outline-success"
+            >
               Search
             </Button>
           </Form>

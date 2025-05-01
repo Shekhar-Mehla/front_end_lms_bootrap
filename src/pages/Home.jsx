@@ -23,7 +23,7 @@ const Home = () => {
     }, 1000);
     return () => clearTimeout(time);
   }, [show, dispatch, ref]);
-  console.log(show);
+
   return (
     <div style={{ minHeight: "100vh", background: "white" }} className="p-3">
       {show == true ? (
