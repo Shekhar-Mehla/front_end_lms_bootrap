@@ -11,7 +11,13 @@ import {
   Tabs,
 } from "react-bootstrap";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
-import { Link, Links, useNavigate, useParams } from "react-router-dom";
+import {
+  Link,
+  Links,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { singlepublicBookActions } from "../feature/books/bookActions";
 
@@ -19,7 +25,7 @@ import { motion } from "framer-motion";
 import Review from "./Review";
 import Star from "../components/stars/Star";
 import { setCartList } from "../feature/cart/cartSlice";
-import { use } from "react";
+
 import { toast } from "react-toastify";
 
 const Book = () => {
@@ -39,6 +45,7 @@ const Book = () => {
     const time = setTimeout(() => {
       setShow(false);
     }, 1000);
+
     return () => clearTimeout(time);
   }, [slug, dispatch, siglePublicBook]);
 
@@ -167,16 +174,22 @@ const Book = () => {
                     <div>{siglePublicBook.smallDescription}</div>
                   </div>
                   {cart.some((item) => item._id == siglePublicBook._id) ? (
-                    <motion.button
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      whileTap={{ scale: 0.5 }}
-                      variant="dark"
-                      className="d-grid btn btn-dark my-5 w-100"
-                      onClick={handleOnProceedToCart}
-                    >
-                      Procced to Cart
-                    </motion.button>
+                    <div className="w-100">
+                      {" "}
+                      <motion.button
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        whileTap={{ scale: 0.5 }}
+                        variant="dark"
+                        className=" btn btn-dark  w-100"
+                        onClick={handleOnProceedToCart}
+                      >
+                        Proceed to cart
+                      </motion.button>
+                      <div className="text-danger">
+                        This book is already added in your cart list.
+                      </div>
+                    </div>
                   ) : (
                     <motion.button
                       initial={{ scale: 0 }}

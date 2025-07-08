@@ -9,7 +9,7 @@ const Review = ({
   rating = 3.5,
 }) => {
   return (
-    <div className=" border review border-lg shadow-lg px-2 py-3 d-flex gap-3">
+    <div className=" border review border-lg  px-2 py-3 d-flex gap-3">
       <div className="left  d-flex justify-content-center align-items-center">
         <div className="avatar">
           <div className="shadow-lg fw-bold  d-flex justify-content-center align-items-center">

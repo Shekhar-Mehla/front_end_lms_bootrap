@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+
 
 import { Card, Col, Form, Row, Button } from "react-bootstrap";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -77,63 +77,46 @@ const SignIn = () => {
         </>
       ) : (
         <>
-          <motion.div
-            animate={{
-              scale: [0, 1],
-
-              borderRadius: ["0%", "0%", "50%", "50%", "0%"],
-            }}
-            transition={{
-              duration: 2,
-              ease: "easeInOut",
-              times: [0, 0.2, 0.5, 0.3, 1],
-
-              repeatDelay: 1,
-            }}
-            className=" sign  d-flex shadow mb-2 justify-content-center
-      align-items-center "
-          >
-            {" "}
-            <Row className="">
-              <Col>
-                <Card className="mt-3 bg-transaparent mb-3 px-5 py-3">
-                  <h3 className=" text-center text-white fw-bolder">
-                    Welcome to your local Library!
-                  </h3>
-                  <hr></hr>
-                  <Form onSubmit={submitHnadler}>
-                    {signInInput.map((item) => (
-                      <CustomInput
-                        key={item.name}
-                        validationError={validationError}
-                        onChange={handleOnChange}
-                        {...item}
-                      ></CustomInput>
-                    ))}
-                    <Button
-                      className="btn btn-primary my-3 d-grid w-100"
-                      type="submit"
-                    >
-                      Sign In
-                    </Button>
-                  </Form>
-                  <Card.Text className="me-auto">
-                    dont have account ?{" "}
-                    <Link className="text-style-none" to="/register">
-                      Register Now
-                    </Link>{" "}
-                    <Link className="text-style-none" to="/register"></Link>{" "}
-                  </Card.Text>
-                  <Card.Text className="me-atuo  ">
-                    Forgot password ?{" "}
-                    <Link to="/forgot-password " className="">
-                      Reset Now
-                    </Link>
-                  </Card.Text>
-                </Card>
-              </Col>
-            </Row>
-          </motion.div>
+          {" "}
+          <Row className="">
+            <Col>
+              <Card className="mt-3 bg-transaparent mb-3 px-5 py-3">
+                <h3 className=" text-center text-white fw-bolder">
+                  Welcome to your local Library!
+                </h3>
+                <hr></hr>
+                <Form onSubmit={submitHnadler}>
+                  {signInInput.map((item) => (
+                    <CustomInput
+                      key={item.name}
+                      validationError={validationError}
+                      onChange={handleOnChange}
+                      {...item}
+                    ></CustomInput>
+                  ))}
+                  <Button
+                    className="btn btn-primary my-3 d-grid w-100"
+                    type="submit"
+                  >
+                    Sign In
+                  </Button>
+                </Form>
+                <Card.Text className="me-auto">
+                  dont have account ?{" "}
+                  <Link className="text-style-none" to="/register">
+                    Register Now
+                  </Link>{" "}
+                  <Link className="text-style-none" to="/register"></Link>{" "}
+                </Card.Text>
+                <Card.Text className="me-atuo  ">
+                  Forgot password ?{" "}
+                  <Link to="/forgot-password " className="">
+                    Reset Now
+                  </Link>
+                </Card.Text>
+              </Card>
+            </Col>
+          </Row>
         </>
       )}
     </div>

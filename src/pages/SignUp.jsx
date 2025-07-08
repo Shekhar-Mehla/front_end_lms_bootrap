@@ -78,65 +78,51 @@ const SignUp = () => {
 
   return (
     <div className="signIngBackgroud">
-      <motion.div
-        animate={{
-          scale: [0, 1],
-        }}
-        transition={{
-          duration: 2,
-          ease: "easeInOut",
-          times: [0, 0.2, 0.5, 0.3, 1],
+      <Row className="d-flex  p-4 justify-content-center align-items-stretch ">
+        <Col md={4} className="bg-white d-flex justify-content-center">
+          <div class="join-us">
+            <h2>Join Us Today!</h2>
+            <p>
+              Be part of a growing community, get exclusive benefits, and start
+              your journey with us.
+            </p>
+            <ul>
+              <li>✔ Free account setup</li>
+              <li>✔ Access to premium content</li>
+              <li>✔ Personalized dashboard</li>
+            </ul>
+          </div>
+        </Col>
+        <Col md={4}>
+          <div className="d-flex justify-content-center py-2  sigup_bg  bg-transaparent w-100  ">
+            <form
+              className="    shadow flex-wrap px-3 text-white "
+              onSubmit={handleSubmit}
+            >
+              <h2 className="text-center mt-3">
+                Join our library family—adventures, learning, and stories await{" "}
+              </h2>
 
-          repeatDelay: 1,
-        }}
-      >
-        <Row className="d-flex  p-4 justify-content-center align-items-stretch ">
-          <Col md={4} className="bg-white d-flex justify-content-center">
-            <div class="join-us">
-              <h2>Join Us Today!</h2>
-              <p>
-                Be part of a growing community, get exclusive benefits, and
-                start your journey with us.
-              </p>
-              <ul>
-                <li>✔ Free account setup</li>
-                <li>✔ Access to premium content</li>
-                <li>✔ Personalized dashboard</li>
-              </ul>
-            </div>
-          </Col>
-          <Col md={4}>
-            <div className="d-flex justify-content-center py-2  sigup_bg  bg-transaparent w-100  ">
-              <form
-                className="    shadow flex-wrap px-3 text-white "
-                onSubmit={handleSubmit}
-              >
-                <h2 className="text-center mt-3">
-                  Join our library family—adventures, learning, and stories
-                  await{" "}
-                </h2>
+              <hr />
+              <Stack gap={1} className="  ">
+                {signUpInputFields.map((item) => (
+                  <CustomInput
+                    className=""
+                    key={item.name}
+                    {...item}
+                    validationError={validationError}
+                    onChange={handleOnChange}
+                  ></CustomInput>
+                ))}
 
-                <hr />
-                <Stack gap={1} className="  ">
-                  {signUpInputFields.map((item) => (
-                    <CustomInput
-                      className=""
-                      key={item.name}
-                      {...item}
-                      validationError={validationError}
-                      onChange={handleOnChange}
-                    ></CustomInput>
-                  ))}
-
-                  <Button type="submit" className="btn btn-primary mb-2 mt-2">
-                    Sign Up{" "}
-                  </Button>
-                </Stack>
-              </form>
-            </div>
-          </Col>
-        </Row>
-      </motion.div>
+                <Button type="submit" className="btn btn-primary mb-2 mt-2">
+                  Sign Up{" "}
+                </Button>
+              </Stack>
+            </form>
+          </div>
+        </Col>
+      </Row>
     </div>
   );
 };

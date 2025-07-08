@@ -5,49 +5,33 @@ import {
   Button,
   Col,
   Container,
-  Form,
-  FormCheck,
   Row,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { RiDeleteBin6Line } from "react-icons/ri";
+import { Link, useNavigate } from "react-router-dom";
+
 import Table from "react-bootstrap/Table";
+
+import { IoIosArrowRoundBack } from "react-icons/io";
+import { FiX } from "react-icons/fi";
 import { deleteCartList } from "../feature/cart/cartSlice";
 
 const Cart = () => {
   const { cart } = useSelector((state) => state.cartInfo);
   const dispatch = useDispatch();
-  const [cartItemsToDelete, setCartItemsToDelete] = useState([]);
-  const cartIdToDeleteIds = cart.map(({ _id }) => _id);
+  const navigate = useNavigate();
+  const handleOnRemove = (_id) => {
+    dispatch(deleteCartList(_id));
+  };
+  const handleOnBorrow = () => {
+    // make action call
 
-  const handleOnSelectAll = (e) => {
-    const { checked, name, value } = e.target;
 
-    if (checked == true && name == "Select All") {
-      return setCartItemsToDelete([...cartIdToDeleteIds]);
-    } else {
-      if (checked == false && name == "Select All") {
-        setCartItemsToDelete([]);
-      } else {
-        if (checked == true) {
-          setCartItemsToDelete([...cartItemsToDelete, value]);
-        } else {
-          setCartItemsToDelete(
-            cartItemsToDelete.filter((item) => item != value)
-          );
-        }
-      }
-    }
+
+
+    
   };
 
-  // handle on delete button click
-  const handleOnDelete = () => {
-    if (confirm("Are you sure? you want to delete the item from cart")) {
-      return dispatch(deleteCartList(cartItemsToDelete));
-    }
-    return;
-  };
   return (
     <Container>
       <Row className="py-4">
@@ -64,77 +48,57 @@ const Cart = () => {
 
       {cart.length > 0 ? (
         <>
-          {" "}
-          <Row className="mt-3 mb-3">
-            <Col>
-              <h2>My Cart</h2>
-            </Col>
-          </Row>
-          <Row className="card py-3 px-3">
-            <Col className="d-flex justify-content-between">
-              <Form>
-                <FormCheck
-                  onChange={handleOnSelectAll}
-                  label={"Select All"}
-                  type="checkbox"
-                  name="Select All"
-                  checked={
-                    cart.length > 0 && cart.length == cartItemsToDelete.length
-                  }
-                ></FormCheck>
-              </Form>
-              <Button
-                onClick={handleOnDelete}
-                variant="dark d-flex rounded rounded-lg justify-content-between align-items-center "
+          <Row className="mt-3  mb-3">
+            <Col className="d-flex justify-content-between align-items-center">
+              <h2>My Cart</h2>{" "}
+              <div
+                className="contiue-shopping"
+                onClick={() => navigate("/all-books")}
               >
-                <RiDeleteBin6Line></RiDeleteBin6Line>
-                <span>Delete</span>
-              </Button>
+                <IoIosArrowRoundBack className="fs-3" />
+                Continue Borrowing
+              </div>
             </Col>
           </Row>
-          <Row className="mt-3 mb-3">
+          <Row>
             <Col>
-              {" "}
-              <Table striped bordered hover>
-                <tbody>
-                  {cart.map((item) => {
-                    return (
-                      <tr>
-                        <td>
-                          <Form>
-                            <FormCheck
-                              onChange={handleOnSelectAll}
-                              type="checkbox"
-                              checked={cartItemsToDelete.includes(item._id)}
-                              value={item._id}
-                            ></FormCheck>
-                          </Form>
-                        </td>
-                        <td className="d-flex align-items-center gap-3">
-                          <div style={{ width: "70px", height: "70px" }}>
-                            <img
-                              style={{
-                                height: "100%",
-                                width: "100%",
+              {/* table */}
 
-                                display: "block",
-                                borderRadius: "50%",
-                                objectPosition: "center",
-                              }}
+              <Table responsive="md">
+                <tbody>
+                  {cart?.map(
+                    ({
+                      imageUrl,
+                      slug,
+                      smallDescription,
+                      stockQuantity,
+                      title,
+                      _id,
+                    }) => {
+                      return (
+                        <tr key={_id}>
+                          <td>
+                            <img
+                              style={{ width: "80px" }}
                               src={
                                 import.meta.env.VITE_BASE_URL_BACKEND_IMG +
-                                item.imageUrl?.slice(6)
+                                imageUrl.slice(6)
                               }
-                              alt={item.title}
-                            />
-                          </div>
-                          <div>{item.title}</div>
-                        </td>
-                        <td>{item.genre}</td>
-                        <td>{item.author}</td>
-                      </tr>
-                    );
-                  })}
+                            ></img>
+                          </td>
+                          <td>
+                            <strong>{title}</strong>
+                          </td>
+                          <td>
+                            <strong>Returning Date</strong>:14 Days
+                          </td>
+                          <td className="cart-remove-btn fs-3">
+                            <FiX onClick={() => handleOnRemove(_id)} />
+                          </td>
+                        </tr>
+                      );
+                    }
+                  )}
                 </tbody>
               </Table>
             </Col>
@@ -143,6 +107,11 @@ const Cart = () => {
       ) : (
         <Alert className="text-center">Cart is empty</Alert>
       )}
+      <div className="d-flex justify-content-end">
+        <Button onClick={handleOnBorrow} className="">
+          Proceed To Borrow
+        </Button>
+      </div>
     </Container>
   );
 };

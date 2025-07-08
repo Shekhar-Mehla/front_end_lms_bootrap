@@ -7,8 +7,10 @@ import {
   Col,
   Container,
   NavDropdown,
+  InputGroup,
 } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
+import { IoSearchSharp } from "react-icons/io5";
 
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/images/library_logo.png";
@@ -66,21 +68,23 @@ const Header = () => {
             className="d-flex   flex-grow-1 px-3  "
             onSubmit={handleOnSearch}
           >
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-1"
-              aria-label="Search"
-              name="search"
-              ref={searchRef}
-            />
-            <Button
-              className="tetx-white"
-              type="submit"
-              variant="outline-success"
-            >
-              Search
-            </Button>
+            <InputGroup>
+              <Form.Control
+                type="search"
+                placeholder="Search"
+                className=""
+                aria-label="Search"
+                name="search"
+                ref={searchRef}
+              />
+              <Button
+                variant="outline-secondary"
+                type="submit"
+                id="button-addon1"
+              >
+                <IoSearchSharp className="fw-bolder"></IoSearchSharp>
+              </Button>
+            </InputGroup>
           </Form>
           <Nav
             className=" align-items-center 

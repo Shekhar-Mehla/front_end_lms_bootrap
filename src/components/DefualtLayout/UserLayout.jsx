@@ -19,23 +19,20 @@ const UserLayout = () => {
         </Row>
 
         <main>
-          <Row
-            style={{ minHeight: "100vh" }}
-            className="bg-dark text-white    "
-          >
+          <Row  className="bg-dark text-white    ">
             <Col className="container  " md={2}>
               <h3>Welccome Back name</h3>
               <hr />
               <SideBar></SideBar>
             </Col>
-            <Col md={10} className="bg_form_background px-2 ">
+            <Col md={10} className="bg_form_background ">
               {" "}
               <Outlet></Outlet>
             </Col>
           </Row>
         </main>
 
-        <Row style={{ minHeight: "10vh" }} className="  bg-dark text-white">
+        <Row className="  bg-dark text-white">
           <Col>
             <Footer></Footer>
           </Col>

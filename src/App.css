@@ -12,7 +12,7 @@ a {
 
 main {
   width: 100vw;
-  min-height: 100vh;
+
   /* background: url("./assets//images/lms_backgroud.jpg") center no-repeat; */
 
   background-size: cover;
@@ -295,3 +295,21 @@ a {
 }
 
 /* .navbar-brand style end here */
+/* searchButton style start here */
+
+/* searchButton style end here */
+/* cart-remove-btn style start here */
+.cart-remove-btn:hover {
+  cursor: pointer;
+  color: red;
+}
+
+/* cart-remove-btn style ends here */
+.contiue-shopping {
+  cursor: pointer;
+}
+.contiue-shopping:hover {
+  text-decoration: underline !important;
+  color: #4a90e2;
+  text-underline-offset: 5px;
+}
