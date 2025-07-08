@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { FaRegEdit } from "react-icons/fa";
-import BookDetailModels from "../components/Modals/bookDetailModels.jsx";
+import BookDetailModels from "../components/Modals/BookDetailModels.jsx";
 import { AdminbookActions } from "../feature/books/bookActions.js";
 
 const BookList = () => {
