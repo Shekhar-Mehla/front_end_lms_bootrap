@@ -30,6 +30,7 @@ import PublicBookList from "./pages/PublicBookList.jsx";
 
 import Cart from "./pages/Cart.jsx";
 import { Search } from "./pages/Search.jsx";
+import ThankYouPage from "./pages/ThankYouPage.jsx";
 
 const App = () => {
   const { user } = useSelector((state) => state.userInfo);
@@ -80,6 +81,10 @@ const App = () => {
           <Route path="insert-new-book" element={<NewBookForm />}></Route>
           <Route path="admin-book-table" element={<BookList />}></Route>
           <Route path="borrow-history" element={<Borrow></Borrow>}></Route>
+          <Route
+            path="thank-you"
+            element={<ThankYouPage></ThankYouPage>}
+          ></Route>
           <Route path="reviews" element={<Review></Review>}></Route>
           <Route path="edit-book/:_id" element={<EditBook></EditBook>}></Route>
           <Route path="profile" element={<UserProfile></UserProfile>}></Route>

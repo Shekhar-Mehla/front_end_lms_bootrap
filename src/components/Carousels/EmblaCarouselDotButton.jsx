@@ -39,14 +39,12 @@ export const useDotButton = (emblaApi, onButtonClick) => {
 
 export const DotButton = (props) => {
   const { imageUrl, index, ...restProps } = props;
-  
 
   return (
     <button
       className="d-flex juistfy-content-center align-items-center"
       type="button"
       {...restProps}
-      
     >
       {
         <Image
@@ -54,7 +52,7 @@ export const DotButton = (props) => {
           width={"100%"}
           height={"100%"}
           className="img-round "
-          src={import.meta.env.VITE_BASE_URL_BACKEND_IMG + imageUrl.slice(6)}
+          src={imageUrl}
         ></Image>
       }
     </button>

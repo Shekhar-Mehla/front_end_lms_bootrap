@@ -33,7 +33,7 @@ const ProductCard = ({
           }}
           className="rounded mt-2"
           variant="top"
-          src={import.meta.env.VITE_BASE_URL_BACKEND_IMG + imageUrl?.slice(6)}
+          src={imageUrl}
         />
       </div>
       <Card.Body className="text-center">

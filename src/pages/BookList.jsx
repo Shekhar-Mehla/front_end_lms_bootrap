@@ -89,12 +89,7 @@ const BookList = () => {
                     <td>
                       <img
                         style={{ width: "60px" }}
-                        src={
-                          import.meta.env.VITE_BASE_URL_BACKEND_IMG +
-                          `${book.imageUrl.slice(6)}`
-                        }
-                        // src={book.imageUrl}
-                        // src={book.imageUrl}
+                        src={book.imageUrl}
                         alt="book thumbnail"
                       />
                     </td>

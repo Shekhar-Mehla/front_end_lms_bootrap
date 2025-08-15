@@ -20,6 +20,7 @@ export const updateBook = async (formdata) => {
   return await apihelper(obj);
 };
 export const deletBook = async (_id) => {
+  console.log(_id);
   const obj = {
     method: "delete",
     url: baseUrl + `/book/delete-book`,

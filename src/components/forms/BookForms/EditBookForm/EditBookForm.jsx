@@ -108,6 +108,7 @@ const EditBookForm = () => {
       "Are you sure you want to delete this book? This action cannot be undone."
     );
     if (window.confirm == true) {
+      console.log(_id);
       const { status } = await deletBook(_id);
       if (status === "success") {
         navigate("/user/admin-book-table");
@@ -154,6 +155,7 @@ const EditBookForm = () => {
               <Form onSubmit={handleOnSubmit}>
                 <Stack gap={1} className=" ">
                   {editBookFields.map((item) => {
+                    console.log(item);
                     return (
                       <CustomInput
                         className={` px-3`}
@@ -206,10 +208,7 @@ const EditBookForm = () => {
                                 objectPosition: "center",
                                 padding: "5px",
                               }}
-                              src={
-                                import.meta.env.VITE_BASE_URL_BACKEND_IMG +
-                                url.slice(6)
-                              }
+                              src={url}
                             />
                           </div>
                         </Col>

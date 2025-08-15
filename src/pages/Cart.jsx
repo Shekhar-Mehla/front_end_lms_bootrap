@@ -24,17 +24,13 @@ const Cart = () => {
     dispatch(deleteCartList(_id));
   };
   const handleOnBorrow = () => {
+    navigate("/user/thank-you");
     // make action call
-
-
-
-
-    
   };
 
   return (
-    <Container>
-      <Row className="py-4">
+    <Container style={{ height: "80vh" }}>
+      {/* <Row className="py-4">
         <Col>
           <Breadcrumb>
             <Breadcrumb.Item linkAs={Link} linkProps={{ to: "/" }}>
@@ -44,7 +40,7 @@ const Cart = () => {
             <Breadcrumb.Item active>{"Cart"}</Breadcrumb.Item>
           </Breadcrumb>
         </Col>
-      </Row>
+      </Row> */}
 
       {cart.length > 0 ? (
         <>
@@ -78,13 +74,7 @@ const Cart = () => {
                       return (
                         <tr key={_id}>
                           <td>
-                            <img
-                              style={{ width: "80px" }}
-                              src={
-                                import.meta.env.VITE_BASE_URL_BACKEND_IMG +
-                                imageUrl.slice(6)
-                              }
-                            ></img>
+                            <img style={{ width: "80px" }} src={imageUrl}></img>
                           </td>
                           <td>
                             <strong>{title}</strong>
@@ -105,9 +95,22 @@ const Cart = () => {
           </Row>
         </>
       ) : (
-        <Alert className="text-center">Cart is empty</Alert>
+        <Row
+          style={{ height: "80%" }}
+          className="d-flex justify-content-center align-items-center "
+        >
+          <Col>
+            <Alert className="bg-warning text-center text-capitalize fs-4 fw-3">
+              Cart is empty
+            </Alert>
+          </Col>
+        </Row>
       )}
-      <div className="d-flex justify-content-end">
+      <div
+        className={`d-flex justify-content-end ${
+          cart.length == 0 ? "d-none" : ""
+        }`}
+      >
         <Button onClick={handleOnBorrow} className="">
           Proceed To Borrow
         </Button>

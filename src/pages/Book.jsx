@@ -92,12 +92,33 @@ const Book = () => {
         <>
           {siglePublicBook?._id ? (
             <>
-              <Row className="d-flex gap-3 justify-content-center ">
-                <Col
-                  className="d-flex justify-content-center  align-items-center flex-column gap-2  "
-                  md={5}
-                >
-                  <div style={{ width: "250px", height: "250px" }}>
+              <Row className="d-flex gap-3 justify-content-between ">
+                <Col className="d-flex gap-3     " md={5} lg={6}>
+                  <div>
+                    {Array.from({ length: 5 }).map((_, i) => {
+                      return (
+                        <div 
+                          key={i}
+                          style={{ height: "80px", width: "80px" }}
+                          className="border sideImageOnProductDetailPage  border-4  m-2 rounded-3"
+                        >
+                          {" "}
+                          <img
+                            className="rounded"
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "cover",
+                            }}
+                            src={siglePublicBook.imageUrl}
+                            alt={siglePublicBook.title}
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  <div>
                     <motion.div
                       whileHover={{
                         scale: 1.5,
@@ -107,20 +128,17 @@ const Book = () => {
                     >
                       <img
                         style={{
-                          width: "250px",
-                          height: "250px",
+                          width: "300px",
+                          height: "300px",
                           objectFit: "contain",
                         }}
-                        src={
-                          import.meta.env.VITE_BASE_URL_BACKEND_IMG +
-                          image?.slice(6)
-                        }
-                        alt="sdfghjh"
+                        src={siglePublicBook.imageUrl}
+                        alt={siglePublicBook.title}
                       />
                     </motion.div>
                   </div>
 
-                  <div className="d-flex flex-wrap">
+                  {/* <div className="d-flex flex-wrap">
                     {siglePublicBook?.imageList?.map((url, i) => {
                       return (
                         <div
@@ -136,16 +154,13 @@ const Book = () => {
                             }}
                             className="rounded-4"
                             onClick={() => handeleOnClickImage(url)}
-                            src={
-                              import.meta.env.VITE_BASE_URL_BACKEND_IMG +
-                              url?.slice(6)
-                            }
-                            alt={"ft"}
+                            src={siglePublicBook.imageUrl}
+                            alt={siglePublicBook.title}
                           />
                         </div>
                       );
                     })}
-                  </div>
+                  </div> */}
                 </Col>
                 <Col md={4} lg={4}>
                   <div className="d-flex justify-content-center align-items-center flex-grow-1 flex-column gap-4 ">

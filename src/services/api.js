@@ -36,7 +36,9 @@ export const apihelper = async ({
     }
   } catch (error) {
     if (showloader) {
-      toast.error(error.response.data.message);
+      console.log(error);
+
+      toast.error(error?.response);
     }
 
     return error?.response?.data || error;
