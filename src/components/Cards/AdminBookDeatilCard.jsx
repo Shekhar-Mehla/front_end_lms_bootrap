@@ -34,8 +34,8 @@ const AdminBookDeatilCard = ({ bookId }) => {
     _id,
   } = book;
   return (
-    <Card className="shadow-lg w-100">
-      <center className="shadow-lg py-2 w-100 bg-light ">
+    <Card className=" w-100">
+      <center className="  w-100  ">
         {/* carasoul */}
         {imageList?.length > 1 ? (
           <>

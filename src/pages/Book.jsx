@@ -4,64 +4,90 @@ import {
   Button,
   Col,
   Container,
-  Nav,
   Row,
   Spinner,
   Tab,
   Tabs,
 } from "react-bootstrap";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
-import {
-  Link,
-  Links,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { singlepublicBookActions } from "../feature/books/bookActions";
-
 import { motion } from "framer-motion";
 import Review from "./Review";
 import Star from "../components/stars/Star";
 import { setCartList } from "../feature/cart/cartSlice";
-
 import { toast } from "react-toastify";
+import ModelComponent from "../components/Modals/ModelComponent";
+import ReviewForm from "../components/forms/reviewForm/ReviewForm";
 
 const Book = () => {
   const { slug } = useParams();
   const ref = useRef(true);
   const { siglePublicBook } = useSelector((state) => state.bookInfo);
+  const { cart } = useSelector((state) => state.cartInfo);
+
   const [show, setShow] = useState(true);
   const [image, setImage] = useState("");
-  const { cart } = useSelector((state) => state.cartInfo);
-  const navigate = useNavigate();
+  const [showModel, setShowModel] = useState(false);
+  const [alert, setAlert] = useState("");
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    ref.current && dispatch(singlepublicBookActions(slug));
-    ref.current = false;
-    setImage(siglePublicBook.imageUrl);
-    const time = setTimeout(() => {
-      setShow(false);
-    }, 1000);
+  const navigate = useNavigate();
 
-    return () => clearTimeout(time);
+  useEffect(() => {
+    if (ref.current) {
+      dispatch(singlepublicBookActions(slug));
+      ref.current = false;
+    }
+    setImage(siglePublicBook.imageUrl);
+    const timer = setTimeout(() => setShow(false), 1000);
+    return () => clearTimeout(timer);
   }, [slug, dispatch, siglePublicBook]);
 
-  const handeleOnClickImage = (url) => setImage(url);
-  // add book on button click to add to borrowList
-  const handleOnAddingBookToCart = (siglePublicBook) => {
-    // check cart list if book is already in the cart list
-    toast("book has been added to cart");
-    dispatch(setCartList(siglePublicBook));
+  const message =
+    alert === "error"
+      ? "You have already submitted a review for this book. Only one review is allowed per book."
+      : "Thank you for your feedback. It may take up to 24 hours to show on our website.";
+
+  const handleOnClickImage = (url) => setImage(url);
+
+  const handleOnAddingBookToCart = (book) => {
+    toast("Book has been added to cart");
+    dispatch(setCartList(book));
   };
-  const handleOnProceedToCart = () => {
-    navigate("/cart");
+
+  const handleOnProceedToCart = () => navigate("/cart");
+
+  const handleOnClose = () => {
+    setAlert("");
+    setShowModel(!showModel);
   };
 
   return (
-    <Container style={{ minHeight: "80vh" }} className="bg-white text-dark ">
+    <Container style={{ minHeight: "80vh" }} className="bg-white text-dark">
+      {/* Modals */}
+      {alert.length ? (
+        <ModelComponent
+          show={showModel}
+          tittle={alert === "error" ? "Error" : "Thank you for your feedback"}
+          handleClose={handleOnClose}
+          component={
+            <Alert variant={alert === "error" ? "danger" : "success"}>
+              {message}
+            </Alert>
+          }
+        />
+      ) : (
+        <ModelComponent
+          show={showModel}
+          tittle="Review form"
+          handleClose={handleOnClose}
+          component={<ReviewForm setAlert={setAlert} />}
+        />
+      )}
+
+      {/* Breadcrumb */}
       <Row className="py-4">
         <Col>
           <Breadcrumb>
@@ -69,188 +95,134 @@ const Book = () => {
               Home
             </Breadcrumb.Item>
             <Breadcrumb.Item linkAs={Link} linkProps={{ to: "/all-books" }}>
-              All-Books
+              All Books
             </Breadcrumb.Item>
             <Breadcrumb.Item active>{siglePublicBook.title}</Breadcrumb.Item>
           </Breadcrumb>
         </Col>
       </Row>
-      {show == true ? (
+
+      {/* Loader */}
+      {show ? (
+        <center className="py-5">
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden text-dark">Loading...</span>
+          </Spinner>
+          <div className="mt-2">Please wait...</div>
+        </center>
+      ) : siglePublicBook?._id ? (
         <>
-          <center className="py-5">
-            <div className=" d-flex justify-content-center pt-5  align-items-center">
-              <Spinner animation="border" role="status">
-                <span className="visually-hidden  text-dark">Loading...</span>
-              </Spinner>
-            </div>
-            <div className=" d-flex justify-content-center   align-items-center">
-              <div>please wait...</div>
-            </div>
-          </center>
+          {/* Book Info Row */}
+          <Row className="py-4 align-items-start">
+            {/* Left Column: Vertical Thumbnails + Main Image */}
+            <Col md={5} className="d-flex gap-3">
+              {/* Vertical Thumbnails */}
+              <div className="d-flex flex-column gap-2">
+                {siglePublicBook?.imageList?.map((url, i) => (
+                  <img
+                    key={i}
+                    onClick={() => handleOnClickImage(url)}
+                    src={url}
+                    alt={siglePublicBook.title}
+                    style={{
+                      width: "60px",
+                      height: "60px",
+                      objectFit: "cover",
+                      cursor: "pointer",
+                      borderRadius: "6px",
+                    }}
+                  />
+                ))}
+              </div>
+
+              {/* Main Image */}
+              <motion.img
+                whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
+                src={image || siglePublicBook.imageUrl}
+                alt={siglePublicBook.title}
+                style={{
+                  width: "100%",
+                  maxWidth: "300px",
+                  height: "auto",
+                  objectFit: "contain",
+                  borderRadius: "8px",
+                }}
+              />
+            </Col>
+
+            {/* Right Column: Book Info */}
+            <Col md={7} className="d-flex flex-column gap-3">
+              <h1 style={{ letterSpacing: "1px" }}>{siglePublicBook.title}</h1>
+              <div className="fs-6 text-muted">
+                <span className="fw-bold">{siglePublicBook.author}</span> -{" "}
+                {siglePublicBook?.publishedDate?.slice(0, 4)}
+              </div>
+
+              <div className="d-flex flex-wrap gap-2 align-items-center">
+                <span className="badge bg-secondary">
+                  {siglePublicBook.genre}
+                </span>
+                <Star />
+                <span>400 Reviews</span>
+                <Button variant="dark" onClick={handleOnClose} size="sm">
+                  Submit Review
+                </Button>
+              </div>
+
+              <p>{siglePublicBook.smallDescription}</p>
+
+              {cart.some((item) => item._id === siglePublicBook._id) ? (
+                <>
+                  <Button
+                    onClick={handleOnProceedToCart}
+                    className="w-100 btn-dark"
+                  >
+                    Proceed to Cart
+                  </Button>
+                  <div className="text-danger mt-2">
+                    This book is already in your cart.
+                  </div>
+                </>
+              ) : (
+                <Button
+                  onClick={() => handleOnAddingBookToCart(siglePublicBook)}
+                  className="w-100 btn-dark"
+                >
+                  Add Book to Cart
+                </Button>
+              )}
+            </Col>
+          </Row>
+
+          {/* More Details Tabs */}
+          <Row>
+            <Col>
+              <h3 className="text-center mt-5">More Details</h3>
+              <Tabs
+                variant="tabs"
+                defaultActiveKey="description"
+                className="mt-3"
+              >
+                <Tab eventKey="description" title="Description">
+                  <div className="p-3">{siglePublicBook?.description}</div>
+                </Tab>
+                <Tab eventKey="reviews" title="Reviews">
+                  <div className="d-flex flex-column gap-3 p-3">
+                    <Review />
+                    <Review />
+                    <Review />
+                    <Review />
+                    <Review />
+                  </div>
+                </Tab>
+              </Tabs>
+            </Col>
+          </Row>
         </>
       ) : (
-        <>
-          {siglePublicBook?._id ? (
-            <>
-              <Row className="d-flex gap-3 justify-content-between ">
-                <Col className="d-flex gap-3     " md={5} lg={6}>
-                  <div>
-                    {Array.from({ length: 5 }).map((_, i) => {
-                      return (
-                        <div 
-                          key={i}
-                          style={{ height: "80px", width: "80px" }}
-                          className="border sideImageOnProductDetailPage  border-4  m-2 rounded-3"
-                        >
-                          {" "}
-                          <img
-                            className="rounded"
-                            style={{
-                              width: "100%",
-                              height: "100%",
-                              objectFit: "cover",
-                            }}
-                            src={siglePublicBook.imageUrl}
-                            alt={siglePublicBook.title}
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                  <div>
-                    <motion.div
-                      whileHover={{
-                        scale: 1.5,
-                        transition: { duration: 0.2 },
-                        cursor: "pointer",
-                      }}
-                    >
-                      <img
-                        style={{
-                          width: "300px",
-                          height: "300px",
-                          objectFit: "contain",
-                        }}
-                        src={siglePublicBook.imageUrl}
-                        alt={siglePublicBook.title}
-                      />
-                    </motion.div>
-                  </div>
-
-                  {/* <div className="d-flex flex-wrap">
-                    {siglePublicBook?.imageList?.map((url, i) => {
-                      return (
-                        <div
-                          key={i}
-                          style={{ width: "100px", height: "100px" }}
-                        >
-                          <img
-                            style={{
-                              width: "100px",
-                              height: "100px",
-                              objectFit: "contain",
-                              objectPosition: "center",
-                            }}
-                            className="rounded-4"
-                            onClick={() => handeleOnClickImage(url)}
-                            src={siglePublicBook.imageUrl}
-                            alt={siglePublicBook.title}
-                          />
-                        </div>
-                      );
-                    })}
-                  </div> */}
-                </Col>
-                <Col md={4} lg={4}>
-                  <div className="d-flex justify-content-center align-items-center flex-grow-1 flex-column gap-4 ">
-                    {" "}
-                    <h1 style={{ letterSpacing: "2px" }}>
-                      {siglePublicBook.title}
-                    </h1>
-                    <div className="fs-5" style={{ letterSpacing: "5px" }}>
-                      <span className="fw-bolder ">
-                        {siglePublicBook.author}
-                      </span>
-                      <span>-</span>
-                      <span className="bolder">
-                        {siglePublicBook?.publishedDate?.slice(0, 4)}
-                      </span>
-                    </div>
-                    <div className="d-flex justify-content-center align-items-center gap-2 flex-wrap ">
-                      <span style={{ letterSpacing: "5px" }} className="fs-5">
-                        {siglePublicBook.genre} |
-                      </span>
-                      <span>
-                        <Star></Star>
-                        <span style={{ marginLeft: "8px" }}>400 Reviews</span>
-                      </span>
-                    </div>
-                    <div>{siglePublicBook.smallDescription}</div>
-                  </div>
-                  {cart.some((item) => item._id == siglePublicBook._id) ? (
-                    <div className="w-100">
-                      {" "}
-                      <motion.button
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        whileTap={{ scale: 0.5 }}
-                        variant="dark"
-                        className=" btn btn-dark  w-100"
-                        onClick={handleOnProceedToCart}
-                      >
-                        Proceed to cart
-                      </motion.button>
-                      <div className="text-danger">
-                        This book is already added in your cart list.
-                      </div>
-                    </div>
-                  ) : (
-                    <motion.button
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      whileTap={{ scale: 0.5 }}
-                      onClick={() => handleOnAddingBookToCart(siglePublicBook)}
-                      variant="dark"
-                      className="d-grid btn btn-dark my-5 w-100"
-                    >
-                      Add Book to cart
-                    </motion.button>
-                  )}
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <h3 className="text-center mt-5">More Details</h3>{" "}
-                  <Tabs variant="tabs" defaultActiveKey="/Description">
-                    <Tab
-                      eventKey="/Description"
-                      className="px-2 py-2  shadow-lg mt-2 description-tab"
-                      title="Description"
-                    >
-                      {siglePublicBook?.description}
-                    </Tab>
-                    <Tab
-                      className="d-flex flex-column gap-3 py-2"
-                      eventKey="/review"
-                      title="Reviews"
-                    >
-                      <Review></Review>
-                      <Review></Review>
-                      <Review></Review>
-                      <Review></Review>
-                      <Review></Review>
-                    </Tab>
-                  </Tabs>
-                </Col>
-              </Row>
-            </>
-          ) : (
-            <Alert variant="danger">
-              This Book is not found please contact admin
-            </Alert>
-          )}
-        </>
+        <Alert variant="danger">
+          This Book is not found. Please contact admin.
+        </Alert>
       )}
     </Container>
   );

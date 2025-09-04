@@ -1,50 +1,58 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-
 import { Link } from "react-router-dom";
-
 import { motion } from "framer-motion";
 
 const ProductCard = ({
   author,
-
   imageUrl,
   publishedDate = "2021",
   slug = "www.google.com",
-  title = "Pythron Crash Course",
+  title = "Python Crash Course",
 }) => {
   return (
     <motion.div
-      className="card flex-wrap  align-items-center"
-      style={{ width: "18rem" }}
+      className="shadow-sm rounded overflow-hidden bg-white"
+      style={{ width: "18rem", margin: "10px" }}
       whileHover={{
-        scale: 1.05,
-        transition: { duration: 0.4 },
+        scale: 1.03,
+        transition: { duration: 0.3 },
       }}
     >
-      <div className="" style={{ width: "250px", height: "250px" }}>
-        <Card.Img
+      {/* Image */}
+      <div
+        style={{
+          width: "100%",
+          aspectRatio: "3/4", // ensures all images maintain same ratio
+          overflow: "hidden",
+        }}
+      >
+        <img
+          src={imageUrl}
+          alt={title}
           style={{
             width: "100%",
             height: "100%",
-
-            objectFit: "contain",
-            objectPosition: "center",
+            objectFit: "cover", // fills container without leaving empty space
           }}
-          className="rounded mt-2"
-          variant="top"
-          src={imageUrl}
         />
       </div>
+
+      {/* Card Body */}
       <Card.Body className="text-center">
-        <Card.Title>{title}</Card.Title>
-        <Card.Text>
-          {author}-{publishedDate}
+        <Card.Title
+          className="fw-bold text-dark"
+          style={{ fontSize: "1.1rem" }}
+        >
+          {title}
+        </Card.Title>
+        <Card.Text className="text-muted mb-3" style={{ fontSize: "0.9rem" }}>
+          {author} – {publishedDate}
         </Card.Text>
 
-        <Link to={`/book/${slug}`}>
-          <motion.div whileTap={{ scale: 0.6 }}>
-            <Button variant="dark" className="">
+        <Link to={`/book/${slug}`} style={{ textDecoration: "none" }}>
+          <motion.div whileTap={{ scale: 0.95 }}>
+            <Button variant="dark" className="w-100">
               View Details
             </Button>
           </motion.div>

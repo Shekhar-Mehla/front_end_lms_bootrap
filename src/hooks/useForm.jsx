@@ -11,6 +11,7 @@ const handleOnChange = ({
   setValidationError,
 }) => {
   let { value, name, checked } = e.target;
+  console.log(name, value);
   if (name == "status") {
     checked === true ? (value = "active") : (value = "inActive");
   }
@@ -18,7 +19,7 @@ const handleOnChange = ({
     checked === true ? (value = "Yes") : (value = "No");
   }
 
-  const errorrobj = InputValidator(name, value, form.password);
+  const errorrobj = InputValidator(name, value, form?.password);
 
   setValidationError({ ...errorrobj });
 

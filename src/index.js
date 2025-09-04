@@ -8,5 +8,5 @@ export { default as Home } from "./pages/Home";
 export { default as Review } from "./pages/Review";
 export { default as SingIn } from "./pages/SingIn";
 export { default as User } from "./pages/User";
-export { default as UserList } from "./pages/UserList";
+export { default as UserList } from "./pages/AdminUserList";
 export { default as UserProfile } from "./pages/Profile";

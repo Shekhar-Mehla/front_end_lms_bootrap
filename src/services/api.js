@@ -23,6 +23,7 @@ export const apihelper = async ({
       const result = await pending;
       const { status, message } = result.data;
       toast[status](message);
+
       return result.data;
     } else {
       const result = await axios({
@@ -38,7 +39,7 @@ export const apihelper = async ({
     if (showloader) {
       console.log(error);
 
-      toast.error(error?.response);
+      toast.error(error?.response.data.message);
     }
 
     return error?.response?.data || error;

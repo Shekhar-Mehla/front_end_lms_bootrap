@@ -1,132 +1,127 @@
-import React, { useEffect } from "react";
-
+import React, { useRef, useState } from "react";
 import {
   Form,
   Button,
   Navbar,
   Col,
   Container,
-  NavDropdown,
   InputGroup,
+  Nav,
 } from "react-bootstrap";
-import Nav from "react-bootstrap/Nav";
+import { Link, useNavigate } from "react-router-dom";
 import { IoSearchSharp } from "react-icons/io5";
-
-import { Link, useLocation } from "react-router-dom";
-import logo from "../../assets/images/library_logo.png";
-import { FaHome } from "react-icons/fa";
-import { FaSignInAlt } from "react-icons/fa";
-import { FaUserEdit } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
+import { FaHome, FaSignInAlt, FaUserEdit, FaSignOutAlt } from "react-icons/fa";
 import { AiFillDashboard } from "react-icons/ai";
-import { FaSignOutAlt } from "react-icons/fa";
-
-import { useNavigate } from "react-router-dom";
-import { logOutUserAction } from "../../feature/user/userAction";
 import { GiShoppingCart } from "react-icons/gi";
 import { IoIosBook } from "react-icons/io";
-import { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { logOutUserAction } from "../../feature/user/userAction";
+import logo from "../../assets/images/library_logo.png";
 
 const Header = () => {
   const { user } = useSelector((state) => state.userInfo);
-  const navigate = useNavigate();
+  const { cart } = useSelector((state) => state.cartInfo);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const searchRef = useRef();
 
-  const { cart } = useSelector((state) => state.cartInfo);
+  const [expanded, setExpanded] = useState(false);
 
-  const handleOnSignOut = async (e) => {
-    // call api becasue if you remove the token from storage first then you cannot send token with header
+  const handleOnSignOut = () => {
     dispatch(logOutUserAction());
+    setExpanded(false); // collapse after sign out
   };
 
-  // handle on search button click
   const handleOnSearch = (e) => {
     e.preventDefault();
-
     const query = searchRef.current.value.split(" ").join("+");
-
-    if (query != "") {
-      return navigate(`/search?query=${query}`);
+    if (query !== "") {
+      navigate(`/search?query=${query}`);
+      setExpanded(false); // collapse after search
     }
   };
 
+  // collapse navbar on link click
+  const handleLinkClick = () => setExpanded(false);
+
   return (
-    <Navbar expand="lg" data-bs-theme="dark " className=" bg-dark">
-      <Container fluid className="gap-3  ">
-        <Navbar.Brand href="/" className="text-white">
-          <img src={logo} width={80} className="logo " alt="library logo" />
+    <Navbar expand="lg" bg="dark" variant="dark" expanded={expanded}>
+      <Container fluid className="gap-3">
+        <Navbar.Brand href="/">
+          <img src={logo} width={80} alt="library logo" />
         </Navbar.Brand>
         <Navbar.Toggle
-          aria-controls="basic-navbar-nav "
-          className=" text-white bg-white"
+          aria-controls="navbarScroll"
+          onClick={() => setExpanded(expanded ? false : true)}
         />
-
         <Navbar.Collapse id="navbarScroll">
-          <div className="w-25"></div>
-          <Form
-            className="d-flex   flex-grow-1 px-3  "
-            onSubmit={handleOnSearch}
-          >
+          <Form className="d-flex flex-grow-1 px-3" onSubmit={handleOnSearch}>
             <InputGroup>
               <Form.Control
                 type="search"
                 placeholder="Search"
-                className=""
-                aria-label="Search"
-                name="search"
                 ref={searchRef}
               />
-              <Button
-                variant="outline-secondary"
-                type="submit"
-                id="button-addon1"
-              >
-                <IoSearchSharp className="fw-bolder"></IoSearchSharp>
+              <Button variant="outline-secondary" type="submit">
+                <IoSearchSharp />
               </Button>
             </InputGroup>
           </Form>
-          <Nav
-            className=" align-items-center 
-
-  my-2 my-lg-0 "
-          >
-            <Link className="nav-link text-white " to="/">
-              <FaHome className="" /> Home
+          <Nav className="align-items-center my-2 my-lg-0">
+            <Link
+              className="nav-link text-white"
+              to="/"
+              onClick={handleLinkClick}
+            >
+              <FaHome /> Home
             </Link>
-            <Link to={"all-books"} className="nav-link text-white">
-              <IoIosBook></IoIosBook> Books
+            <Link
+              to="/all-books"
+              className="nav-link text-white"
+              onClick={handleLinkClick}
+            >
+              <IoIosBook /> Books
             </Link>
 
             {user?._id ? (
               <>
-                <Link className="nav-link text-white  " to="/user">
+                <Link
+                  className="nav-link text-white"
+                  to="/user"
+                  onClick={handleLinkClick}
+                >
                   <AiFillDashboard /> Dashboard
                 </Link>
-                <Link
-                  className="nav-link text-white "
-                  onClick={handleOnSignOut}
-                >
+                <Link className="nav-link text-white" onClick={handleOnSignOut}>
                   <FaSignOutAlt /> Sign Out
                 </Link>
               </>
             ) : (
               <>
-                {" "}
-                <Link className="nav-link text-white  " to="/login">
+                <Link
+                  className="nav-link text-white"
+                  to="/login"
+                  onClick={handleLinkClick}
+                >
                   <FaSignInAlt /> Sign in
                 </Link>
-                <Link className="nav-link text-white" to="/register">
+                <Link
+                  className="nav-link text-white"
+                  to="/register"
+                  onClick={handleLinkClick}
+                >
                   <FaUserEdit /> Sign Up
                 </Link>
               </>
             )}
+
             <Link
-              to={"/cart"}
-              className=" text-white  d-flex position-relative  align-items-center"
+              to="/cart"
+              className="text-white d-flex position-relative align-items-center"
+              onClick={handleLinkClick}
             >
-              <GiShoppingCart className=" cart-icon " />
-              <span className="text-white cart-count position-absolute bg-danger d-flex align-items-center  justify-content-center">
+              <GiShoppingCart className="cart-icon" />
+              <span className="text-white cart-count position-absolute bg-danger d-flex align-items-center justify-content-center">
                 {cart.length || 0}
               </span>
             </Link>

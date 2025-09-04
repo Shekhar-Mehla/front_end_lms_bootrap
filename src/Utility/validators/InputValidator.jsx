@@ -64,7 +64,7 @@ const confirmedPasswordValidator = ({ value, formPassword }) => {
   }
 };
 
-const InputValidator = (name, value, formPassword) => {
+const InputValidator = (name, value, formPassword = "") => {
   const errors = {};
   const p = { password: "" };
   if (value) {

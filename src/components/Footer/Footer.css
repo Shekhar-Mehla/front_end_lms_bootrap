@@ -1,0 +1,50 @@
+.footer-dark {
+  background-color: #1a1a1a; /* matches navbar */
+  color: #f1f1f1;
+}
+
+.footer-description {
+  color: #ccc; /* light gray for readability */
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.footer-link {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s, padding-left 0.3s;
+}
+
+.footer-link:hover {
+  color: #ffd700; /* gold highlight on hover */
+  padding-left: 4px;
+}
+
+.footer-input {
+  border-radius: 0.25rem;
+  border: 1px solid #555;
+  background-color: #2a2a2a;
+  color: #f1f1f1;
+}
+
+.footer-input::placeholder {
+  color: #aaa;
+}
+
+.footer-input:focus {
+  border-color: #ffd700;
+  box-shadow: none;
+  background-color: #2a2a2a;
+  color: #f1f1f1;
+}
+
+.social-link {
+  color: #f1f1f1;
+  font-size: 1.2rem;
+  transition: transform 0.3s, color 0.3s;
+}
+
+.social-link:hover {
+  color: #ffd700;
+  transform: translateY(-3px);
+}

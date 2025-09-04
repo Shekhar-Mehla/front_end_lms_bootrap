@@ -3,16 +3,16 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import { Outlet } from "react-router-dom";
 
-const DefulatLayout = () => {
+const DefaultLayout = () => {
   return (
-    <div className=" d-flex  flex-column  defaultLayout ">
-      <Header></Header>
-      <main className="flex flex-wrap">
-        <Outlet></Outlet>
+    <div className="flex flex-col min-h-screen defaultLayout">
+      <Header />
+      <main className="flex-1">
+        <Outlet />
       </main>
-      <Footer className=""></Footer>
+      <Footer />
     </div>
   );
 };
 
-export default DefulatLayout;
+export default DefaultLayout;

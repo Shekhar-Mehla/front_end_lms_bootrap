@@ -7,9 +7,9 @@ import { useSelector } from "react-redux";
 const JustIn = () => {
   const { publicBookList } = useSelector((state) => state.bookInfo);
   return (
-    <div className="mx-1 my-4 py-4">
+    <div className="">
       <HomePageTittle tittle={"Just in!"}></HomePageTittle>
-      <div className="d-flex gap-3 flex-wrap justify-content-center">
+      <div className="d-flex gap-3 flex-wrap">
         {publicBookList?.map((book) => {
           return (
             <ProductCard

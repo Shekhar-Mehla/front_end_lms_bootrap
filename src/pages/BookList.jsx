@@ -41,7 +41,7 @@ const BookList = () => {
     <Container>
       <Row>
         {" "}
-        <Col className="p-2   shadow">
+        <Col className="   ">
           <h3>Book Table</h3>
 
           <hr />
@@ -60,7 +60,7 @@ const BookList = () => {
           </Row>
         </Col>
       </Row>
-      <Row className=" d-flex   flex-wrap bg-primary shadow-lg rounded-3 justify-content-center ">
+      <Row className=" d-flex   flex-wrap shadow rounded-3 justify-content-center ">
         <BookDetailModels
           show={show}
           bookId={bookId}

@@ -1,66 +1,76 @@
 import React from "react";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
-
+import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
 import { motion } from "framer-motion";
-import { Col, Row } from "react-bootstrap";
+
+const placeholderImage =
+  "https://via.placeholder.com/250x350.png?text=No+Image";
+
 const ListViewCard = ({
   author,
-
   imageUrl,
   publishedDate = "2021",
   slug = "www.google.com",
-  title = "Pythron Crash Course",
+  title = "Python Crash Course",
   smallDescription,
 }) => {
   return (
     <motion.div
-      className="card w-50 justify-content-around flex-wrap  "
-      whileHover={{
-        scale: 1.05,
-        transition: { duration: 0.4 },
-      }}
+      className="w-100 mb-4"
+      whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
     >
-      <Row className=" ">
-        <Col className="d-flex align-items-stretch" style={{ height: "250px" }}>
-          <div
-            className="align-self-stretch"
-            style={{ width: "150px", height: "100%" }}
-          >
-            <Card.Img
-              style={{
-                width: "100%",
-                height: "100%",
+      <Card className="shadow-sm d-flex flex-row flex-wrap">
+        {/* Book Image */}
+        <div
+          style={{
+            flex: "0 0 200px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "10px",
+          }}
+        >
+          <Card.Img
+            src={imageUrl || placeholderImage}
+            alt={title}
+            style={{
+              maxHeight: "320px",
+              width: "auto",
+              objectFit: "contain",
+            }}
+            className="rounded"
+          />
+        </div>
 
-                objectFit: "contain",
-                objectPosition: "center",
-              }}
-              className="rounded mt-2"
-              variant="top"
-              src={imageUrl}
-            />
+        {/* Content Section */}
+        <Card.Body
+          style={{
+            flex: "1 1 auto",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            padding: "20px",
+          }}
+        >
+          <div>
+            <Card.Title>{title}</Card.Title>
+            <Card.Text className="text-muted mb-2">
+              {author} - {publishedDate}
+            </Card.Text>
+            <Card.Text style={{ lineHeight: "1.5" }}>
+              {smallDescription}
+            </Card.Text>
           </div>
-          <div className="">
-            <Card.Body className="">
-              <Card.Title>{title}</Card.Title>
-              <Card.Text>
-                {author}-{publishedDate}
-              </Card.Text>
-              <Card.Text>{smallDescription}</Card.Text>
 
-              <Link className="" to={`/book/${slug}`}>
-                <motion.div whileTap={{ scale: 0.6 }}>
-                  <Button variant="dark" className="">
-                    View Details
-                  </Button>
-                </motion.div>
-              </Link>
-            </Card.Body>
+          <div className="mt-3">
+            <Link to={`/book/${slug}`}>
+              <motion.div whileTap={{ scale: 0.95 }}>
+                <Button variant="dark">View Details</Button>
+              </motion.div>
+            </Link>
           </div>
-        </Col>
-      </Row>
+        </Card.Body>
+      </Card>
     </motion.div>
   );
 };

@@ -170,50 +170,52 @@ const EditBookForm = () => {
                       ></CustomInput>
                     );
                   })}
-                  <Row className=" d-flex flex-nowrap gap-2 imgscroll overflow-auto  ">
-                    {newBook?.imageList?.map((url, i) => {
-                      return (
-                        <Col key={i} className="mt-3 ">
-                          <FormGroup className="d-flex gap-1">
-                            <FormCheck
-                              type="radio"
-                              name={"imageUrl"}
-                              value={url ?? ""}
-                              checked={url == form.imageUrl ? true : false}
-                              onChange={handleOnChange}
-                            ></FormCheck>
-                            <Form.Label>Make Thumbnail</Form.Label>
-                          </FormGroup>
-                          <FormGroup className="d-flex gap-1">
-                            <FormCheck
-                              type="checkBox"
-                              name={"delete"}
-                              value={url}
-                              onChange={handleOnChangeToDeleteImage}
-                            ></FormCheck>
-                            <Form.Label>Delete</Form.Label>
-                          </FormGroup>
-                          <div
-                            className="  gap-1"
-                            style={{
-                              overflow: "auto",
-                            }}
-                          >
-                            <Image
-                              thumbnail
+                  <Row className=" d-flex    gap-2 imgscroll   ">
+                    <Col className="mt-3 d-flex gap-4 flex-wrap">
+                      {newBook?.imageList?.map((url, i) => {
+                        return (
+                          <div key={i}>
+                            <FormGroup className="d-flex  gap-1">
+                              <FormCheck
+                                type="radio"
+                                name={"imageUrl"}
+                                value={url ?? ""}
+                                checked={url == form.imageUrl ? true : false}
+                                onChange={handleOnChange}
+                              ></FormCheck>
+                              <Form.Label>Make Thumbnail</Form.Label>
+                            </FormGroup>
+                            <FormGroup className="d-flex gap-1">
+                              <FormCheck
+                                type="checkBox"
+                                name={"delete"}
+                                value={url}
+                                onChange={handleOnChangeToDeleteImage}
+                              ></FormCheck>
+                              <Form.Label>Delete</Form.Label>
+                            </FormGroup>
+                            <div
+                              className="  gap-1"
                               style={{
-                                maxheight: "30vh",
-                                display: "inline-block",
-                                width: "100%",
-                                objectPosition: "center",
-                                padding: "5px",
+                                overflow: "auto",
                               }}
-                              src={url}
-                            />
+                            >
+                              <Image
+                                thumbnail
+                                style={{
+                                  height: "50vh",
+                                  display: "inline-block",
+                                  width: "100%",
+                                  objectPosition: "center",
+                                  padding: "5px",
+                                }}
+                                src={url}
+                              />
+                            </div>
                           </div>
-                        </Col>
-                      );
-                    })}
+                        );
+                      })}
+                    </Col>
                   </Row>
                   <Row className="d-flex gap-2">
                     <Col md={4}>
