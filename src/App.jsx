@@ -141,7 +141,7 @@ const App = () => {
   const dispatch = useDispatch();
   const userState = useSelector((state) => state.userInfo); // full user state
   const user = userState.user || userState; // support different Redux structures
-
+  console.log(user);
   // AUTO LOGIN
   useEffect(() => {
     if (!user?._id) {
@@ -168,9 +168,9 @@ const App = () => {
           <Route
             path="*"
             element={
-              <h2 className="text-white text-center p-5 mt-5">
-                404 Page not found
-              </h2>
+              <div style={{ height: "60vh" }}>
+                <h2 className=" text-center  p-5 mt-5">404 Page not found</h2>
+              </div>
             }
           />
         </Route>

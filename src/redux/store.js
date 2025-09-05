@@ -4,6 +4,8 @@ import bookReducer from "../feature/books/bookSlice.js";
 import cartReducer from "../feature/cart/cartSlice.js";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import borrowReducer from "../feature/borrow/borrowSlice.js";
+
 // first define which key and storage you want to store data in browser like local or session
 const cartPersistConfig = {
   key: "cart",
@@ -14,6 +16,7 @@ const rootReducer = combineReducers({
   userInfo: userReducer,
   bookInfo: bookReducer,
   cartInfo: persistReducer(cartPersistConfig, cartReducer),
+  borrowedBookInfo: borrowReducer,
 });
 
 // give this to the configure store

@@ -8,23 +8,53 @@ import {
   Row,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import Table from "react-bootstrap/Table";
 
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { FiX } from "react-icons/fi";
 import { deleteCartList } from "../feature/cart/cartSlice";
+import { createBorrowBook } from "../feature/borrow/borrowApi";
+import { clearCartList } from "../feature/cart/cartSlice";
+import { toast } from "react-toastify";
 
 const Cart = () => {
   const { cart } = useSelector((state) => state.cartInfo);
+  const { user } = useSelector((state) => state.userInfo);
+  const naviate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleOnRemove = (_id) => {
     dispatch(deleteCartList(_id));
   };
-  const handleOnBorrow = () => {
-    navigate("/user/thank-you");
+  const handleOnBorrow = async () => {
+    console.log(cart);
+    const boorwoedBoook = cart.map((book) => {
+      return {
+        title: book.title,
+        thumbnail: book.imageUrl,
+
+        bookId: book._id,
+      };
+    });
+    if (user?._id) {
+      const { status, message, payload } = await createBorrowBook(
+        boorwoedBoook
+      );
+      if (status === "success") {
+        dispatch(clearCartList());
+
+        naviate("/user/thank-you", { state: payload });
+      } else {
+        toast.error(message);
+      }
+    } else {
+      naviate("/login", { state: { pathname: location.pathname } });
+    }
+
+    // navigate("/user/thank-you");
     // make action call
   };
 

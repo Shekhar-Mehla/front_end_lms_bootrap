@@ -12,9 +12,12 @@ const cartSlice = createSlice({
         return !payload.includes(item._id);
       });
     },
+    clearCartList: (state) => {
+      state.cart = [];
+    },
   },
 });
 
 const { reducer, actions } = cartSlice;
 export default reducer;
-export const { setCartList, deleteCartList } = actions;
+export const { setCartList, deleteCartList, clearCartList } = actions;
